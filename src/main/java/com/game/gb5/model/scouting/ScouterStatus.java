@@ -1,6 +1,7 @@
 package com.game.gb5.model.scouting;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,4 +13,6 @@ public class ScouterStatus {
 	private String reportChracterSize;
 	private Date reportResetTime;
 	private String reportRandomCount;
+	private List<Integer> reportHideStatusColumnList;
+	private List<Integer> chanceOfRateSelected;
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 import com.game.gb5.model.scouting.condition.ReportGenerateCondition;
 import com.game.gb5.model.scouting.condition.TimeReportGenerateCondition;
 import com.game.gb5.model.scouting.report.ScoutingReport;
-import com.game.gb5.model.scouting.strategy.NormalScoutingStrategy;
+import com.game.gb5.model.scouting.strategy.DefaultScoutingStrategy;
 import com.game.gb5.model.scouting.strategy.ScoutingStrategy;
 
 @Data
@@ -18,7 +18,7 @@ public class Scouter {
 	private ReportGenerateCondition reportGenerateCondition;
 	
 	public Scouter() {
-		this.scoutingStrategy = new NormalScoutingStrategy();
+		this.scoutingStrategy = new DefaultScoutingStrategy();
 		this.reportGenerateCondition = new TimeReportGenerateCondition();
 		this.reportRegenTime = new Date();
 	}
