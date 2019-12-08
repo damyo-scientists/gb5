@@ -1,4 +1,4 @@
-package com.game.gb5.model.scouting.report;
+package com.game.gb5.scouting.report;
 
 import java.util.List;
 

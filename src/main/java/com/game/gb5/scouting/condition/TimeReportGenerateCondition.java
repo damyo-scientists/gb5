@@ -1,4 +1,4 @@
-package com.game.gb5.model.scouting.condition;
+package com.game.gb5.scouting.condition;
 
 import java.util.Date;
 

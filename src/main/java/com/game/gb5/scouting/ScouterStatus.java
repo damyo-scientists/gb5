@@ -1,4 +1,4 @@
-package com.game.gb5.model.scouting;
+package com.game.gb5.scouting;
 
 import java.util.Date;
 import java.util.List;
@@ -10,9 +10,10 @@ public class ScouterStatus {
 	private String deflection;
 	private String deflectionRandomizeValue;
 	private String reportTargetCharacterDatabase;
-	private String reportChracterSize;
+	private int reportChracterSize;
 	private Date reportResetTime;
 	private String reportRandomCount;
+	private List<Integer> gradeAcquisitionRate;
 	private List<Integer> reportHideStatusColumnList;
-	private List<Integer> chanceOfRateSelected;
+	private boolean isGiveMinimumGradeAssured;
 }
