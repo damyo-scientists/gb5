@@ -1,11 +1,11 @@
-package com.game.gb5.scouting;
+package com.game.gb5.domain.scouting;
 
-import com.game.gb5.entity.character.CharacterSet;
-import com.game.gb5.scouting.condition.ReportGenerateCondition;
-import com.game.gb5.scouting.condition.TimeReportGenerateCondition;
-import com.game.gb5.scouting.report.ScoutingReport;
-import com.game.gb5.scouting.strategy.DefaultScoutingStrategy;
-import com.game.gb5.scouting.strategy.ScoutingStrategy;
+import com.game.gb5.domain.character.CharacterSet;
+import com.game.gb5.domain.scouting.condition.ReportGenerateCondition;
+import com.game.gb5.domain.scouting.condition.TimeReportGenerateCondition;
+import com.game.gb5.domain.scouting.report.ScoutingReport;
+import com.game.gb5.domain.scouting.strategy.DefaultScoutingStrategy;
+import com.game.gb5.domain.scouting.strategy.ScoutingStrategy;
 
 import java.util.Date;
 
@@ -30,7 +30,7 @@ public class Scouter {
 		this.reportGenerateCondition = new TimeReportGenerateCondition(reportRegenTime);
 	}
 	
-	public ScoutingReport makeScoutingReport() {
+	public ScoutingReport makeScoutingReport(CharacterSet characterSet) {
 		if (this.reportGenerateCondition.isConditionSatisfied()) {
 			this.setReportRegenTime(new Date(new Date().getTime() + scouterStatus.getReportResetTime().getTime()));
 			return scoutingStrategy.generateScoutingReport(scouterStatus, characterSet);

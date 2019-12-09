@@ -1,4 +1,4 @@
-package com.game.gb5.scouting.report;
+package com.game.gb5.domain.scouting.report;
 
 import lombok.Data;
 

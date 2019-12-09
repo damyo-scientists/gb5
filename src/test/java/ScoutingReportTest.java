@@ -1,4 +1,4 @@
-import com.game.gb5.scouting.Scouter;
+import com.game.gb5.domain.scouting.Scouter;
 
 public class ScoutingReportTest {
 	public void testGetScoutingReport() {

@@ -1,4 +1,4 @@
-package com.game.gb5.entity.voucher;
+package com.game.gb5.domain.voucher;
 
 import lombok.Data;
 

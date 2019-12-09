@@ -1,17 +1,24 @@
 package com.game.gb5.service;
 
-import com.game.gb5.entity.player.Player;
-import com.game.gb5.scouting.Scouter;
-import com.game.gb5.scouting.report.EmptyScoutingReport;
-import com.game.gb5.scouting.report.ScoutingReport;
+import com.game.gb5.dao.CharacterSetDao;
+import com.game.gb5.domain.character.CharacterSet;
+import com.game.gb5.domain.player.Player;
+import com.game.gb5.domain.scouting.Scouter;
+import com.game.gb5.domain.scouting.report.EmptyScoutingReport;
+import com.game.gb5.domain.scouting.report.ScoutingReport;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ScoutingService {
+	@Autowired
+	private CharacterSetDao characterSetDao;
+	
 	public ScoutingReport makeNewScoutingReport(Scouter scouter, Player player) {
 		if (player.getTicketList().hasInstantAcquisitionReportTicket()) {
-			ScoutingReport scoutingReport = scouter.makeScoutingReport();
+			CharacterSet characterSet = characterSetDao.getCharacterSetById();
+			ScoutingReport scoutingReport = scouter.makeScoutingReport(characterSet);
 			player.getTicketList().consumeInstantAcquisitionReportTicket();
 			return scoutingReport;
 		} else {

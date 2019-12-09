@@ -1,4 +1,4 @@
-package com.game.gb5.entity.character;
+package com.game.gb5.domain.character;
 
 import lombok.Data;
 

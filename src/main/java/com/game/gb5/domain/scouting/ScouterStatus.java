@@ -1,4 +1,4 @@
-package com.game.gb5.scouting;
+package com.game.gb5.domain.scouting;
 
 import java.util.Date;
 import java.util.List;

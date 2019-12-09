@@ -1,6 +1,6 @@
 package com.game.gb5.response;
 
-import com.game.gb5.scouting.report.ScoutingReport;
+import com.game.gb5.domain.scouting.report.ScoutingReport;
 
 import lombok.Data;
 

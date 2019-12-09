@@ -1,8 +1,8 @@
-package com.game.gb5.entity.player;
+package com.game.gb5.domain.player;
 
 
-import com.game.gb5.entity.voucher.PassList;
-import com.game.gb5.entity.voucher.TicketList;
+import com.game.gb5.domain.voucher.PassList;
+import com.game.gb5.domain.voucher.TicketList;
 
 import java.util.Date;
 import java.util.List;

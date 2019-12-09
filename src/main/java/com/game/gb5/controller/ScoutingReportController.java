@@ -1,9 +1,9 @@
 package com.game.gb5.controller;
 
 
-import com.game.gb5.entity.player.Player;
-import com.game.gb5.scouting.Scouter;
-import com.game.gb5.scouting.report.ScoutingReport;
+import com.game.gb5.domain.player.Player;
+import com.game.gb5.domain.scouting.Scouter;
+import com.game.gb5.domain.scouting.report.ScoutingReport;
 import com.game.gb5.response.ScoutingResponse;
 import com.game.gb5.service.ScoutingService;
 

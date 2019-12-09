@@ -1,4 +1,4 @@
-package com.game.gb5.scouting.condition;
+package com.game.gb5.domain.scouting.condition;
 
 public interface ReportGenerateCondition {
 	public boolean isConditionSatisfied();
