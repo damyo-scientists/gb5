@@ -7,8 +7,8 @@ import lombok.Data;
 
 @Data
 public class ScouterStatus {
-	private String deflection;
-	private String deflectionRandomizeValue;
+	private int deflection;
+	private int deflectionRandomizeValue;
 	private String reportTargetCharacterDatabase;
 	private int reportChracterSize;
 	private Date reportResetTime;

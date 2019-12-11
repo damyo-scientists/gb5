@@ -15,4 +15,5 @@ public class Character {
 	private int exp;
 	private int backNumber;
 	private CharacterStatus characterStatus;
+	private CharacterStatusReport characterStatusReport;
 }

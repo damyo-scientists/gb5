@@ -16,8 +16,8 @@ public class DefaultScoutingStrategy implements ScoutingStrategy {
 		// 획득확률에 따라무작위로 선택된, 리포트 캐릭터 개수 만큼의 캐릭터들로 구성됨
 		List<Character> characterList = characterSet.getTargetCharacters();
 		pickCharacterStrategy = new DefaultPickCharacterStrategy();
-		Character pickedCharacter = pickCharacterStrategy.pickCharacter(characterList, scouterStatus);
-		return new ScoutingReport();
+		List<Character> pickedCharacters = pickCharacterStrategy.pickCharacters(characterList, scouterStatus);
+		return new ScoutingReport(pickedCharacters);
 	}
 	
 	@Override
