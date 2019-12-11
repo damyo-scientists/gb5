@@ -3,7 +3,9 @@ package com.game.gb5.response;
 import com.game.gb5.domain.scouting.report.ScoutingReport;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ScoutingResponse extends BaseResponse {
 	public ScoutingResponse(ScoutingReport data) {

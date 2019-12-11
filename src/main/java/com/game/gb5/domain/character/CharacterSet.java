@@ -22,7 +22,7 @@ public class CharacterSet extends BaseEntity {
 	private String code;
 	@Column
 	private String name;
-	@OneToMany(mappedBy = "messageModel", cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "character_set", cascade = {CascadeType.ALL})
 	private List<Character> targetCharacters;
 	@Column
 	private int cost;
