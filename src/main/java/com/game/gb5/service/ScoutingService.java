@@ -17,7 +17,7 @@ public class ScoutingService {
 	
 	public ScoutingReport makeNewScoutingReport(Scouter scouter, Player player) {
 		if (player.getTicketList().hasInstantAcquisitionReportTicket()) {
-			CharacterSet characterSet = characterSetDao.getCharacterSetById();
+			CharacterSet characterSet = characterSetDao.getCharacterSetById(scouter.getCharacterSet().getId());
 			ScoutingReport scoutingReport = scouter.makeScoutingReport(characterSet);
 			player.getTicketList().consumeInstantAcquisitionReportTicket();
 			return scoutingReport;

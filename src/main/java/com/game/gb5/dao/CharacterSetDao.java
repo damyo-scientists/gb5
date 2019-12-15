@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CharacterSetDao extends CrudRepository<CharacterSet, Long> {
-	public CharacterSet getCharacterSetById();
+	public CharacterSet getCharacterSetById(Long id);
 }

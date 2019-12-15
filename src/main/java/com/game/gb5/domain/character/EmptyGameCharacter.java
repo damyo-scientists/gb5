@@ -8,6 +8,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class EmptyCharacter extends Character {
+public class EmptyGameCharacter extends GameCharacter {
 	private String name = "empty";
 }

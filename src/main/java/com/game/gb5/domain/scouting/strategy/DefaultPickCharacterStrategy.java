@@ -1,8 +1,8 @@
 package com.game.gb5.domain.scouting.strategy;
 
-import com.game.gb5.domain.character.Character;
+import com.game.gb5.domain.character.GameCharacter;
 import com.game.gb5.domain.character.CharacterStatusReport;
-import com.game.gb5.domain.character.EmptyCharacter;
+import com.game.gb5.domain.character.EmptyGameCharacter;
 import com.game.gb5.domain.scouting.ScouterStatus;
 
 import org.springframework.util.ReflectionUtils;
@@ -16,17 +16,17 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 	private static final int GRADE_RATE_TOTAL = 100;
 	private Random rand = new Random();
 	
-	public List<Character> pickCharacters(List<Character> characterList, ScouterStatus scouterStatus) {
+	public List<GameCharacter> pickCharacters(List<GameCharacter> characterList, ScouterStatus scouterStatus) {
 		List<Integer> gradeList = pickGradeList(scouterStatus);
-		List<Character> pickList = new ArrayList<>();
+		List<GameCharacter> pickList = new ArrayList<>();
 		gradeList.forEach(grade -> {
-			Character pickedCharacter = pickCharacter(grade, characterList);
+			GameCharacter pickedCharacter = pickCharacter(grade, characterList);
 			pickList.add(getDeflectedCharacter(pickedCharacter, scouterStatus));
 		});
 		return pickList;
 	}
 	
-	private Character getDeflectedCharacter(Character targetCharacter, ScouterStatus scouterStatus) {
+	private GameCharacter getDeflectedCharacter(GameCharacter targetCharacter, ScouterStatus scouterStatus) {
 		
 		CharacterStatusReport characterStatusReport = new CharacterStatusReport();
 		
@@ -53,26 +53,26 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 		return targetCharacter;
 	}
 	
-	private Character pickCharacter(int grade, List<Character> characterList) {
+	private GameCharacter pickCharacter(int grade, List<GameCharacter> characterList) {
 		int sum = 0;
-		List<Character> filteredList = characterList.stream().filter(character -> character.getRate() == grade + 1).collect(Collectors.toList());
+		List<GameCharacter> filteredList = characterList.stream().filter(character -> character.getGrade() == grade + 1).collect(Collectors.toList());
 		
-		for (Character character : filteredList) {
+		for (GameCharacter character : filteredList) {
 			sum += character.getAcquisitionCoefficient();
 		}
 		int rand = new Random().nextInt(sum);
 		sum = 0;
-		for (Character character : filteredList) {
+		for (GameCharacter character : filteredList) {
 			if (rand >= sum && rand < sum + character.getAcquisitionCoefficient()) {
 				return character;
 			}
 			sum += character.getAcquisitionCoefficient();
 		}
-		return new EmptyCharacter();
+		return new EmptyGameCharacter();
 	}
 	
 	private List<Integer> pickGradeList(ScouterStatus scouterStatus) {
-		List<Integer> gradeAcquisitionRate = scouterStatus.getGradeAcquisitionRate();
+		List<Integer> gradeAcquisitionRate = scouterStatus.getGradeAcquisitionRates();
 		int cnt = scouterStatus.getReportChracterSize();
 		boolean isAllZero = true;
 		List<Integer> gradeList = new ArrayList<>();
