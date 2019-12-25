@@ -1,5 +1,6 @@
 package com.game.gb5.domain.character;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.domain.BaseEntity;
 
 import java.util.List;
@@ -9,14 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity
-@Data
 public class CharacterStatus extends BaseEntity {
-	private static final long serialVersionUID = 2795244706686601033L;
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<GameCharacter> characters;
 	@Column

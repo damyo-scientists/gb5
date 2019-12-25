@@ -2,12 +2,14 @@ package com.game.gb5.domain.character;
 
 import javax.persistence.Entity;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity
-@Data
 public class EmptyGameCharacter extends GameCharacter {
 	private String name = "empty";
 }

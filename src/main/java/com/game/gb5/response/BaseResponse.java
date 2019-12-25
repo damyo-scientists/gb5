@@ -1,9 +1,13 @@
 package com.game.gb5.response;
 
-import lombok.Data;
+import java.io.Serializable;
 
-@Data
-public class BaseResponse {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class BaseResponse implements Serializable {
 	protected boolean isError = false;
 	protected String message = "";
 	protected Object data;

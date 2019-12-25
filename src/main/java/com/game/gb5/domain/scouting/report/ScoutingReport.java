@@ -2,12 +2,15 @@ package com.game.gb5.domain.scouting.report;
 
 import com.game.gb5.domain.character.GameCharacter;
 
+import java.io.Serializable;
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class ScoutingReport {
+@Getter
+@Setter
+public class ScoutingReport implements Serializable {
 	boolean isEmpty = false;
 	List<GameCharacter> characterList;
 	

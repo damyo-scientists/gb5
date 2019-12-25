@@ -5,16 +5,25 @@ import com.game.gb5.dao.ScouterDao;
 import com.game.gb5.domain.character.CharacterSet;
 import com.game.gb5.domain.player.Player;
 import com.game.gb5.domain.scouting.Scouter;
+import com.game.gb5.domain.scouting.condition.ReportGenerateCondition;
+import com.game.gb5.domain.scouting.condition.TimeReportGenerateCondition;
 import com.game.gb5.domain.scouting.report.EmptyScoutingReport;
 import com.game.gb5.domain.scouting.report.ScoutingReport;
-import com.game.gb5.dto.scouting.ScouterDto;
+import com.game.gb5.domain.scouting.strategy.DefaultScoutingStrategy;
+import com.game.gb5.domain.scouting.strategy.ScoutingStrategy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class ScoutingService {
+	private static Logger logger = LogManager.getLogger(ScoutingService.class);
+	
 	@Autowired
 	private CharacterSetDao characterSetDao;
 	@Autowired
@@ -29,7 +38,7 @@ public class ScoutingService {
 	public ScoutingReport makeNewScoutingReport(Scouter scouter, Player player) {
 		if (player.getTicketList().hasInstantAcquisitionReportTicket()) {
 			CharacterSet characterSet = characterSetDao.getCharacterSetById(scouter.getCharacterSet().getId());
-			ScoutingReport scoutingReport = scouter.makeScoutingReport(characterSet);
+			ScoutingReport scoutingReport = this.generateScoutingReportByStrategy(scouter, characterSet);
 			player.getTicketList().consumeInstantAcquisitionReportTicket();
 			return scoutingReport;
 		} else {
@@ -37,11 +46,15 @@ public class ScoutingService {
 		}
 	}
 	
-	private ScouterDto convertToDto(Scouter scouter) {
-		//ScouterDto scouterDto = modelMapper.map(post, PostDto.class);
-		//postDto.setSubmissionDate(post.getSubmissionDate(),
-		//			userService.getCurrentUser().getPreference().getTimezone());
-		//return postDto;
-		return null;
+	protected ScoutingReport generateScoutingReportByStrategy(Scouter scouter, CharacterSet characterSet) {
+		Date reportRegenTime = new Date();
+		ReportGenerateCondition reportGenerateCondition = new TimeReportGenerateCondition(reportRegenTime);
+		ScoutingStrategy scoutingStrategy = new DefaultScoutingStrategy();
+		if (reportGenerateCondition.isConditionSatisfied() || true) {
+			scouter.setReportRegenTime(new Date(new Date().getTime() + 10000));
+			return scoutingStrategy.generateScoutingReport(scouter.getScouterStatus(), characterSet);
+		}
+		logger.debug("empty");
+		return scoutingStrategy.generateEmptyScoutingReport();
 	}
 }

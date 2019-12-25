@@ -27,24 +27,31 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 	private GameCharacter getDeflectedCharacter(GameCharacter targetCharacter, ScouterStatus scouterStatus) {
 		
 		CharacterStatusReport characterStatusReport = new CharacterStatusReport();
-		
 		ReflectionUtils.doWithFields(targetCharacter.getCharacterStatus().getClass(), field -> {
 			int firstRandomDeflection = (int) (rand.nextInt() * scouterStatus.getDeflection());
-			int baseStatus = (int) ReflectionUtils.getField(field, targetCharacter.getCharacterStatus());
-			int maxValue = baseStatus + firstRandomDeflection;
-			if (maxValue > 100) {
-				maxValue = 100;
+			if (field.getType() == int.class) {
+				field.setAccessible(true);
+				int baseStatus = (int) ReflectionUtils.getField(field, targetCharacter.getCharacterStatus());
+				int maxValue = baseStatus + firstRandomDeflection;
+				if (maxValue > 100) {
+					maxValue = 100;
+				}
+				
+				int secondRandomDeflection = scouterStatus.getDeflection() - firstRandomDeflection + (int) (rand.nextInt() * scouterStatus.getDeflectionRandomizeValue());
+				int minValue = baseStatus - secondRandomDeflection;
+				
+				if (minValue < 0) {
+					minValue = 0;
+				}
+				
+				try {
+					ReflectionUtils.setField(CharacterStatusReport.class.getDeclaredField(field.getName()), characterStatusReport,
+							characterStatusReport.toReflectedValue(minValue, maxValue));
+				} catch (NoSuchFieldException e) {
+					e.printStackTrace();
+				}
+				
 			}
-			
-			int secondRandomDeflection = scouterStatus.getDeflection() - firstRandomDeflection + (int) (rand.nextInt() * scouterStatus.getDeflectionRandomizeValue());
-			int minValue = baseStatus - secondRandomDeflection;
-			
-			if (minValue < 0) {
-				minValue = 0;
-			}
-			
-			ReflectionUtils.setField(field, characterStatusReport,
-					characterStatusReport.toReflectedValue(minValue, maxValue));
 		});
 		
 		targetCharacter.setCharacterStatusReport(characterStatusReport);
@@ -53,7 +60,7 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 	
 	private GameCharacter pickCharacter(int grade, List<GameCharacter> characterList) {
 		int sum = 0;
-		List<GameCharacter> filteredList = characterList.stream().filter(character -> character.getGrade() == grade + 1).peek((a) -> System.out.println("hey" + a)).collect(Collectors.toList());
+		List<GameCharacter> filteredList = characterList.stream().filter(character -> character.getGrade() == grade + 1).collect(Collectors.toList());
 		
 		for (GameCharacter character : filteredList) {
 			sum += character.getAcquisitionCoefficient();

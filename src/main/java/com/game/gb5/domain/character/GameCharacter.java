@@ -1,5 +1,6 @@
 package com.game.gb5.domain.character;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.domain.BaseEntity;
 import com.game.gb5.domain.player.Player;
 
@@ -14,15 +15,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
+@Entity
 public class GameCharacter extends BaseEntity {
-	private static final long serialVersionUID = 4524886628421077702L;
 	@Column
 	private String name;
 	@Column
@@ -33,16 +36,19 @@ public class GameCharacter extends BaseEntity {
 	private int cumulativeAcquisitionCoefficient;
 	@Column
 	private int backNumber;
-	@Column
+	@Transient
 	@Enumerated(EnumType.STRING)
 	private HittingPosition hittingPosition;
 	@ElementCollection
 	@Column
 	private List<Float> hittingInclination;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne
 	private CharacterStatus characterStatus;
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
 	private List<CharacterSet> characterSets;
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
 	private List<Player> players;
 	
@@ -59,5 +65,6 @@ public class GameCharacter extends BaseEntity {
 	private boolean isCharacterLocked;
 	private Date characterUnlockDateTime;
 	
+	@Transient
 	private CharacterStatusReport characterStatusReport;
 }

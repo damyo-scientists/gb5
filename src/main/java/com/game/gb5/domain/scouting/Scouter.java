@@ -2,11 +2,6 @@ package com.game.gb5.domain.scouting;
 
 import com.game.gb5.domain.BaseEntity;
 import com.game.gb5.domain.character.CharacterSet;
-import com.game.gb5.domain.scouting.condition.ReportGenerateCondition;
-import com.game.gb5.domain.scouting.condition.TimeReportGenerateCondition;
-import com.game.gb5.domain.scouting.report.ScoutingReport;
-import com.game.gb5.domain.scouting.strategy.DefaultScoutingStrategy;
-import com.game.gb5.domain.scouting.strategy.ScoutingStrategy;
 
 import java.util.Date;
 
@@ -17,14 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
 public class Scouter extends BaseEntity {
-	
 	@Column
 	private String name;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -40,16 +34,4 @@ public class Scouter extends BaseEntity {
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date reportRegenTime;
-	
-	public ScoutingReport makeScoutingReport(CharacterSet characterSet) {
-		//Todo condition 및 strategy 분리
-		reportRegenTime = new Date();
-		ReportGenerateCondition reportGenerateCondition = new TimeReportGenerateCondition(reportRegenTime);
-		ScoutingStrategy scoutingStrategy = new DefaultScoutingStrategy();
-		if (reportGenerateCondition.isConditionSatisfied()) {
-			this.setReportRegenTime(new Date(new Date().getTime() + 10000));
-			return scoutingStrategy.generateScoutingReport(scouterStatus, characterSet);
-		}
-		return scoutingStrategy.generateEmptyScoutingReport();
-	}
 }

@@ -2,11 +2,13 @@ package com.game.gb5.domain.scouting.report;
 
 import java.util.ArrayList;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class EmptyScoutingReport extends ScoutingReport {
 	boolean isEmpty = true;
 	String emptyReason;

@@ -4,11 +4,11 @@ package com.game.gb5.domain.voucher;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity
 public class TicketList extends Voucher {
 	@Column
