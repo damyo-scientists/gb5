@@ -1,6 +1,7 @@
 package com.game.gb5.domain.character;
 
 import com.game.gb5.domain.BaseEntity;
+import com.game.gb5.domain.player.Player;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GameCharacter extends BaseEntity {
+	private static final long serialVersionUID = 4524886628421077702L;
 	@Column
 	private String name;
 	@Column
@@ -40,7 +42,9 @@ public class GameCharacter extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private CharacterStatus characterStatus;
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
-	private List<CharacterSet> characterSet;
+	private List<CharacterSet> characterSets;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
+	private List<Player> players;
 	
 	/**
 	 * Server Only

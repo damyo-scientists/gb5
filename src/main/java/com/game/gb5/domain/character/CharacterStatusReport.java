@@ -1,6 +1,7 @@
 package com.game.gb5.domain.character;
 
 public class CharacterStatusReport extends CharacterStatus {
+	private static final long serialVersionUID = -8528567047493350550L;
 	public String leadership;
 	public String runningSpeed;
 	public String reflexes;

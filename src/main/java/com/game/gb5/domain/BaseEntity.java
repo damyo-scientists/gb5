@@ -1,9 +1,5 @@
 package com.game.gb5.domain;
 
-import com.game.gb5.utils.hibernate.FloatArrayType;
-
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 

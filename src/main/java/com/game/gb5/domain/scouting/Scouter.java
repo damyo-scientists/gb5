@@ -24,6 +24,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 public class Scouter extends BaseEntity {
+	
 	@Column
 	private String name;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -42,10 +43,11 @@ public class Scouter extends BaseEntity {
 	
 	public ScoutingReport makeScoutingReport(CharacterSet characterSet) {
 		//Todo condition 및 strategy 분리
+		reportRegenTime = new Date();
 		ReportGenerateCondition reportGenerateCondition = new TimeReportGenerateCondition(reportRegenTime);
 		ScoutingStrategy scoutingStrategy = new DefaultScoutingStrategy();
 		if (reportGenerateCondition.isConditionSatisfied()) {
-			this.setReportRegenTime(new Date(new Date().getTime() + scouterStatus.getReportResetTime().getTime()));
+			this.setReportRegenTime(new Date(new Date().getTime() + 10000));
 			return scoutingStrategy.generateScoutingReport(scouterStatus, characterSet);
 		}
 		return scoutingStrategy.generateEmptyScoutingReport();

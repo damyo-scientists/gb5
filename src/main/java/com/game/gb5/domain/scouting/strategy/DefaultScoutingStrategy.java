@@ -1,7 +1,7 @@
 package com.game.gb5.domain.scouting.strategy;
 
-import com.game.gb5.domain.character.GameCharacter;
 import com.game.gb5.domain.character.CharacterSet;
+import com.game.gb5.domain.character.GameCharacter;
 import com.game.gb5.domain.scouting.ScouterStatus;
 import com.game.gb5.domain.scouting.report.EmptyScoutingReport;
 import com.game.gb5.domain.scouting.report.ScoutingReport;

@@ -21,8 +21,6 @@ public class ScouterStatus extends BaseEntity {
 	@Column
 	private int deflectionRandomizeValue;
 	@Column
-	private String reportTargetCharacterDatabase;
-	@Column
 	private int reportChracterSize;
 	@Column
 	private Date reportResetTime;

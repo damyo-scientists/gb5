@@ -3,6 +3,7 @@ package com.game.gb5.domain.scouting.condition;
 import java.util.Date;
 
 public class TimeReportGenerateCondition implements ReportGenerateCondition {
+	
 	private Date dateCondition;
 	
 	public TimeReportGenerateCondition(Date dateCondition) {

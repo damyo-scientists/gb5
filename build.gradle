@@ -26,6 +26,9 @@ repositories {
 dependencies {
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.12'
 
+    // https://mvnrepository.com/artifact/org.modelmapper.extensions/modelmapper-spring
+    compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '2.3.5'
+
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '2.2.2.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.2.2.RELEASE'
 

@@ -1,4 +1,6 @@
 package com.game.gb5.domain.voucher;
 
-public class Voucher {
+import com.game.gb5.domain.BaseEntity;
+
+public class Voucher extends BaseEntity {
 }

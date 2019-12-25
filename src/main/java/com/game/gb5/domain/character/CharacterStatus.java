@@ -16,6 +16,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 public class CharacterStatus extends BaseEntity {
+	private static final long serialVersionUID = 2795244706686601033L;
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<GameCharacter> characters;
 	@Column
