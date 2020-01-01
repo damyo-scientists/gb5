@@ -1,17 +1,24 @@
 package com.game.gb5.response;
 
-import com.game.gb5.model.scouting.report.ScoutingReport;
+import com.game.gb5.domain.scouting.report.ScoutingReport;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 public class ScoutingResponse extends BaseResponse {
 	public ScoutingResponse(ScoutingReport data) {
 		this(data, "");
 	}
 	
-	private ScoutingResponse(ScoutingReport data, String message) {
+	public ScoutingResponse(ScoutingReport data, String message) {
 		this(data, message, false);
 	}
 	
-	private ScoutingResponse(ScoutingReport data, String message, boolean isError) {
+	public ScoutingResponse(ScoutingReport data, String message, boolean isError) {
 		this.data = data;
 		this.message = message;
 		this.isError = isError;
