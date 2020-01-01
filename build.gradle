@@ -18,13 +18,13 @@ apply plugin: 'org.springframework.boot'
 bootWar {
     baseName = 'gb5'
     version = '0.0.1'
-    mainClassName = 'com.game.gb5.Gb5Application'
 }
 
 apply plugin: 'io.spring.dependency-management'
 version '1.0-SNAPSHOT'
 group 'com.game.gb5'
 apply plugin: 'application'
+mainClassName = 'com.game.gb5.Gb5Application'
 
 sourceCompatibility = 1.8
 
