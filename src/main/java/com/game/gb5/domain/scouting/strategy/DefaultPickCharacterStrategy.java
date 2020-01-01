@@ -4,6 +4,8 @@ import com.game.gb5.domain.character.CharacterStatusReport;
 import com.game.gb5.domain.character.EmptyGameCharacter;
 import com.game.gb5.domain.character.GameCharacter;
 import com.game.gb5.domain.scouting.ScouterStatus;
+import com.game.gb5.domain.scouting.deflection.DeflectedValue;
+import com.game.gb5.domain.scouting.deflection.DeflectedValueMaker;
 
 import org.springframework.util.ReflectionUtils;
 
@@ -32,25 +34,16 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 			if (field.getType() == int.class) {
 				field.setAccessible(true);
 				int baseStatus = (int) ReflectionUtils.getField(field, targetCharacter.getCharacterStatus());
-				int maxValue = baseStatus + firstRandomDeflection;
-				if (maxValue > 100) {
-					maxValue = 100;
-				}
 				
-				int secondRandomDeflection = scouterStatus.getDeflection() - firstRandomDeflection + (int) (rand.nextInt() * scouterStatus.getDeflectionRandomizeValue());
-				int minValue = baseStatus - secondRandomDeflection;
-				
-				if (minValue < 0) {
-					minValue = 0;
-				}
+				DeflectedValueMaker deflectedValueMaker = new DeflectedValueMaker();
+				DeflectedValue deflectedValue = deflectedValueMaker.changeBaseStatusToDeflectedValue(baseStatus, scouterStatus.getDeflection(), scouterStatus.getDeflectionRandomizeValue());
 				
 				try {
 					ReflectionUtils.setField(CharacterStatusReport.class.getDeclaredField(field.getName()), characterStatusReport,
-							characterStatusReport.toReflectedValue(minValue, maxValue));
+							deflectedValue.toString());
 				} catch (NoSuchFieldException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		});
 		
