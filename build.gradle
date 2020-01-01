@@ -13,8 +13,16 @@ plugins {
     id 'java'
 }
 
-group 'com.game.gb5'
+apply plugin: 'war'
+apply plugin: 'io.spring.dependency-management'
+
+war {
+    baseName = 'gb5'
+    version = '0.0.1'
+}
+
 version '1.0-SNAPSHOT'
+group 'com.game.gb5'
 
 sourceCompatibility = 1.8
 
