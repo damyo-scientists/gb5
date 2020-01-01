@@ -14,13 +14,13 @@ plugins {
 }
 
 apply plugin: 'war'
-apply plugin: 'io.spring.dependency-management'
 
 war {
     baseName = 'gb5'
     version = '0.0.1'
 }
 
+apply plugin: 'io.spring.dependency-management'
 version '1.0-SNAPSHOT'
 group 'com.game.gb5'
 
@@ -42,6 +42,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.2.RELEASE'
 
+    compile('org.springframework.boot:spring-boot-devtools')
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.1.RELEASE'
