@@ -25,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class GameCharacter extends BaseEntity {
+public class GameCharacter extends BaseEntity implements Cloneable {
 	@Column
 	private String name;
 	@Column
@@ -67,4 +67,9 @@ public class GameCharacter extends BaseEntity {
 	
 	@Transient
 	private CharacterStatusReport characterStatusReport;
+	
+	@Override
+	public GameCharacter clone() throws CloneNotSupportedException {
+		return (GameCharacter) super.clone();
+	}
 }

@@ -16,12 +16,16 @@ import java.util.stream.Collectors;
 
 public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 	private static final int GRADE_RATE_TOTAL = 100;
-	private Random rand = new Random();
 	
 	public List<GameCharacter> pickCharacters(List<GameCharacter> characterList, ScouterStatus scouterStatus) {
 		List<Integer> gradeList = pickGradeList(scouterStatus);
 		return gradeList.stream().map(grade -> {
-			GameCharacter pickedCharacter = pickCharacter(grade, characterList);
+			GameCharacter pickedCharacter = null;
+			try {
+				pickedCharacter = pickCharacter(grade, characterList).clone();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace(); //TODO use logger
+			}
 			return getDeflectedCharacter(pickedCharacter, scouterStatus);
 		}).collect(Collectors.toList());
 	}
@@ -30,7 +34,6 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 		
 		CharacterStatusReport characterStatusReport = new CharacterStatusReport();
 		ReflectionUtils.doWithFields(targetCharacter.getCharacterStatus().getClass(), field -> {
-			int firstRandomDeflection = (int) (rand.nextInt() * scouterStatus.getDeflection());
 			if (field.getType() == int.class) {
 				field.setAccessible(true);
 				int baseStatus = (int) ReflectionUtils.getField(field, targetCharacter.getCharacterStatus());

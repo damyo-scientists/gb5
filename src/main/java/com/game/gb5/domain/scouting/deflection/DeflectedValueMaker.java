@@ -12,7 +12,8 @@ public class DeflectedValueMaker {
 			maxValue = 100;
 		}
 		
-		int secondRandomDeflection = scouterDeflection - firstRandomDeflection + rand.nextInt(scouterDeflectionRandomizeValue);
+		int nextRand = rand.nextInt(scouterDeflectionRandomizeValue);
+		int secondRandomDeflection = scouterDeflection - firstRandomDeflection + nextRand;
 		int minValue = baseStatus - secondRandomDeflection;
 		
 		if (minValue < 0) {
