@@ -3,14 +3,12 @@ package com.game.gb5.domain.scouting;
 import com.game.gb5.domain.BaseEntity;
 import com.game.gb5.domain.character.CharacterSet;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +30,5 @@ public class Scouter extends BaseEntity {
 	@Column
 	private boolean isHold;
 	@Column
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date reportRegenTime;
+	private LocalDateTime reportRegenTime;
 }

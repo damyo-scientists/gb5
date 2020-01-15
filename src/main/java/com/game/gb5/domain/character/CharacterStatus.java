@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 public class CharacterStatus extends BaseEntity {
 	@JsonIgnore
-	@OneToOne
+	@OneToOne(mappedBy = "characterStatus")
 	private GameCharacter character;
 	@Column
 	private int leadership;

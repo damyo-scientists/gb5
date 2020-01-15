@@ -18,7 +18,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 public class ScoutingService {
@@ -47,11 +48,13 @@ public class ScoutingService {
 	}
 	
 	protected ScoutingReport generateScoutingReportByStrategy(Scouter scouter, CharacterSet characterSet) {
-		Date reportRegenTime = new Date();
-		ReportGenerateCondition reportGenerateCondition = new TimeReportGenerateCondition(reportRegenTime);
+		ReportGenerateCondition reportGenerateCondition = new TimeReportGenerateCondition(scouter.getReportRegenTime());
 		ScoutingStrategy scoutingStrategy = new DefaultScoutingStrategy();
-		if (reportGenerateCondition.isConditionSatisfied() || true) {
-			scouter.setReportRegenTime(new Date(new Date().getTime() + 10000));
+		if (reportGenerateCondition.isConditionSatisfied()) {
+			LocalDateTime current = LocalDateTime.now();
+			LocalTime resetTime = scouter.getScouterStatus().getReportResetTime();
+			LocalDateTime regenTime = current.plusSeconds(resetTime.toSecondOfDay());
+			scouter.setReportRegenTime(regenTime);
 			return scoutingStrategy.generateScoutingReport(scouter.getScouterStatus(), characterSet);
 		}
 		logger.debug("empty");

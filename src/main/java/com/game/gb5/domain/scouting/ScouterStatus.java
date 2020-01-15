@@ -2,7 +2,7 @@ package com.game.gb5.domain.scouting;
 
 import com.game.gb5.domain.BaseEntity;
 
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,8 +24,8 @@ public class ScouterStatus extends BaseEntity {
 	private int deflectionRandomizeValue;
 	@Column
 	private int reportChracterSize;
-	@Column
-	private Date reportResetTime;
+	@Column(columnDefinition = "varchar(8)")
+	private LocalTime reportResetTime;
 	@Column
 	private String reportRandomCount;
 	@ElementCollection

@@ -4,7 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -28,21 +28,21 @@ public abstract class BaseEntity implements Serializable {
 	@CreatedDate
 	@GeneratedValue
 	@Column(name = "created_date", nullable = false)
-	private Date createdDate;
+	private LocalDateTime createdDate;
 	
 	@LastModifiedDate
 	@GeneratedValue
 	@Column(name = "updated_date", nullable = false)
-	private Date updatedDate;
+	private LocalDateTime updatedDate;
 	
 	
 	@PrePersist
 	protected void onCreate() {
-		updatedDate = createdDate = new Date();
+		updatedDate = createdDate = LocalDateTime.now();
 	}
 	
 	@PreUpdate
 	protected void onUpdate() {
-		updatedDate = new Date();
+		updatedDate = LocalDateTime.now();
 	}
 }
