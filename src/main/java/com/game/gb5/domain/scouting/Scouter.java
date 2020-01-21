@@ -1,5 +1,6 @@
 package com.game.gb5.domain.scouting;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.game.gb5.domain.BaseEntity;
 import com.game.gb5.domain.character.CharacterSet;
 
@@ -19,8 +20,10 @@ import lombok.Setter;
 public class Scouter extends BaseEntity {
 	@Column
 	private String name;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ScouterStatus scouterStatus;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	private CharacterSet characterSet;
 	
