@@ -4,11 +4,12 @@ package com.game.gb5.controller;
 import com.game.gb5.domain.player.Player;
 import com.game.gb5.domain.scouting.Scouter;
 import com.game.gb5.domain.scouting.report.ScoutingReport;
-import com.game.gb5.response.Response;
 import com.game.gb5.service.PlayerService;
 import com.game.gb5.service.ScoutingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,11 +25,15 @@ public class ScoutingReportController {
 	private PlayerService playerService;
 	
 	@PostMapping("")
-	public Response makeScoutingReport(@RequestParam("scouter_id") Long scouterId,
-	                                   @RequestParam("player_id") Long playerId) {
+	public ResponseEntity makeScoutingReport(@RequestParam("scouter_id") Long scouterId,
+	                                         @RequestParam("player_id") Long playerId) {
 		Scouter scouter = scoutingService.getScouterById(scouterId);
 		Player player = playerService.getPlayerById(playerId);
 		ScoutingReport scoutingReport = scoutingService.makeNewScoutingReport(scouter, player);
-		return new Response<ScoutingReport>(scoutingReport);
+		if (scoutingReport != null) {
+			return new ResponseEntity<>(scoutingReport, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Scouting Report is null", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

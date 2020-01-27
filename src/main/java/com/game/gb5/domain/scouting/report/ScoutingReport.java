@@ -27,9 +27,6 @@ import lombok.ToString;
 public class ScoutingReport extends BaseEntity {
 	@Column
 	private Date baseTime = new Date();
-	@JsonIgnore
-	@Column
-	private Long seed;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ReportCharacter> reportCharacterList;
 	@JsonIgnore
