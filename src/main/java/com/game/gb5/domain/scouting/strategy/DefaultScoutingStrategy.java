@@ -2,26 +2,51 @@ package com.game.gb5.domain.scouting.strategy;
 
 import com.game.gb5.domain.character.CharacterSet;
 import com.game.gb5.domain.character.GameCharacter;
+import com.game.gb5.domain.scouting.Scouter;
 import com.game.gb5.domain.scouting.ScouterStatus;
 import com.game.gb5.domain.scouting.report.EmptyScoutingReport;
+import com.game.gb5.domain.scouting.report.ReportCharacter;
 import com.game.gb5.domain.scouting.report.ScoutingReport;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DefaultScoutingStrategy implements ScoutingStrategy {
-	private PickCharacterStrategy pickCharacterStrategy;
+	private static Logger logger = LogManager.getLogger(ScoutingStrategy.class);
+	private Long seed;
 	
-	@Override
-	public ScoutingReport generateScoutingReport(ScouterStatus scouterStatus, CharacterSet characterSet) {
-		// 획득확률에 따라무작위로 선택된, 리포트 캐릭터 개수 만큼의 캐릭터들로 구성됨
-		List<GameCharacter> characterList = characterSet.getCharacters();
-		pickCharacterStrategy = new DefaultPickCharacterStrategy();
-		List<GameCharacter> pickedCharacters = pickCharacterStrategy.pickCharacters(characterList, scouterStatus);
-		return new ScoutingReport(pickedCharacters);
+	public DefaultScoutingStrategy(Long seed) {
+		this.seed = seed;
 	}
 	
 	@Override
-	public ScoutingReport generateEmptyScoutingReport() {
-		return new EmptyScoutingReport("");
+	public ScoutingReport generateScoutingReport(Scouter scouter) {
+		ScouterStatus scouterStatus = scouter.getScouterStatus();
+		CharacterSet characterSet = scouter.getCharacterSet();
+		ScoutingReport scoutingReport = new ScoutingReport();
+		
+		// 획득확률에 따라무작위로 선택된, 리포트 캐릭터 개수 만큼의 캐릭터들로 구성됨
+		List<GameCharacter> characterList = characterSet.getCharacters();
+		PickCharacterStrategy pickCharacterStrategy = new DefaultPickCharacterStrategy(seed);
+		List<GameCharacter> pickedCharacters = pickCharacterStrategy.pickCharacters(characterList, scouterStatus);
+		List<ReportCharacter> reportCharacters = pickedCharacters.stream().map(chr -> {
+			ReportCharacter reportCharacter = new ReportCharacter();
+			reportCharacter.setTargetCharacter(chr);
+			reportCharacter.setScoutingReport(scoutingReport);
+			
+			return reportCharacter;
+		}).collect(Collectors.toList());
+		
+		scoutingReport.setReportCharacterList(reportCharacters);
+		scoutingReport.setScouter(scouter);
+		return scoutingReport;
+	}
+	
+	@Override
+	public ScoutingReport generateEmptyScoutingReport(String emptyReason) {
+		return new EmptyScoutingReport(emptyReason);
 	}
 }

@@ -1,57 +1,29 @@
 package com.game.gb5.domain.scouting.strategy;
 
-import com.game.gb5.domain.character.CharacterStatusReport;
 import com.game.gb5.domain.character.EmptyGameCharacter;
 import com.game.gb5.domain.character.GameCharacter;
 import com.game.gb5.domain.scouting.ScouterStatus;
-import com.game.gb5.domain.scouting.deflection.DeflectedValue;
-import com.game.gb5.domain.scouting.deflection.DeflectedValueMaker;
-
-import org.springframework.util.ReflectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
+
 public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 	private static final int GRADE_RATE_TOTAL = 100;
+	@Getter
+	private Long seed;
+	
+	public DefaultPickCharacterStrategy(Long seed) {
+		this.seed = seed;
+	}
 	
 	public List<GameCharacter> pickCharacters(List<GameCharacter> characterList, ScouterStatus scouterStatus) {
 		List<Integer> gradeList = pickGradeList(scouterStatus);
-		return gradeList.stream().map(grade -> {
-			GameCharacter pickedCharacter = null;
-			try {
-				pickedCharacter = pickCharacter(grade, characterList).clone();
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace(); //TODO use logger
-			}
-			return getDeflectedCharacter(pickedCharacter, scouterStatus);
-		}).collect(Collectors.toList());
-	}
-	
-	private GameCharacter getDeflectedCharacter(GameCharacter targetCharacter, ScouterStatus scouterStatus) {
-		
-		CharacterStatusReport characterStatusReport = new CharacterStatusReport();
-		ReflectionUtils.doWithFields(targetCharacter.getCharacterStatus().getClass(), field -> {
-			if (field.getType() == int.class) {
-				field.setAccessible(true);
-				int baseStatus = (int) ReflectionUtils.getField(field, targetCharacter.getCharacterStatus());
-				
-				DeflectedValueMaker deflectedValueMaker = new DeflectedValueMaker();
-				DeflectedValue deflectedValue = deflectedValueMaker.changeBaseStatusToDeflectedValue(baseStatus, scouterStatus.getDeflection(), scouterStatus.getDeflectionRandomizeValue());
-				
-				try {
-					ReflectionUtils.setField(CharacterStatusReport.class.getDeclaredField(field.getName()), characterStatusReport,
-							deflectedValue.toString());
-				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		targetCharacter.setCharacterStatusReport(characterStatusReport);
-		return targetCharacter;
+		return gradeList.stream().map(grade -> pickCharacter(grade, characterList))
+				.collect(Collectors.toList());
 	}
 	
 	private GameCharacter pickCharacter(int grade, List<GameCharacter> characterList) {
