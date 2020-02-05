@@ -69,7 +69,6 @@ public class ScoutingService {
 			LocalDateTime current = LocalDateTime.now();
 			LocalTime resetTime = scouter.getScouterStatus().getReportResetTime();
 			LocalDateTime regenTime = current.plusSeconds(resetTime.toSecondOfDay());
-			
 			ScoutingReport scoutingReport = scoutingStrategy.generateScoutingReport(scouter);
 			List<ReportCharacter> reportCharacters = this.getDeflectedReportCharacters(scoutingReport.getReportCharacterList(), scouter, seed);
 			scoutingReportDao.save(scoutingReport);

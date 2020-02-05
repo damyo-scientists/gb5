@@ -6,12 +6,7 @@ public class TimeReportGenerateCondition implements ReportGenerateCondition {
 	private LocalDateTime dateCondition;
 	
 	public TimeReportGenerateCondition(LocalDateTime dateCondition) {
-		//TODO modify
 		this.dateCondition = dateCondition;
-		if (dateCondition == null) {
-			this.dateCondition = LocalDateTime.now();
-		}
-		
 	}
 	
 	public boolean isConditionSatisfied() {
