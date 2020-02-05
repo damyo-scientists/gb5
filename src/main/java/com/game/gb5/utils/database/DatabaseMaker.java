@@ -2,9 +2,8 @@ package com.game.gb5.utils.database;
 
 import com.game.gb5.dao.GameCharacterDao;
 import com.game.gb5.dao.PlayerDao;
+import com.game.gb5.dao.ScoutingReportDao;
 import com.game.gb5.dao.TicketListDao;
-import com.game.gb5.domain.player.Player;
-import com.game.gb5.domain.voucher.TicketList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +17,9 @@ public class DatabaseMaker implements CommandLineRunner {
 	
 	@Autowired
 	private TicketListDao ticketListDao;
+	
+	@Autowired
+	private ScoutingReportDao scoutingReportDao;
 	
 	@Override
 	public void run(String... args) throws Exception {

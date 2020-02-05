@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class CharacterStatusReport implements Serializable {
+public class CharacterReportStatus implements Serializable {
 	public String leadership;
 	public String runningSpeed;
 	public String reflexes;

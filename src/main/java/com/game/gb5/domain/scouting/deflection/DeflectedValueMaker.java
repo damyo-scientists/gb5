@@ -3,7 +3,11 @@ package com.game.gb5.domain.scouting.deflection;
 import java.util.Random;
 
 public class DeflectedValueMaker {
-	private Random rand = new Random();
+	private Random rand;
+	
+	public DeflectedValueMaker(Long seed) {
+		this.rand = new Random(seed);
+	}
 	
 	public DeflectedValue changeBaseStatusToDeflectedValue(int baseStatus, int scouterDeflection, int scouterDeflectionRandomizeValue) {
 		int firstRandomDeflection = rand.nextInt(scouterDeflection);

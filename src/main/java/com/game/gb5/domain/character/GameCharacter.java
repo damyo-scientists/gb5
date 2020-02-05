@@ -65,9 +65,6 @@ public class GameCharacter extends BaseEntity implements Cloneable {
 	private boolean isCharacterLocked;
 	private Date characterUnlockDateTime;
 	
-	@Transient
-	private CharacterStatusReport characterStatusReport;
-	
 	@Override
 	public GameCharacter clone() throws CloneNotSupportedException {
 		return (GameCharacter) super.clone();

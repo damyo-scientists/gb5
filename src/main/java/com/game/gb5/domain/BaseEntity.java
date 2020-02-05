@@ -4,7 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -16,33 +16,32 @@ import javax.persistence.PreUpdate;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @MappedSuperclass
 @Getter
 @Setter
+@ToString(callSuper = true)
 public abstract class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@CreatedDate
-	@GeneratedValue
-	@Column(name = "created_date", nullable = false)
-	private Date createdDate;
+	@Column(nullable = false)
+	private LocalDateTime createdDate;
 	
 	@LastModifiedDate
-	@GeneratedValue
-	@Column(name = "updated_date", nullable = false)
-	private Date updatedDate;
-	
+	@Column(nullable = false)
+	private LocalDateTime updatedDate;
 	
 	@PrePersist
 	protected void onCreate() {
-		updatedDate = createdDate = new Date();
+		updatedDate = createdDate = LocalDateTime.now();
 	}
 	
 	@PreUpdate
 	protected void onUpdate() {
-		updatedDate = new Date();
+		updatedDate = LocalDateTime.now();
 	}
 }
