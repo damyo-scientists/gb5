@@ -51,10 +51,10 @@ public class ScoutingService {
 	}
 	
 	public ScoutingReport makeNewScoutingReport(Scouter scouter, Player player) {
-		if (player.getTicketList().hasInstantAcquisitionReportTicket()) {
+		if (player.getInventory().getTicketList().hasInstantAcquisitionReportTicket()) {
 			ScoutingReport scoutingReport = this.generateScoutingReportByStrategy(scouter);
 			
-			player.getTicketList().consumeInstantAcquisitionReportTicket();
+			player.getInventory().getTicketList().consumeInstantAcquisitionReportTicket();
 			return scoutingReport;
 		} else {
 			return new EmptyScoutingReport("리포트 티켓이 부족합니다.");
