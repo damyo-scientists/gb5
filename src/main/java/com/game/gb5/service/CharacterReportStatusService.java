@@ -1,10 +1,10 @@
 package com.game.gb5.service;
 
-import com.game.gb5.domain.character.CharacterReportStatus;
-import com.game.gb5.domain.character.GameCharacter;
-import com.game.gb5.domain.scouting.ScouterStatus;
-import com.game.gb5.domain.scouting.deflection.DeflectedValue;
-import com.game.gb5.domain.scouting.deflection.DeflectedValueMaker;
+import com.game.gb5.entity.character.CharacterReportStatus;
+import com.game.gb5.entity.character.GameCharacter;
+import com.game.gb5.scouter.model.entity.ScouterStatus;
+import com.game.gb5.entity.scouting.deflection.DeflectedValue;
+import com.game.gb5.entity.scouting.deflection.DeflectedValueMaker;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;

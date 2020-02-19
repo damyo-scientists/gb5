@@ -1,6 +1,6 @@
 package com.game.gb5.dao;
 
-import com.game.gb5.domain.scouting.report.ScoutingReport;
+import com.game.gb5.entity.scouting.report.ScoutingReport;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

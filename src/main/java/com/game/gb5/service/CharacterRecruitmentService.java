@@ -1,8 +1,8 @@
 package com.game.gb5.service;
 
-import com.game.gb5.domain.character.GameCharacter;
-import com.game.gb5.domain.player.Player;
-import com.game.gb5.domain.scouting.report.ReportCharacter;
+import com.game.gb5.entity.character.GameCharacter;
+import com.game.gb5.player.model.entity.player.Player;
+import com.game.gb5.entity.scouting.report.ReportCharacter;
 
 import java.util.ArrayList;
 import java.util.List;

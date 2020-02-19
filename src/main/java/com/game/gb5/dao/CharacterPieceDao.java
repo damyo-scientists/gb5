@@ -1,6 +1,6 @@
 package com.game.gb5.dao;
 
-import com.game.gb5.domain.consumable.CharacterPiece;
+import com.game.gb5.inventory.model.entity.consumable.CharacterPiece;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

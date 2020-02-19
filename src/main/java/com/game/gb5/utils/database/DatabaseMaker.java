@@ -1,7 +1,7 @@
 package com.game.gb5.utils.database;
 
-import com.game.gb5.dao.GameCharacterDao;
-import com.game.gb5.dao.PlayerDao;
+import com.game.gb5.character.model.entity.GameCharacterDao;
+import com.game.gb5.player.repository.PlayerRepository;
 import com.game.gb5.dao.ScoutingReportDao;
 import com.game.gb5.dao.TicketListDao;
 
@@ -13,7 +13,7 @@ public class DatabaseMaker implements CommandLineRunner {
 	private GameCharacterDao gameCharacterDao;
 	
 	@Autowired
-	private PlayerDao playerDao;
+	private PlayerRepository playerRepository;
 	
 	@Autowired
 	private TicketListDao ticketListDao;
