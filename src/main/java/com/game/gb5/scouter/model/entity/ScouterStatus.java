@@ -1,6 +1,6 @@
 package com.game.gb5.scouter.model.entity;
 
-import com.game.gb5.entity.BaseEntity;
+import com.game.gb5.common.entity.BaseEntity;
 
 import java.time.LocalTime;
 import java.util.List;

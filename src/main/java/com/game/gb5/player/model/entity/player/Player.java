@@ -1,7 +1,7 @@
 package com.game.gb5.player.model.entity.player;
 
-import com.game.gb5.entity.BaseEntity;
-import com.game.gb5.entity.character.GameCharacter;
+import com.game.gb5.common.entity.BaseEntity;
+import com.game.gb5.character.model.entity.GameCharacter;
 import com.game.gb5.inventory.model.entity.inventory.Inventory;
 
 import java.util.Date;

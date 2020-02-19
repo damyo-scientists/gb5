@@ -1,7 +1,7 @@
 package com.game.gb5.inventory.model.entity.consumable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.game.gb5.entity.BaseEntity;
+import com.game.gb5.common.entity.BaseEntity;
 import com.game.gb5.inventory.model.entity.inventory.Inventory;
 
 import javax.persistence.Column;

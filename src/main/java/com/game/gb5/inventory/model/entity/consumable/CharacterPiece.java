@@ -1,6 +1,6 @@
 package com.game.gb5.inventory.model.entity.consumable;
 
-import com.game.gb5.entity.character.GameCharacter;
+import com.game.gb5.character.model.entity.GameCharacter;
 import com.game.gb5.player.model.entity.player.Player;
 
 import javax.persistence.Entity;

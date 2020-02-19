@@ -1,9 +1,9 @@
 package com.game.gb5.scouter.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.game.gb5.entity.BaseEntity;
-import com.game.gb5.entity.character.CharacterSet;
-import com.game.gb5.entity.scouting.report.ScoutingReport;
+import com.game.gb5.common.entity.BaseEntity;
+import com.game.gb5.character.model.entity.CharacterSet;
+import com.game.gb5.scouter.model.entity.report.ScoutingReport;
 
 import java.time.LocalDateTime;
 

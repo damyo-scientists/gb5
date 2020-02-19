@@ -3,9 +3,9 @@ package com.game.gb5.scouter.controller;
 
 import com.game.gb5.player.model.entity.player.Player;
 import com.game.gb5.scouter.model.entity.Scouter;
-import com.game.gb5.entity.scouting.report.ScoutingReport;
+import com.game.gb5.scouter.model.entity.report.ScoutingReport;
 import com.game.gb5.player.service.PlayerService;
-import com.game.gb5.service.ScoutingService;
+import com.game.gb5.scouter.service.ScoutingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

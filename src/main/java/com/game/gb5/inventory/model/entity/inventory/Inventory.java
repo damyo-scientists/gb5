@@ -1,9 +1,9 @@
 package com.game.gb5.inventory.model.entity.inventory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.game.gb5.entity.BaseEntity;
-import com.game.gb5.entity.voucher.PassList;
-import com.game.gb5.entity.voucher.TicketList;
+import com.game.gb5.common.entity.BaseEntity;
+import com.game.gb5.inventory.model.entity.voucher.PassList;
+import com.game.gb5.inventory.model.entity.voucher.TicketList;
 import com.game.gb5.inventory.model.entity.consumable.Consumable;
 import com.game.gb5.player.model.entity.player.Player;
 
@@ -34,9 +34,9 @@ public class Inventory extends BaseEntity {
 	}
 	
 	@Column
-	private Integer money;
+	private Integer money = 0;
 	@Column
-	private Integer star;
+	private Integer star = 0;
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	private Player player;
