@@ -1,4 +1,4 @@
-package com.game.gb5.scouter.util.deflection;
+package com.game.gb5.scouter.system.deflection;
 
 import java.util.Random;
 

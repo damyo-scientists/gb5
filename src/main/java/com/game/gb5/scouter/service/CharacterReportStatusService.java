@@ -3,8 +3,8 @@ package com.game.gb5.scouter.service;
 import com.game.gb5.character.model.entity.CharacterReportStatus;
 import com.game.gb5.character.model.entity.GameCharacter;
 import com.game.gb5.scouter.model.entity.ScouterStatus;
-import com.game.gb5.scouter.util.deflection.DeflectedValue;
-import com.game.gb5.scouter.util.deflection.DeflectedValueMaker;
+import com.game.gb5.scouter.system.deflection.DeflectedValue;
+import com.game.gb5.scouter.system.deflection.DeflectedValueMaker;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;

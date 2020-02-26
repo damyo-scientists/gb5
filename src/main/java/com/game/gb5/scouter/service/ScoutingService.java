@@ -1,9 +1,9 @@
 package com.game.gb5.scouter.service;
 
 import com.game.gb5.character.model.entity.CharacterReportStatus;
+import com.game.gb5.common.utils.random.RandomMaker;
+import com.game.gb5.inventory.model.entity.item.TicketType;
 import com.game.gb5.player.model.entity.player.Player;
-import com.game.gb5.scouter.condition.ReportGenerateCondition;
-import com.game.gb5.scouter.condition.TimeReportGenerateCondition;
 import com.game.gb5.scouter.model.entity.Scouter;
 import com.game.gb5.scouter.model.entity.report.EmptyScoutingReport;
 import com.game.gb5.scouter.model.entity.report.ReportCharacter;
@@ -12,9 +12,10 @@ import com.game.gb5.scouter.repository.CharacterSetRepository;
 import com.game.gb5.scouter.repository.ReportCharacterRepository;
 import com.game.gb5.scouter.repository.ScouterRepository;
 import com.game.gb5.scouter.repository.ScoutingReportDao;
-import com.game.gb5.scouter.strategy.DefaultScoutingStrategy;
-import com.game.gb5.scouter.strategy.ScoutingStrategy;
-import com.game.gb5.common.utils.random.RandomMaker;
+import com.game.gb5.scouter.system.condition.ReportGenerateCondition;
+import com.game.gb5.scouter.system.condition.TimeReportGenerateCondition;
+import com.game.gb5.scouter.system.strategy.DefaultScoutingStrategy;
+import com.game.gb5.scouter.system.strategy.ScoutingStrategy;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,10 +52,10 @@ public class ScoutingService {
 	}
 	
 	public ScoutingReport makeNewScoutingReport(Scouter scouter, Player player) {
-		if (player.getInventory().getTicketList().hasInstantAcquisitionReportTicket()) {
+		if (player.getInventory().getTickets().containsKey(TicketType.INSTANT_ACQUIRE_REPORT)) {
 			ScoutingReport scoutingReport = this.generateScoutingReportByStrategy(scouter);
 			
-			player.getInventory().getTicketList().consumeInstantAcquisitionReportTicket();
+			player.getInventory().consumeTicket(TicketType.INSTANT_ACQUIRE_REPORT);
 			return scoutingReport;
 		} else {
 			return new EmptyScoutingReport("리포트 티켓이 부족합니다.");

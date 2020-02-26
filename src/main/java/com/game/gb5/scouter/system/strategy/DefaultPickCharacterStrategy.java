@@ -1,4 +1,4 @@
-package com.game.gb5.scouter.strategy;
+package com.game.gb5.scouter.system.strategy;
 
 import com.game.gb5.character.model.entity.EmptyGameCharacter;
 import com.game.gb5.character.model.entity.GameCharacter;

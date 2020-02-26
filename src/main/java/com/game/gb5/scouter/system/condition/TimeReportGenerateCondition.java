@@ -1,4 +1,4 @@
-package com.game.gb5.scouter.condition;
+package com.game.gb5.scouter.system.condition;
 
 import java.time.LocalDateTime;
 

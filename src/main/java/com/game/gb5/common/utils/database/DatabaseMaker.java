@@ -24,10 +24,10 @@ public class DatabaseMaker implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 //		Player player = playerDao.getPlayerById(1L);
-//		TicketList ticketList = new TicketList();
-//		ticketList.setInstantAcquisitionReportTicket(9999999);
-//		ticketListDao.save(ticketList);
-//		player.setTicketList(ticketList);
+//		Ticket tickets = new Ticket();
+//		tickets.setInstantAcquisitionReportTicket(9999999);
+//		ticketListDao.save(tickets);
+//		player.setTickets(tickets);
 //		playerDao.save(player);
 	}
 }

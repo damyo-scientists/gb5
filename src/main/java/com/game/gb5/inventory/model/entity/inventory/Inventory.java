@@ -2,19 +2,19 @@ package com.game.gb5.inventory.model.entity.inventory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.common.entity.BaseEntity;
-import com.game.gb5.inventory.model.entity.voucher.PassList;
-import com.game.gb5.inventory.model.entity.voucher.TicketList;
-import com.game.gb5.inventory.model.entity.consumable.Consumable;
+import com.game.gb5.inventory.model.entity.item.CharacterPiece;
+import com.game.gb5.inventory.model.entity.item.PassType;
+import com.game.gb5.inventory.model.entity.item.TicketType;
 import com.game.gb5.player.model.entity.player.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
 import lombok.Getter;
@@ -28,9 +28,9 @@ import lombok.Setter;
 public class Inventory extends BaseEntity {
 	public Inventory(Player player) {
 		this.player = player;
-		this.consumables = new ArrayList<>();
-		this.passList = new PassList(this);
-		this.ticketList = new TicketList(this);
+		this.characterPieces = new HashMap<>();
+		this.passes = new HashMap<>();
+		this.tickets = new HashMap<>();
 	}
 	
 	@Column
@@ -40,10 +40,21 @@ public class Inventory extends BaseEntity {
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	private Player player;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "inventory", cascade = CascadeType.ALL)
-	private TicketList ticketList;
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "inventory", cascade = CascadeType.ALL)
-	private PassList passList;
-	@OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
-	private List<Consumable> consumables;
+	@ElementCollection
+	@MapKeyColumn(name = "ticket_type")
+	@Column(name = "count")
+	private Map<TicketType, Integer> tickets;
+	@ElementCollection
+	@MapKeyColumn(name = "pass_type")
+	@Column(name = "count")
+	private Map<PassType, Integer> passes;
+	@ElementCollection
+	@MapKeyColumn(name = "character_piece")
+	@Column(name = "count")
+	private Map<CharacterPiece, Integer> characterPieces;
+	
+	public Integer consumeTicket(TicketType ticketType) {
+		Integer countBefore = tickets.get(ticketType);
+		return tickets.put(ticketType, countBefore - 1);
+	}
 }
