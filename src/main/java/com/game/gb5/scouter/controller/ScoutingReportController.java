@@ -1,9 +1,9 @@
 package com.game.gb5.scouter.controller;
 
 
-import com.game.gb5.player.model.entity.player.Player;
-import com.game.gb5.scouter.model.entity.Scouter;
-import com.game.gb5.scouter.model.entity.report.ScoutingReport;
+import com.game.gb5.player.model.Player;
+import com.game.gb5.scouter.model.Scouter;
+import com.game.gb5.scouter.model.report.ScoutingReport;
 import com.game.gb5.player.service.PlayerService;
 import com.game.gb5.scouter.service.ScoutingService;
 

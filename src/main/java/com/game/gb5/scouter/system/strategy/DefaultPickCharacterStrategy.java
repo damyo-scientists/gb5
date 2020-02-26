@@ -1,8 +1,8 @@
 package com.game.gb5.scouter.system.strategy;
 
-import com.game.gb5.character.model.entity.EmptyGameCharacter;
-import com.game.gb5.character.model.entity.GameCharacter;
-import com.game.gb5.scouter.model.entity.ScouterStatus;
+import com.game.gb5.character.model.EmptyGameCharacter;
+import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.scouter.model.ScouterStatus;
 
 import java.util.ArrayList;
 import java.util.List;

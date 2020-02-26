@@ -1,9 +1,9 @@
 package com.game.gb5.scouter.service;
 
-import com.game.gb5.character.model.entity.GameCharacter;
-import com.game.gb5.inventory.model.entity.item.CharacterPiece;
-import com.game.gb5.player.model.entity.player.Player;
-import com.game.gb5.scouter.model.entity.report.ReportCharacter;
+import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.inventory.model.item.CharacterPiece;
+import com.game.gb5.player.model.Player;
+import com.game.gb5.scouter.model.report.ReportCharacter;
 
 import org.springframework.stereotype.Service;
 

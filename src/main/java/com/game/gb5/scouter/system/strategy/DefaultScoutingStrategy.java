@@ -1,12 +1,12 @@
 package com.game.gb5.scouter.system.strategy;
 
-import com.game.gb5.character.model.entity.CharacterSet;
-import com.game.gb5.character.model.entity.GameCharacter;
-import com.game.gb5.scouter.model.entity.Scouter;
-import com.game.gb5.scouter.model.entity.ScouterStatus;
-import com.game.gb5.scouter.model.entity.report.EmptyScoutingReport;
-import com.game.gb5.scouter.model.entity.report.ReportCharacter;
-import com.game.gb5.scouter.model.entity.report.ScoutingReport;
+import com.game.gb5.character.model.CharacterSet;
+import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.scouter.model.Scouter;
+import com.game.gb5.scouter.model.ScouterStatus;
+import com.game.gb5.scouter.model.report.EmptyScoutingReport;
+import com.game.gb5.scouter.model.report.ReportCharacter;
+import com.game.gb5.scouter.model.report.ScoutingReport;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

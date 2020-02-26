@@ -1,6 +1,6 @@
 package com.game.gb5.common.utils.database;
 
-import com.game.gb5.character.model.entity.GameCharacterDao;
+import com.game.gb5.character.model.GameCharacterDao;
 import com.game.gb5.player.repository.PlayerRepository;
 import com.game.gb5.scouter.repository.ScoutingReportDao;
 import com.game.gb5.inventory.repository.TicketListRepository;

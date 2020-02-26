@@ -1,6 +1,6 @@
 package com.game.gb5.player.controller;
 
-import com.game.gb5.player.model.entity.player.Player;
+import com.game.gb5.player.model.Player;
 import com.game.gb5.player.service.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;

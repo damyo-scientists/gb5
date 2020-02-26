@@ -1,6 +1,6 @@
 package com.game.gb5;
 
-import com.game.gb5.character.model.entity.GameCharacterDao;
+import com.game.gb5.character.model.GameCharacterDao;
 import com.game.gb5.common.utils.database.DatabaseMaker;
 
 import org.apache.logging.log4j.LogManager;

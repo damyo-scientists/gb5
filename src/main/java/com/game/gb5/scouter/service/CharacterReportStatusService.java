@@ -1,8 +1,8 @@
 package com.game.gb5.scouter.service;
 
-import com.game.gb5.character.model.entity.CharacterReportStatus;
-import com.game.gb5.character.model.entity.GameCharacter;
-import com.game.gb5.scouter.model.entity.ScouterStatus;
+import com.game.gb5.character.model.CharacterReportStatus;
+import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.scouter.model.ScouterStatus;
 import com.game.gb5.scouter.system.deflection.DeflectedValue;
 import com.game.gb5.scouter.system.deflection.DeflectedValueMaker;
 

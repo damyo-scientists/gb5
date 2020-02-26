@@ -1,13 +1,13 @@
 package com.game.gb5.scouter.service;
 
-import com.game.gb5.character.model.entity.CharacterReportStatus;
+import com.game.gb5.character.model.CharacterReportStatus;
 import com.game.gb5.common.utils.random.RandomMaker;
-import com.game.gb5.inventory.model.entity.item.TicketType;
-import com.game.gb5.player.model.entity.player.Player;
-import com.game.gb5.scouter.model.entity.Scouter;
-import com.game.gb5.scouter.model.entity.report.EmptyScoutingReport;
-import com.game.gb5.scouter.model.entity.report.ReportCharacter;
-import com.game.gb5.scouter.model.entity.report.ScoutingReport;
+import com.game.gb5.inventory.model.item.TicketType;
+import com.game.gb5.player.model.Player;
+import com.game.gb5.scouter.model.Scouter;
+import com.game.gb5.scouter.model.report.EmptyScoutingReport;
+import com.game.gb5.scouter.model.report.ReportCharacter;
+import com.game.gb5.scouter.model.report.ScoutingReport;
 import com.game.gb5.scouter.repository.CharacterSetRepository;
 import com.game.gb5.scouter.repository.ReportCharacterRepository;
 import com.game.gb5.scouter.repository.ScouterRepository;
