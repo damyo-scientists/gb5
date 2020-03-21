@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - spring-boot
+  spring-boot:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mariadb
+    networks:
+      - gb5_net
+  mariadb:
+    image: 'mariadb:10.4.12'
+    restart: always
+    ports:
+      - '33060:3306'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}'
+      - 'TZ="Asia/Seoul"'
+    volumes:
+      - '~/docker/${PROJECT_NAME}/var/lib/mysql:/var/lib/mysql'
+    networks:
+      - gb5_net
+  rabbitmq:
+    image: 'rabbitmq:management'
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ""
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    labels:
+      NAME: rabbmitmq
+        - '~/docker/${PROJECT_NAME}/var/log/maria:/var/log/maria'
+  mongodb:
+    image: 'mongo:4.2.3'
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    volumes:
+      - '~/docker/${PROJECT_NAME}/data/db:/data/db'
+networks:
+  gb5_net:
+
+
+
+
