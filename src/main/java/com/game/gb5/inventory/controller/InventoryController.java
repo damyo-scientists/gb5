@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/inventory")
 public class InventoryController {
 	private final InventoryService inventoryService;
-	
+
 	@Autowired
-	public InventoryController(InventoryService inventoryService) {
+	public InventoryController(InventoryService inventoryService)  {
 		this.inventoryService = inventoryService;
 	}
-	
+
 	@GetMapping("/{player_id}")
 	public ResponseEntity getInventoryByPlayerId(@PathVariable("player_id") final long playerId) {
 		Inventory inventory = inventoryService.getInventoryByPlayerId(playerId);
