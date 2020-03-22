@@ -1,10 +1,15 @@
+spring:
+  profiles:
+    active: core
+
+---
+
 server:
   port: 8080
 spring:
-  profiles:
-    active: default
+  profiles: core
   datasource:
-    url: 'jdbc:mysql://mariadb:3306/gb5'
+    url: 'jdbc:mysql://127.0.0.1:33060/gb5'
     username: 'root'
     password: ${MYSQL_PASSWORD}
     driver-class-name: 'org.mariadb.jdbc.Driver'
@@ -14,3 +19,12 @@ spring:
     database-platform: 'org.hibernate.dialect.MariaDB103Dialect'
     generate-ddl: true
     show-sql: true
+
+---
+
+server:
+  port: 9090
+spring:
+  profiles: deploy
+  datasource:
+    url: 'jdbc:mysql://mariadb:3306/gb5'

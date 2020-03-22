@@ -8,4 +8,4 @@ COPY src src
 COPY .env .
 
 RUN chmod +x ./gradlew
-ENTRYPOINT ["/gradlew", "bootRun"]
+ENTRYPOINT ["/gradlew", "bootRun","-Dspring.profiles.active=core,deploy"]
