@@ -11,20 +11,23 @@ services:
   spring-boot:
     build: .
     ports:
-      - '8080:8080'
+      - '9090:9090'
     depends_on:
       - mariadb
     networks:
       - gb5_net
   mariadb:
-    image: 'mariadb:10.4.12'
+    image: 'mariadb:10.5'
     restart: always
     ports:
       - '33060:3306'
     environment:
       - 'MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}'
+      - 'MYSQL_ROOT_HOST=%'
       - 'TZ="Asia/Seoul"'
+      - 'MYSQL_DATABASE=gb5'
     volumes:
+      - './mysql/conf.d:/etc/mysql/conf.d'
       - '~/docker/${PROJECT_NAME}/var/lib/mysql:/var/lib/mysql'
     networks:
       - gb5_net
@@ -51,7 +54,7 @@ services:
       - '~/docker/${PROJECT_NAME}/data/db:/data/db'
 networks:
   gb5_net:
-
+    driver: bridge
 
 
 
