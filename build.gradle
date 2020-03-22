@@ -29,6 +29,10 @@ repositories {
     mavenCentral()
 }
 
+bootRun() {
+    String activeProfile = System.properties['spring.profiles.active']
+    systemProperty "spring.profiles.active", activeProfile
+}
 
 dependencies {
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.12'
