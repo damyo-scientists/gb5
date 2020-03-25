@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationContextInitializer=com.game.gb5.common.utils.dotenv.DotenvApplicationInitializer
