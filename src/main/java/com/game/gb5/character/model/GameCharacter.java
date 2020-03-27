@@ -37,7 +37,7 @@ public class GameCharacter extends BaseEntity implements Cloneable {
     @Column
     private List<Float> hittingInclination;
     @JsonIgnore
-    @OneToOne
+    @OneToOne(mappedBy = "character", cascade = CascadeType.ALL)
     private CharacterStatus characterStatus;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
@@ -69,6 +69,7 @@ public class GameCharacter extends BaseEntity implements Cloneable {
 		this.hittingPosition = hittingPosition;
 		this.hittingInclination = hittingInclination;
 		this.characterStatus = characterStatus;
+		this.characterStatus.setCharacter(this);
     }
 
     @Override

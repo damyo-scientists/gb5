@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/players")
 public class PlayerController {
 	private final PlayerService playerService;
-	
+
 	@Autowired
 	public PlayerController(PlayerService playerService) {
 		this.playerService = playerService;
 	}
-	
+
 	@PostMapping
 	public ResponseEntity createPlayer(@RequestParam("user_name") String userName,
 	                                   @RequestParam("user_id") String userId) {
@@ -30,6 +30,6 @@ public class PlayerController {
 		} else {
 			return new ResponseEntity<>("Player is empty", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 	}
 }
