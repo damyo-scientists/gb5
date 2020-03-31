@@ -1,15 +1,15 @@
 package com.game.gb5.character.controller;
 
+import com.game.gb5.character.dto.CharacterDto;
 import com.game.gb5.character.model.GameCharacter;
 import com.game.gb5.character.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -29,5 +29,18 @@ public class CharacterController {
             return new ResponseEntity<>(character.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>("Character not found", HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity create(@Valid @RequestBody CharacterDto characterDto, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            GameCharacter gameCharacter = characterService.create(characterDto);
+            if (gameCharacter == null) {
+                return new ResponseEntity<>("Character creation failed.", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            return new ResponseEntity<>(gameCharacter, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

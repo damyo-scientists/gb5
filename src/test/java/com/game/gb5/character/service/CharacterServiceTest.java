@@ -22,8 +22,15 @@ public class CharacterServiceTest {
 
     @Test
     public void testGetById() {
-        Optional<GameCharacter> gameCharacter = characterservice.getById(5);
-        Assert.assertTrue(gameCharacter.isPresent());
+        CharacterStatus characterStatus = new CharacterStatus(31, 68, 87, 85,
+                90, 52, 57, 53, 44, 44, 72);
+
+        GameCharacter gameCharacter =
+                characterservice.create("하나", 2, 0,
+                        0, 1, HittingPosition.LEFT, new ArrayList<>(),
+                        characterStatus);
+        Optional<GameCharacter> gameCharacterOptional = characterservice.getById(gameCharacter.getId());
+        Assert.assertTrue(gameCharacterOptional.isPresent());
     }
 
     @Test
@@ -36,7 +43,6 @@ public class CharacterServiceTest {
                 characterservice.create("하나", 2, 0,
                         0, 1, HittingPosition.LEFT, new ArrayList<>(),
                         characterStatus);
-        System.out.println(gameCharacter);
-
+        Assert.assertEquals("하나", gameCharacter.getName());
     }
 }

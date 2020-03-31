@@ -1,5 +1,6 @@
 package com.game.gb5.character.service;
 
+import com.game.gb5.character.dto.CharacterDto;
 import com.game.gb5.character.model.CharacterStatus;
 import com.game.gb5.character.model.GameCharacter;
 import com.game.gb5.character.model.HittingPosition;
@@ -20,6 +21,12 @@ public class CharacterService {
                                 HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
         GameCharacter gameCharacter = new GameCharacter(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         return characterRepository.save(gameCharacter);
+    }
+
+    public GameCharacter create(CharacterDto characterDto) {
+        return this.create(characterDto.getName(), characterDto.getGrade(), 0, 0,
+                (int) characterDto.getId(), characterDto.getHittingPosition(), characterDto.getHittingInclination(),
+                characterDto.getCharacterStatus());
     }
 
     public Optional<GameCharacter> getById(long characterId) {
