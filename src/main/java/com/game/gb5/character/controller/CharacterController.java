@@ -43,4 +43,8 @@ public class CharacterController {
         }
         return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    public ResponseEntity createOrUpdateAll() {
+        return null;
+    }
 }
