@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ScoutingReportController {
 	@Autowired
 	private ScoutingService scoutingService;
-	
+
 	@Autowired
 	private PlayerService playerService;
-	
+
 	@PostMapping("")
 	public ResponseEntity makeScoutingReport(@RequestParam("scouter_id") Long scouterId,
 	                                         @RequestParam("player_id") Long playerId) {
 		Scouter scouter = scoutingService.getScouterById(scouterId);
-		Player player = playerService.getPlayerById(playerId);
+		Player player = playerService.getById(playerId);
 		ScoutingReport scoutingReport = scoutingService.makeNewScoutingReport(scouter, player);
 		if (scoutingReport != null) {
 			return new ResponseEntity<>(scoutingReport, HttpStatus.OK);

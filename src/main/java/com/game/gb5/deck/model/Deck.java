@@ -5,8 +5,7 @@ import com.game.gb5.common.model.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import java.util.Map;
 @Entity
 public class Deck extends BaseEntity {
     @OneToMany
+    @MapKeyEnumerated(EnumType.STRING)
     private Map<Position, GameCharacter> startingMemberByPosition;
 
     @OneToMany

@@ -1,6 +1,5 @@
 package com.game.gb5.deck.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.game.gb5.commons.AbstractControllerTest;
 import com.game.gb5.deck.contrller.DeckController;
 import com.game.gb5.deck.model.Deck;
@@ -54,5 +53,59 @@ public class DeckControllerTest extends AbstractControllerTest {
         Deck resultDeck = mapFromJson(mvcResult.getResponse().getContentAsString(), Deck.class);
         assertNotNull(resultDeck);
         assertEquals(1L, resultDeck.getId().longValue());
+    }
+
+    @Test
+    public void testGetById() throws Exception {
+        Deck deck = new Deck();
+        deck.setId(1L);
+
+        when(deckService.getById(any(Long.class))).thenReturn(deck);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(RESOURCE_URI + "/{id}", 1L))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
+
+        verify(deckService).getById(1L);
+
+        Deck resultDeck = mapFromJson(mvcResult.getResponse().getContentAsString(), Deck.class);
+        assertNotNull(resultDeck);
+        assertEquals(1L, resultDeck.getId().longValue());
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        Deck deck = new Deck();
+        deck.setId(1L);
+
+        when(deckService.getById(any(Long.class))).thenReturn(deck);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(RESOURCE_URI)
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                .content(mapToJson(deck))).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
+
+        verify(deckService).update(any(Deck.class));
+    }
+
+    public void testDelete() throws Exception {
+        Deck deck = new Deck();
+        deck.setId(1L);
+
+        when(deckService.getById(any(Long.class))).thenReturn(deck);
+
+        // execute
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(RESOURCE_URI + "/{id}", 1L)).andReturn();
+
+        // verify
+        int status = result.getResponse().getStatus();
+        assertEquals("Incorrect Response Status", HttpStatus.GONE.value(), status);
+
+        // verify that service method was called once
+        verify(deckService).delete(any(Deck.class));
     }
 }
