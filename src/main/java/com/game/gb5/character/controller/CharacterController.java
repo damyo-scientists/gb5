@@ -6,11 +6,15 @@ import com.game.gb5.character.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/characters")
@@ -23,28 +27,29 @@ public class CharacterController {
     }
 
     @GetMapping("/{character_id}")
-    public ResponseEntity getById(@PathVariable("character_id") final long characterId) {
+    public ResponseEntity<GameCharacter> getById(@PathVariable("character_id") final long characterId) {
         Optional<GameCharacter> character = characterService.getById(characterId);
         if (character.isPresent()) {
             return new ResponseEntity<>(character.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<>("Character not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
-    @ResponseBody
-    public ResponseEntity create(@Valid @RequestBody CharacterDto characterDto, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
+    public ResponseEntity<GameCharacter> create(@Valid @RequestBody CharacterDto characterDto, Errors errors) {
+        if (!errors.hasErrors()) {
             GameCharacter gameCharacter = characterService.create(characterDto);
             if (gameCharacter == null) {
-                return new ResponseEntity<>("Character creation failed.", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            return new ResponseEntity<>(gameCharacter, HttpStatus.CREATED);
+            URI uri = linkTo(CharacterController.class).slash(gameCharacter.getId()).toUri();
+            return ResponseEntity.created(uri).body(gameCharacter);
         }
-        return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public ResponseEntity createOrUpdateAll() {
+    @PostMapping("/import")
+    public ResponseEntity<List<Character>> importData() {
         return null;
     }
 }

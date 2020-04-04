@@ -5,7 +5,6 @@ import com.game.gb5.character.model.CharacterStatus;
 import com.game.gb5.character.model.GameCharacter;
 import com.game.gb5.character.model.HittingPosition;
 import com.game.gb5.commons.AbstractControllerTest;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +16,25 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@AutoConfigureMockMvc
 public class ChracterControllerTest extends AbstractControllerTest {
     private static String RESOURCE_URI = "/characters";
 
@@ -42,18 +44,11 @@ public class ChracterControllerTest extends AbstractControllerTest {
     @MockBean
     private CharacterController characterController;
 
+    @Autowired
     private MockMvc mockMvc;
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             StandardCharsets.UTF_8);
-
-    @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
-                .alwaysDo(print())
-                .build();
-    }
-
 
     @Test
     public void testGet() throws Exception {
@@ -65,18 +60,17 @@ public class ChracterControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @Transactional
     public void testCreate() throws Exception {
         CharacterStatus characterStatus = new CharacterStatus(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-        CharacterDto characterDto = new CharacterDto(1, "하나", 1, HittingPosition.RIGHT, null, characterStatus);
-//        given(characterController.create(characterDto, mock(BindingResult.class))).willReturn(new ResponseEntity<>(new GameCharacter("하나", 1, 0,
-//                0, 1, HittingPosition.RIGHT, null, characterStatus), HttpStatus.CREATED));
+        CharacterDto characterDto = new CharacterDto(0, "하나", 1, HittingPosition.RIGHT, null, characterStatus);
+        given(characterController.create(any(CharacterDto.class), any(Errors.class))).willReturn(new ResponseEntity<>(new GameCharacter("하나", 1, 0,
+               0, 1, HittingPosition.RIGHT, null, characterStatus), HttpStatus.CREATED));
 
-        //TODO : mockMvc post 콜시 body empty 오류 정상 구동되도록 처리 #27
-        //mockMvc.perform(post(RESOURCE_URI)
-        //        .content(mapToJson(characterDto))
-        //        .contentType(contentType)
-        //        .accept(MediaType.APPLICATION_JSON))
-        //        .andExpect(jsonPath("$['name']", containsString("하나"))).andDo(print());
+        mockMvc.perform(post(RESOURCE_URI)
+                .contentType(contentType)
+                .content(mapToJson(characterDto))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$['name']", containsString("하나"))).andDo(print());
     }
 }
