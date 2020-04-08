@@ -3,16 +3,14 @@ package com.game.gb5.character.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.common.model.BaseEntity;
 import com.game.gb5.player.model.Player;
-
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.*;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -20,6 +18,8 @@ import lombok.Setter;
 @Setter
 @Entity
 public class GameCharacter extends BaseEntity implements Cloneable {
+    @Column
+    private String code;
     @Column
     private String name;
     @Column
@@ -59,17 +59,23 @@ public class GameCharacter extends BaseEntity implements Cloneable {
     private boolean isCharacterLocked;
     private Date characterUnlockDateTime;
 
+    public GameCharacter(Long id, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
+                         int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+        this(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
+        this.setId(id);
+    }
+
     public GameCharacter(String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-						 int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
-		this.name = name;
-		this.grade = grade;
-		this.acquisitionCoefficient = acquisitionCoefficient;
-		this.cumulativeAcquisitionCoefficient = cumulativeAcquisitionCoefficient;
-		this.backNumber = backNumber;
-		this.hittingPosition = hittingPosition;
-		this.hittingInclination = hittingInclination;
-		this.characterStatus = characterStatus;
-		this.characterStatus.setCharacter(this);
+                         int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+        this.name = name;
+        this.grade = grade;
+        this.acquisitionCoefficient = acquisitionCoefficient;
+        this.cumulativeAcquisitionCoefficient = cumulativeAcquisitionCoefficient;
+        this.backNumber = backNumber;
+        this.hittingPosition = hittingPosition;
+        this.hittingInclination = hittingInclination;
+        this.characterStatus = characterStatus;
+        this.characterStatus.setCharacter(this);
     }
 
     @Override

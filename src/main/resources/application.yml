@@ -21,6 +21,11 @@ spring:
     database-platform: 'org.hibernate.dialect.MariaDB103Dialect'
     generate-ddl: true
     show-sql: true
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 8
 
 ---
 

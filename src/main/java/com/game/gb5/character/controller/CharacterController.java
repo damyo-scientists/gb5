@@ -3,12 +3,14 @@ package com.game.gb5.character.controller;
 import com.game.gb5.character.dto.CharacterDto;
 import com.game.gb5.character.model.GameCharacter;
 import com.game.gb5.character.service.CharacterService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -30,6 +32,7 @@ public class CharacterController {
     public ResponseEntity<GameCharacter> getById(@PathVariable("character_id") final long characterId) {
         Optional<GameCharacter> character = characterService.getById(characterId);
         if (character.isPresent()) {
+
             return new ResponseEntity<>(character.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -48,8 +51,17 @@ public class CharacterController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping("/import")
-    public ResponseEntity<List<Character>> importData() {
-        return null;
+    @SneakyThrows
+    @Transactional
+    @PutMapping("/import-data")
+    public ResponseEntity<List<GameCharacter>> importData(@Valid @RequestBody List<CharacterDto> characterDtos, Errors errors) {
+        if (!errors.hasErrors()) {
+            List<GameCharacter> gameCharacters = characterService.importData(characterDtos).get();
+            if (gameCharacters == null) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            return ResponseEntity.ok(gameCharacters);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
