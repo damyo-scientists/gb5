@@ -18,6 +18,7 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CharacterDto {
     private Long id;
+    private String code;
     @NotNull
     private String name;
     private int grade;
@@ -31,7 +32,7 @@ public class CharacterDto {
     private CharacterStatus characterStatus;
 
     public GameCharacter toEntity() {
-        return new GameCharacter(id, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient,
+        return new GameCharacter(id, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient,
                 backNumber, hittingPosition, hittingInclination, characterStatus);
     }
 }

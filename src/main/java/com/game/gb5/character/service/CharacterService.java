@@ -19,6 +19,13 @@ public class CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
 
+    public GameCharacter create(String code, String name, int grade, int acquisitionCoefficient,
+                                int cumulativeAcquisitionCoefficient, int backNumber,
+                                HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+        GameCharacter gameCharacter = new GameCharacter(0L, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
+        return characterRepository.save(gameCharacter);
+    }
+
     public GameCharacter create(String name, int grade, int acquisitionCoefficient,
                                 int cumulativeAcquisitionCoefficient, int backNumber,
                                 HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
@@ -34,6 +41,10 @@ public class CharacterService {
 
     public Optional<GameCharacter> getById(long characterId) {
         return characterRepository.findById(characterId);
+    }
+
+    public Optional<GameCharacter> getByCode(String code) {
+        return characterRepository.findByCode(code);
     }
 
     @Async

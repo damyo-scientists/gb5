@@ -16,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -25,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -62,9 +60,9 @@ public class ChracterControllerTest extends AbstractControllerTest {
     @Test
     public void testCreate() throws Exception {
         CharacterStatus characterStatus = new CharacterStatus(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-        CharacterDto characterDto = new CharacterDto(0, "하나", 1, HittingPosition.RIGHT, null, characterStatus);
+        CharacterDto characterDto = new CharacterDto(0L, "test-code", "하나", 1, 1, 1, 1, HittingPosition.RIGHT, null, characterStatus);
         given(characterController.create(any(CharacterDto.class), any(Errors.class))).willReturn(new ResponseEntity<>(new GameCharacter("하나", 1, 0,
-               0, 1, HittingPosition.RIGHT, null, characterStatus), HttpStatus.CREATED));
+                0, 1, HittingPosition.RIGHT, null, characterStatus), HttpStatus.CREATED));
 
         mockMvc.perform(post(RESOURCE_URI)
                 .contentType(contentType)

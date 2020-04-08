@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 public class GameCharacter extends BaseEntity implements Cloneable {
-    @Column
+    @Column(unique = true)
     private String code;
     @Column
     private String name;
@@ -63,6 +63,12 @@ public class GameCharacter extends BaseEntity implements Cloneable {
                          int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
         this(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         this.setId(id);
+    }
+
+    public GameCharacter(Long id, String code, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
+                         int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+        this(id, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
+        this.setCode(code);
     }
 
     public GameCharacter(String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
