@@ -3,7 +3,7 @@ package com.game.gb5.scouter.model.report;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.common.model.BaseEntity;
 import com.game.gb5.character.model.CharacterReportStatus;
-import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.character.model.Character;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -25,7 +25,7 @@ public class ReportCharacter extends BaseEntity {
 	@ManyToOne
 	private ScoutingReport scoutingReport;
 	@OneToOne
-	private GameCharacter targetCharacter;
+	private Character targetCharacter;
 	@Transient
 	private CharacterReportStatus characterReportStatus;
 }

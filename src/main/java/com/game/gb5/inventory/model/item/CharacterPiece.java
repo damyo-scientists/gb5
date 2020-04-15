@@ -1,6 +1,6 @@
 package com.game.gb5.inventory.model.item;
 
-import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.character.model.Character;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,10 +13,10 @@ import lombok.Setter;
 @Setter
 @Entity
 public class CharacterPiece extends Item {
-	public CharacterPiece(GameCharacter targetCharacter) {
+	public CharacterPiece(Character targetCharacter) {
 		this.targetCharacter = targetCharacter;
 	}
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	private GameCharacter targetCharacter;
+	private Character targetCharacter;
 }

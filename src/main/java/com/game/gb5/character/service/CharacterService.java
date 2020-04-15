@@ -1,8 +1,8 @@
 package com.game.gb5.character.service;
 
 import com.game.gb5.character.dto.CharacterDto;
+import com.game.gb5.character.model.Character;
 import com.game.gb5.character.model.CharacterStatus;
-import com.game.gb5.character.model.GameCharacter;
 import com.game.gb5.character.model.HittingPosition;
 import com.game.gb5.character.respository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,42 +19,45 @@ public class CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
 
-    public GameCharacter create(String code, String name, int grade, int acquisitionCoefficient,
-                                int cumulativeAcquisitionCoefficient, int backNumber,
-                                HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
-        GameCharacter gameCharacter = new GameCharacter(0L, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
-        return characterRepository.save(gameCharacter);
+    public Character create(String code, String name, int grade, int acquisitionCoefficient,
+                            int cumulativeAcquisitionCoefficient, int backNumber,
+                            HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+        Character character = new Character(0L, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
+        return characterRepository.save(character);
     }
 
-    public GameCharacter create(String name, int grade, int acquisitionCoefficient,
-                                int cumulativeAcquisitionCoefficient, int backNumber,
-                                HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
-        GameCharacter gameCharacter = new GameCharacter(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
-        return characterRepository.save(gameCharacter);
+    public Character create(String name, int grade, int acquisitionCoefficient,
+                            int cumulativeAcquisitionCoefficient, int backNumber,
+                            HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+        Character character = new Character(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
+        character.getCharacterStatus().setCharacter(character);
+        return characterRepository.save(character);
     }
 
-    public GameCharacter create(CharacterDto characterDto) {
+    public Character create(CharacterDto characterDto) {
         return this.create(characterDto.getName(), characterDto.getGrade(), 0, 0,
                 (int) (long) characterDto.getId(), characterDto.getHittingPosition(), characterDto.getHittingInclination(),
                 characterDto.getCharacterStatus());
     }
 
-    public Optional<GameCharacter> getById(long characterId) {
+    public Optional<Character> getById(long characterId) {
         return characterRepository.findById(characterId);
     }
 
-    public Optional<GameCharacter> getByCode(String code) {
+    public Optional<Character> getByCode(String code) {
         return characterRepository.findByCode(code);
     }
 
     @Async
-    public CompletableFuture<List<GameCharacter>> importData(List<CharacterDto> characterDtos) {
-        List<GameCharacter> gameCharacters = characterDtos.stream().map(CharacterDto::toEntity).collect(Collectors.toList());
-        return CompletableFuture.completedFuture(characterRepository.saveAll(gameCharacters));
-    }
-
-    public List<GameCharacter> importDataNonAsync(List<CharacterDto> characterDtos) {
-        List<GameCharacter> gameCharacters = characterDtos.stream().map(CharacterDto::toEntity).collect(Collectors.toList());
-        return characterRepository.saveAll(gameCharacters);
+    public CompletableFuture<List<Character>> importData(List<CharacterDto> characterDtos) {
+        List<Character> characters = characterDtos.stream().map(dto -> {
+            Optional<Character> character = getByCode(dto.getCode());
+            character.ifPresent(value -> {
+                    dto.setId(value.getId());
+                    dto.setCreatedDate(value.getCreatedDate());
+            });
+            return dto.toEntity();
+        }).collect(Collectors.toList());
+        return CompletableFuture.completedFuture(characterRepository.saveAll(characters));
     }
 }

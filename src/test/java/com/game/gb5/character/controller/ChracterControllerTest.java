@@ -2,7 +2,7 @@ package com.game.gb5.character.controller;
 
 import com.game.gb5.character.dto.CharacterDto;
 import com.game.gb5.character.model.CharacterStatus;
-import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.character.model.Character;
 import com.game.gb5.character.model.HittingPosition;
 import com.game.gb5.commons.AbstractControllerTest;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class ChracterControllerTest extends AbstractControllerTest {
     @Test
     public void testGet() throws Exception {
         CharacterStatus characterStatus = new CharacterStatus(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-        given(characterController.getById(1)).willReturn(new ResponseEntity<>(new GameCharacter("리눅스", 1, 2,
+        given(characterController.getById(1)).willReturn(new ResponseEntity<>(new Character("리눅스", 1, 2,
                 3, 4, HittingPosition.RIGHT, null, characterStatus), HttpStatus.OK));
         mockMvc.perform(get(RESOURCE_URI + "/{character_id}", 1)).andExpect(status().isOk())
                 .andExpect(jsonPath("$['name']", containsString("리눅스"))).andDo(print());
@@ -61,7 +61,7 @@ public class ChracterControllerTest extends AbstractControllerTest {
     public void testCreate() throws Exception {
         CharacterStatus characterStatus = new CharacterStatus(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
         CharacterDto characterDto = new CharacterDto(0L, "test-code", "하나", 1, 1, 1, 1, HittingPosition.RIGHT, null, characterStatus);
-        given(characterController.create(any(CharacterDto.class), any(Errors.class))).willReturn(new ResponseEntity<>(new GameCharacter("하나", 1, 0,
+        given(characterController.create(any(CharacterDto.class), any(Errors.class))).willReturn(new ResponseEntity<>(new Character("하나", 1, 0,
                 0, 1, HittingPosition.RIGHT, null, characterStatus), HttpStatus.CREATED));
 
         mockMvc.perform(post(RESOURCE_URI)

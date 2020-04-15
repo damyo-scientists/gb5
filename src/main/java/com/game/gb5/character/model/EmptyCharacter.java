@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class EmptyGameCharacter extends GameCharacter {
+public class EmptyCharacter extends Character {
 	private String name = "empty";
 }

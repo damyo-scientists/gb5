@@ -16,10 +16,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@Entity
-public class GameCharacter extends BaseEntity implements Cloneable {
-    @Column(unique = true)
-    private String code;
+@Entity(name = "gameCharacter")
+public class Character extends BaseEntity implements Cloneable {
     @Column
     private String name;
     @Column
@@ -59,20 +57,20 @@ public class GameCharacter extends BaseEntity implements Cloneable {
     private boolean isCharacterLocked;
     private Date characterUnlockDateTime;
 
-    public GameCharacter(Long id, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                         int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+    public Character(Long id, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
+                     int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
         this(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         this.setId(id);
     }
 
-    public GameCharacter(Long id, String code, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                         int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+    public Character(Long id, String code, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
+                     int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
         this(id, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         this.setCode(code);
     }
 
-    public GameCharacter(String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                         int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+    public Character(String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
+                     int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
         this.name = name;
         this.grade = grade;
         this.acquisitionCoefficient = acquisitionCoefficient;
@@ -81,11 +79,10 @@ public class GameCharacter extends BaseEntity implements Cloneable {
         this.hittingPosition = hittingPosition;
         this.hittingInclination = hittingInclination;
         this.characterStatus = characterStatus;
-        this.characterStatus.setCharacter(this);
     }
 
     @Override
-    public GameCharacter clone() throws CloneNotSupportedException {
-        return (GameCharacter) super.clone();
+    public Character clone() throws CloneNotSupportedException {
+        return (Character) super.clone();
     }
 }

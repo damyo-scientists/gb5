@@ -1,12 +1,12 @@
 package com.game.gb5.deck.model;
 
-import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.character.model.Character;
 import com.game.gb5.common.model.BaseEntity;
+import com.game.gb5.player.model.Player;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -15,8 +15,8 @@ import java.util.Map;
 public class Deck extends BaseEntity {
     @OneToMany
     @MapKeyEnumerated(EnumType.STRING)
-    private Map<Position, GameCharacter> startingMemberByPosition;
+    private Map<Position, Character> chracters;
 
-    @OneToMany
-    private List<GameCharacter> replacementMemberList;
+    @ManyToOne
+    private Player player;
 }

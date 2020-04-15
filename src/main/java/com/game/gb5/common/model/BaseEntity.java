@@ -1,5 +1,7 @@
 package com.game.gb5.common.model;
 
+import org.aspectj.apache.bcel.classfile.Code;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -25,21 +27,24 @@ import lombok.ToString;
 public abstract class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	protected Long id;
+
+	@Column(unique = true)
+	protected String code;
+
 	@CreatedDate
 	@Column(nullable = false)
-	private LocalDateTime createdDate;
-	
+	protected LocalDateTime createdDate;
+
 	@LastModifiedDate
 	@Column(nullable = false)
-	private LocalDateTime updatedDate;
-	
+	protected LocalDateTime updatedDate;
+
 	@PrePersist
 	protected void onCreate() {
 		updatedDate = createdDate = LocalDateTime.now();
 	}
-	
+
 	@PreUpdate
 	protected void onUpdate() {
 		updatedDate = LocalDateTime.now();

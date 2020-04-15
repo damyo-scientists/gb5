@@ -29,5 +29,5 @@ public class CharacterSet extends BaseEntity {
 	private int cost;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "character_set_relation", joinColumns = @JoinColumn(name = "character_set_id"), inverseJoinColumns = @JoinColumn(name = "character_id"))
-	private List<GameCharacter> characters;
+	private List<Character> characters;
 }

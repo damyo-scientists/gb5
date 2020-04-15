@@ -5,6 +5,7 @@ import com.game.gb5.common.model.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 import lombok.Getter;
@@ -17,8 +18,8 @@ import lombok.Setter;
 @Entity
 public class CharacterStatus extends BaseEntity {
     @JsonIgnore
-    @OneToOne
-    private GameCharacter character;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Character character;
     @Column
     private int leadership;
     @Column

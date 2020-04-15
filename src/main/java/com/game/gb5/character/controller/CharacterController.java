@@ -1,7 +1,7 @@
 package com.game.gb5.character.controller;
 
 import com.game.gb5.character.dto.CharacterDto;
-import com.game.gb5.character.model.GameCharacter;
+import com.game.gb5.character.model.Character;
 import com.game.gb5.character.service.CharacterService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class CharacterController {
     }
 
     @GetMapping("/{character_id}")
-    public ResponseEntity<GameCharacter> getById(@PathVariable("character_id") final long characterId) {
-        Optional<GameCharacter> character = characterService.getById(characterId);
+    public ResponseEntity<Character> getById(@PathVariable("character_id") final long characterId) {
+        Optional<Character> character = characterService.getById(characterId);
         if (character.isPresent()) {
 
             return new ResponseEntity<>(character.get(), HttpStatus.OK);
@@ -39,14 +39,14 @@ public class CharacterController {
     }
 
     @PostMapping
-    public ResponseEntity<GameCharacter> create(@Valid @RequestBody CharacterDto characterDto, Errors errors) {
+    public ResponseEntity<Character> create(@Valid @RequestBody CharacterDto characterDto, Errors errors) {
         if (!errors.hasErrors()) {
-            GameCharacter gameCharacter = characterService.create(characterDto);
-            if (gameCharacter == null) {
+            Character character = characterService.create(characterDto);
+            if (character == null) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            URI uri = linkTo(CharacterController.class).slash(gameCharacter.getId()).toUri();
-            return ResponseEntity.created(uri).body(gameCharacter);
+            URI uri = linkTo(CharacterController.class).slash(character.getId()).toUri();
+            return ResponseEntity.created(uri).body(character);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -54,13 +54,13 @@ public class CharacterController {
     @SneakyThrows
     @Transactional
     @PutMapping("/import-data")
-    public ResponseEntity<List<GameCharacter>> importData(@Valid @RequestBody List<CharacterDto> characterDtos, Errors errors) {
+    public ResponseEntity<List<Character>> importData(@Valid @RequestBody List<CharacterDto> characterDtos, Errors errors) {
         if (!errors.hasErrors()) {
-            List<GameCharacter> gameCharacters = characterService.importData(characterDtos).get();
-            if (gameCharacters == null) {
+            List<Character> characters = characterService.importData(characterDtos).get();
+            if (characters == null) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            return ResponseEntity.ok(gameCharacters);
+            return ResponseEntity.ok(characters);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
