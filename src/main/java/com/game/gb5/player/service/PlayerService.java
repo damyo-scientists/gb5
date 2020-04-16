@@ -7,6 +7,8 @@ import com.game.gb5.player.repository.PlayerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlayerService {
 	private final PlayerRepository playerRepository;
@@ -33,4 +35,8 @@ public class PlayerService {
 	public void delete(Player player) {
 		playerRepository.delete(player);
 	}
+
+    public Optional<Player> getByCode(String code) {
+		return playerRepository.findByCode(code);
+    }
 }

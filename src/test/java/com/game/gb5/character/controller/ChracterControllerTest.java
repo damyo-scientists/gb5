@@ -1,8 +1,8 @@
 package com.game.gb5.character.controller;
 
 import com.game.gb5.character.dto.CharacterDto;
-import com.game.gb5.character.model.CharacterStatus;
 import com.game.gb5.character.model.Character;
+import com.game.gb5.character.model.CharacterStatus;
 import com.game.gb5.character.model.HittingPosition;
 import com.game.gb5.commons.AbstractControllerTest;
 import org.junit.Test;
@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.StandardCharsets;
 
@@ -35,9 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ChracterControllerTest extends AbstractControllerTest {
     private static String RESOURCE_URI = "/characters";
-
-    @Autowired
-    private WebApplicationContext ctx;
 
     @MockBean
     private CharacterController characterController;

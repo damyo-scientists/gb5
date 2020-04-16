@@ -20,7 +20,7 @@ import java.util.Optional;
 @SpringBootTest
 public class CharacterServiceTest {
     @Autowired
-    private CharacterService characterservice;
+    private CharacterService characterService;
 
     @Test
     public void testGetById() {
@@ -28,10 +28,10 @@ public class CharacterServiceTest {
                 90, 52, 57, 53, 44, 44, 72);
 
         Character character =
-                characterservice.create("하나", 2, 0,
+                characterService.create("하나", 2, 0,
                         0, 1, HittingPosition.LEFT, new ArrayList<>(),
                         characterStatus);
-        Optional<Character> gameCharacterOptional = characterservice.getById(character.getId());
+        Optional<Character> gameCharacterOptional = characterService.getById(character.getId());
         Assert.assertTrue(gameCharacterOptional.isPresent());
     }
 
@@ -42,7 +42,7 @@ public class CharacterServiceTest {
                 90, 52, 57, 53, 44, 44, 72);
 
         Character character =
-                characterservice.create("하나", 2, 0,
+                characterService.create("하나", 2, 0,
                         0, 1, HittingPosition.LEFT, new ArrayList<>(),
                         characterStatus);
         Assert.assertEquals("하나", character.getName());
@@ -68,15 +68,15 @@ public class CharacterServiceTest {
         List<CharacterDto> characters = new ArrayList<>();
         characters.add(gameCharacter1);
         characters.add(gameCharacter2);
-        characterservice.importData(characters);
+        characterService.importData(characters);
 
-        Optional<Character> savedCharacter1 = characterservice.getByCode("test-code1");
+        Optional<Character> savedCharacter1 = characterService.getByCode("test-code1");
         Assert.assertTrue(savedCharacter1.isPresent());
 
-        Optional<Character> notSavedCharacter1 = characterservice.getByCode("test-code11");
+        Optional<Character> notSavedCharacter1 = characterService.getByCode("test-code11");
         Assert.assertFalse(notSavedCharacter1.isPresent());
 
-        Optional<Character> savedCharacter2 = characterservice.getByCode("test-code2");
+        Optional<Character> savedCharacter2 = characterService.getByCode("test-code2");
         Assert.assertTrue(savedCharacter2.isPresent());
 
         CharacterDto updatedGameCharacter1 = new CharacterDto(0L, "test-code1", "하나", 3, 0,
@@ -86,9 +86,9 @@ public class CharacterServiceTest {
         List<CharacterDto> updatedCharacters = new ArrayList<>();
         updatedCharacters.add(updatedGameCharacter1);
 
-        characterservice.importData(updatedCharacters);
+        characterService.importData(updatedCharacters);
 
-        Optional<Character> updatedCharacter1 = characterservice.getByCode("test-code1");
+        Optional<Character> updatedCharacter1 = characterService.getByCode("test-code1");
         Assert.assertTrue(updatedCharacter1.isPresent());
         Assert.assertEquals(3, updatedCharacter1.get().getGrade());
     }
