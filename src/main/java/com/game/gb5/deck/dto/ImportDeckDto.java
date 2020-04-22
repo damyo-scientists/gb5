@@ -10,26 +10,27 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ImportDeckDto extends BaseDto<Deck> {
-    private String playerCode;
-    private String firstBaseCode;
-    private String secondBaseCode;
-    private String thirdBaseCode;
-    private String midFielderCode;
-    private String shortStopCode;
-    private String bench1Code;
-    private String bench2Code;
-    private String bench3Code;
+    private Long playerId;
+    private Long firstBaseId;
+    private Long secondBaseId;
+    private Long thirdBaseId;
+    private Long midFielderId;
+    private Long shortStopId;
+    private Long bench1Id;
+    private Long bench2Id;
+    private Long bench3Id;
 
-    public ImportDeckDto(String playerCode, String firstBaseCode, String secondBaseCode, String thirdBaseCode, String midFielderCode, String shortStopCode, String bench1Code, String bench2Code, String bench3Code) {
-        this.playerCode = playerCode;
-        this.firstBaseCode = firstBaseCode;
-        this.secondBaseCode = secondBaseCode;
-        this.thirdBaseCode = thirdBaseCode;
-        this.midFielderCode = midFielderCode;
-        this.shortStopCode = shortStopCode;
-        this.bench1Code = bench1Code;
-        this.bench2Code = bench2Code;
-        this.bench3Code = bench3Code;
+    public ImportDeckDto(Long playerId, Long firstBaseId, Long secondBaseId, Long thirdBaseId,
+                         Long midFielderId, Long shortStopId, Long bench1Id, Long bench2Id, Long bench3Id) {
+        this.playerId = playerId;
+        this.firstBaseId = firstBaseId;
+        this.secondBaseId = secondBaseId;
+        this.thirdBaseId = thirdBaseId;
+        this.midFielderId = midFielderId;
+        this.shortStopId = shortStopId;
+        this.bench1Id = bench1Id;
+        this.bench2Id = bench2Id;
+        this.bench3Id = bench3Id;
     }
 
     @Override

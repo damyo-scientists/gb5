@@ -1,7 +1,6 @@
 package com.game.gb5.deck.service;
 
 import com.game.gb5.character.dto.CharacterDto;
-import com.game.gb5.character.model.Character;
 import com.game.gb5.character.model.CharacterStatus;
 import com.game.gb5.character.model.HittingPosition;
 import com.game.gb5.character.service.CharacterService;
@@ -16,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,7 +34,7 @@ public class DeckServiceTest {
         CharacterStatus characterStatus1 = new CharacterStatus(31, 68, 87, 85,
                 90, 52, 57, 53, 44, 44, 72);
 
-        CharacterDto gameCharacter1 = new CharacterDto(0L, "test-code1", "하나", 2, 0,
+        CharacterDto gameCharacter1 = new CharacterDto(1L, "test-code1", "하나", 2, 0,
                 0, 1, HittingPosition.LEFT, new ArrayList<>(),
                 characterStatus1);
 
@@ -41,7 +42,7 @@ public class DeckServiceTest {
                 91, 53, 58, 54, 45, 45, 73);
 
         CharacterDto gameCharacter2 =
-                new CharacterDto(0L, "test-code2", "둘", 1, 0,
+                new CharacterDto(2L, "test-code2", "둘", 1, 0,
                         0, 1, HittingPosition.RIGHT, new ArrayList<>(),
                         characterStatus2);
         List<CharacterDto> characterList = new ArrayList<>();
@@ -49,7 +50,7 @@ public class DeckServiceTest {
         characterList.add(gameCharacter2);
         characterService.importData(characterList);
 
-        ImportDeckDto importDeckDto = new ImportDeckDto("test-deck1", "test-deck1", "test-code2", "test-code2", "test-code2", "test-code2", "test-code2", "test-code2", "test-code2");
+        ImportDeckDto importDeckDto = new ImportDeckDto(1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L);
         List<ImportDeckDto> deckDtos = new ArrayList<>();
         deckDtos.add(importDeckDto);
 

@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/deck")
 public class DeckController {
-    private final static Logger loger = LoggerFactory.getLogger(DeckController.class);
+    private final static Logger logger = LoggerFactory.getLogger(DeckController.class);
 
     private DeckService deckService;
 

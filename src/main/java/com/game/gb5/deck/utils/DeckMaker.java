@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Component
 public class DeckMaker {
@@ -27,14 +26,14 @@ public class DeckMaker {
 
     public Deck toEntity(ImportDeckDto importDeckDto) {
         Map<Position, Character> characters = new HashMap<>();
-        characterService.getByCode(importDeckDto.getFirstBaseCode()).ifPresent(chr -> characters.put(Position.FIRST_BASE, chr));
-        characterService.getByCode(importDeckDto.getSecondBaseCode()).ifPresent(chr -> characters.put(Position.SECOND_BASE, chr));
-        characterService.getByCode(importDeckDto.getThirdBaseCode()).ifPresent(chr -> characters.put(Position.THIRD_BASE, chr));
-        characterService.getByCode(importDeckDto.getShortStopCode()).ifPresent(chr -> characters.put(Position.SHORT_STOP, chr));
-        characterService.getByCode(importDeckDto.getMidFielderCode()).ifPresent(chr -> characters.put(Position.MID_FIELDER, chr));
+        characterService.getById(importDeckDto.getFirstBaseId()).ifPresent(chr -> characters.put(Position.FIRST_BASE, chr));
+        characterService.getById(importDeckDto.getSecondBaseId()).ifPresent(chr -> characters.put(Position.SECOND_BASE, chr));
+        characterService.getById(importDeckDto.getThirdBaseId()).ifPresent(chr -> characters.put(Position.THIRD_BASE, chr));
+        characterService.getById(importDeckDto.getShortStopId()).ifPresent(chr -> characters.put(Position.SHORT_STOP, chr));
+        characterService.getById(importDeckDto.getMidFielderId()).ifPresent(chr -> characters.put(Position.MID_FIELDER, chr));
 
-        Optional<Player> player = playerService.getByCode(importDeckDto.getPlayerCode());
+        Player player = playerService.getById(importDeckDto.getPlayerId());
 
-        return new Deck(null, importDeckDto.getCode(), characters, player.orElse(null));
+        return new Deck(null, importDeckDto.getCode(), characters, player);
     }
 }
