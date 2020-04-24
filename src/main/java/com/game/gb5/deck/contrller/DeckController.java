@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -40,9 +41,9 @@ public class DeckController {
 
     @Transactional
     @PutMapping("/import-data")
-    public ResponseEntity<List<Deck>> importData(@Valid List<ImportDeckDto> importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
+    public ResponseEntity<List<Deck>> importData(@Valid ImportDeckDto[] importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
         if (!errors.hasErrors()) {
-            List<Deck> decks = deckService.importData(importDeckDtos).get();
+            List<Deck> decks = deckService.importData(Arrays.asList(importDeckDtos)).get();
             return new ResponseEntity<>(decks, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
