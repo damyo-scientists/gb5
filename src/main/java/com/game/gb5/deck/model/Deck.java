@@ -25,7 +25,7 @@ public class Deck extends BaseEntity {
         this.player = player;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @MapKeyEnumerated(EnumType.STRING)
     private Map<Position, Character> chracters = new HashMap<>();
 

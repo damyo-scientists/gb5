@@ -31,11 +31,7 @@ public class CharacterController {
     @GetMapping("/{character_id}")
     public ResponseEntity<Character> getById(@PathVariable("character_id") final long characterId) {
         Optional<Character> character = characterService.getById(characterId);
-        if (character.isPresent()) {
-
-            return new ResponseEntity<>(character.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return character.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping

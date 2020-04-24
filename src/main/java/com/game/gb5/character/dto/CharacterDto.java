@@ -6,10 +6,12 @@ import com.game.gb5.character.model.Character;
 import com.game.gb5.character.model.CharacterStatus;
 import com.game.gb5.character.model.HittingPosition;
 import com.game.gb5.common.dto.BaseDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -46,6 +48,7 @@ public class CharacterDto extends BaseDto<Character> {
     public Character toEntity() {
         Character character = new Character(id, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient,
                 backNumber, hittingPosition, hittingInclination, characterStatus);
+        characterStatus.setCharacter(character);
         if (createdDate != null) {
             character.setCreatedDate(createdDate);
         }
