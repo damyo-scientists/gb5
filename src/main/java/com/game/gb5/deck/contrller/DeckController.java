@@ -4,6 +4,7 @@ import com.game.gb5.deck.dto.DeckDto;
 import com.game.gb5.deck.dto.ImportDeckDto;
 import com.game.gb5.deck.model.Deck;
 import com.game.gb5.deck.service.DeckService;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,10 @@ public class DeckController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @SneakyThrows
     @Transactional
     @PutMapping("/import-data")
-    public ResponseEntity<List<Deck>> importData(@Valid ImportDeckDto[] importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
+    public ResponseEntity<List<Deck>> importData(@Valid @RequestBody ImportDeckDto[] importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
         if (!errors.hasErrors()) {
             List<Deck> decks = deckService.importData(Arrays.asList(importDeckDtos)).get();
             return new ResponseEntity<>(decks, HttpStatus.OK);

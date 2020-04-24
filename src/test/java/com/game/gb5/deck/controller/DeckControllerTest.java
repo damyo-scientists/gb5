@@ -42,7 +42,7 @@ public class DeckControllerTest extends AbstractControllerTest {
             MediaType.APPLICATION_JSON.getSubtype(),
             StandardCharsets.UTF_8);
 
-    private final String RESOURCE_URI = "/deck";
+    protected final String RESOURCE_URI = "/decks";
 
     @Test
     public void testCreate() throws Exception {
