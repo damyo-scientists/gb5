@@ -1,6 +1,9 @@
 # gb5
 Spring Boot Based Rest Server
 
+## ddl
+https://dbdiagram.io/d/5ea0218539d18f5553fe0548
+
 ## how to build
 ### copy and fill in .env
 ````
