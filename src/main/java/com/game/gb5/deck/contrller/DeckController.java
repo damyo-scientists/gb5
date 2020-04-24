@@ -13,15 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/deck")
+@RequestMapping("/decks")
 public class DeckController {
     private final static Logger logger = LoggerFactory.getLogger(DeckController.class);
-
     private DeckService deckService;
 
     @Autowired
@@ -38,6 +38,7 @@ public class DeckController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Transactional
     @PutMapping("/import-data")
     public ResponseEntity<List<Deck>> importData(@Valid List<ImportDeckDto> importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
         if (!errors.hasErrors()) {
@@ -56,7 +57,7 @@ public class DeckController {
         return new ResponseEntity<>(deck, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/")
     public ResponseEntity<Deck> update(@RequestBody Deck deck) {
         Deck oldDeck = deckService.getById(deck.getId());
         if (oldDeck == null) {
