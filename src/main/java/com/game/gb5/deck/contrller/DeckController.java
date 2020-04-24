@@ -38,6 +38,7 @@ public class DeckController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @PutMapping("/import-data")
     public ResponseEntity<List<Deck>> importData(@Valid List<ImportDeckDto> importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
         if (!errors.hasErrors()) {
             List<Deck> decks = deckService.importData(importDeckDtos).get();
