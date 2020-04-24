@@ -40,7 +40,6 @@ public class DeckController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @SneakyThrows
     @Transactional
     @PutMapping("/import-data")
     public ResponseEntity<List<Deck>> importData(@Valid @RequestBody ImportDeckDto[] importDeckDtos, Errors errors) throws ExecutionException, InterruptedException {
