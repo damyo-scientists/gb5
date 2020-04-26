@@ -7,6 +7,8 @@ import com.game.gb5.character.service.CharacterService;
 import com.game.gb5.deck.dto.ImportDeckDto;
 import com.game.gb5.deck.model.Deck;
 import com.game.gb5.deck.model.Position;
+import com.game.gb5.player.model.Player;
+import com.game.gb5.player.service.PlayerService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +30,12 @@ public class DeckServiceTest {
     @Autowired
     private DeckService deckService;
 
+    @Autowired
+    private PlayerService playerService;
+
     @Test
-    @Transactional
     public void testImportData() {
+        Player player = playerService.create("test_player", "test player");
         CharacterStatus characterStatus1 = new CharacterStatus(31, 68, 87, 85,
                 90, 52, 57, 53, 44, 44, 72);
 
@@ -50,14 +55,16 @@ public class DeckServiceTest {
         characterList.add(gameCharacter2);
         characterService.importData(characterList);
 
-        ImportDeckDto importDeckDto = new ImportDeckDto(1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L);
+        ImportDeckDto importDeckDto = new ImportDeckDto(null, player.getId(), 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L);
+        String deckCode = "test-deck" + new Date().getTime();
+        importDeckDto.setCode(deckCode);
         List<ImportDeckDto> deckDtos = new ArrayList<>();
         deckDtos.add(importDeckDto);
-
         deckService.importData(deckDtos);
 
-        Optional<Deck> deck = deckService.getByCode("test-deck1");
+        Optional<Deck> deck = deckService.getByCode(deckCode);
         Assert.assertTrue(deck.isPresent());
+
         Assert.assertEquals("하나", deck.get().getChracters().get(Position.FIRST_BASE).getName());
     }
 }

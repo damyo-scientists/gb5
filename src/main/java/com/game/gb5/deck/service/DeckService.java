@@ -25,8 +25,8 @@ public class DeckService {
         this.deckMaker = deckMaker;
     }
 
-    public Deck getById(Long id) {
-        return this.deckRepository.getOne(id);
+    public Optional<Deck> getById(Long id) {
+        return this.deckRepository.findById(id);
     }
 
     public Optional<Deck> getByCode(String code) {
@@ -52,10 +52,10 @@ public class DeckService {
     @Async
     public CompletableFuture<List<Deck>> importData(List<ImportDeckDto> importDeckDtos) {
         List<Deck> decks = importDeckDtos.stream().map(dto -> {
-            Optional<Deck> deckOptional = getByCode(dto.getCode());
-            deckOptional.ifPresent(deck -> {
-                dto.setId(deck.getId());
-                dto.setCreatedDate(deck.getCreatedDate());
+            Optional<Deck> deck = getByCode(dto.getCode());
+            deck.ifPresent(deckPresent -> {
+                dto.setId(dto.getId());
+                dto.setCreatedDate(deckPresent.getCreatedDate());
             });
             return deckMaker.toEntity(dto);
         }).collect(Collectors.toList());

@@ -4,7 +4,6 @@ import com.game.gb5.deck.dto.DeckDto;
 import com.game.gb5.deck.dto.ImportDeckDto;
 import com.game.gb5.deck.model.Deck;
 import com.game.gb5.deck.service.DeckService;
-import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -52,17 +52,17 @@ public class DeckController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Deck> getById(@PathVariable("id") Long id) {
-        Deck deck = deckService.getById(id);
-        if (deck == null) {
+        Optional<Deck> deck = deckService.getById(id);
+        if (deck.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(deck, HttpStatus.OK);
+        return new ResponseEntity<>(deck.get(), HttpStatus.OK);
     }
 
     @PutMapping("/")
     public ResponseEntity<Deck> update(@RequestBody Deck deck) {
-        Deck oldDeck = deckService.getById(deck.getId());
-        if (oldDeck == null) {
+        Optional<Deck> oldDeck = deckService.getById(deck.getId());
+        if (oldDeck.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Deck newDeck = deckService.update(deck);
@@ -71,11 +71,11 @@ public class DeckController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        Deck deck = deckService.getById(id);
-        if (deck == null) {
+        Optional<Deck> deck = deckService.getById(id);
+        if (deck.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        deckService.delete(deck);
+        deckService.delete(deck.get());
         return new ResponseEntity<>(HttpStatus.GONE);
     }
 }

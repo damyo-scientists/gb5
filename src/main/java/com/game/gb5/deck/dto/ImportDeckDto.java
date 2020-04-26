@@ -1,14 +1,15 @@
 package com.game.gb5.deck.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.game.gb5.common.dto.BaseDto;
 import com.game.gb5.deck.model.Deck;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @NoArgsConstructor
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ImportDeckDto extends BaseDto<Deck> {
     private Long playerId;
     private Long firstBaseId;
@@ -20,8 +21,9 @@ public class ImportDeckDto extends BaseDto<Deck> {
     private Long bench2Id;
     private Long bench3Id;
 
-    public ImportDeckDto(Long playerId, Long firstBaseId, Long secondBaseId, Long thirdBaseId,
+    public ImportDeckDto(Long id, Long playerId, Long firstBaseId, Long secondBaseId, Long thirdBaseId,
                          Long midFielderId, Long shortStopId, Long bench1Id, Long bench2Id, Long bench3Id) {
+        this.id = id;
         this.playerId = playerId;
         this.firstBaseId = firstBaseId;
         this.secondBaseId = secondBaseId;

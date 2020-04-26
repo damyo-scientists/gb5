@@ -51,10 +51,11 @@ public class CharacterService {
     @Async
     public CompletableFuture<List<Character>> importData(List<CharacterDto> characterDtos) {
         List<Character> characters = characterDtos.stream().map(dto -> {
-            Optional<Character> character = getById(dto.getId());
+            Optional<Character> character = getByCode(dto.getCode());
             character.ifPresent(value -> {
-                    dto.setId(value.getId());
-                    dto.setCreatedDate(value.getCreatedDate());
+                dto.setId(value.getId());
+                dto.setCreatedDate(value.getCreatedDate());
+                dto.setCharacterStatus(value.getCharacterStatus());
             });
             return dto.toEntity();
         }).collect(Collectors.toList());

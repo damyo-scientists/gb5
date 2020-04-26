@@ -31,9 +31,13 @@ public class DeckMaker {
         characterService.getById(importDeckDto.getThirdBaseId()).ifPresent(chr -> characters.put(Position.THIRD_BASE, chr));
         characterService.getById(importDeckDto.getShortStopId()).ifPresent(chr -> characters.put(Position.SHORT_STOP, chr));
         characterService.getById(importDeckDto.getMidFielderId()).ifPresent(chr -> characters.put(Position.MID_FIELDER, chr));
+        characterService.getById(importDeckDto.getBench1Id()).ifPresent(chr -> characters.put(Position.BENCH1, chr));
+        characterService.getById(importDeckDto.getBench1Id()).ifPresent(chr -> characters.put(Position.BENCH2, chr));
+        characterService.getById(importDeckDto.getBench1Id()).ifPresent(chr -> characters.put(Position.BENCH3, chr));
 
         Player player = playerService.getById(importDeckDto.getPlayerId());
 
-        return new Deck(null, importDeckDto.getCode(), characters, player);
+        System.out.println("characer lengh : " + characters.size());
+        return new Deck(importDeckDto.getId(), importDeckDto.getCode(), characters, player);
     }
 }
