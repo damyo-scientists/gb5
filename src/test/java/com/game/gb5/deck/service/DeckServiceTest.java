@@ -17,9 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,37 +34,31 @@ public class DeckServiceTest {
     private PlayerService playerService;
 
     @Test
-    public void testImportData() {
+    public void testImportData() throws ExecutionException, InterruptedException {
         Player player = playerService.create("test_player", "test player");
-        CharacterStatus characterStatus1 = new CharacterStatus(31, 68, 87, 85,
-                90, 52, 57, 53, 44, 44, 72);
 
-        CharacterDto gameCharacter1 = new CharacterDto(1L, "test-code1", "하나", 2, 0,
-                0, 1, HittingPosition.LEFT, new ArrayList<>(),
-                characterStatus1);
+        List<CharacterDto> characterDtoList = new ArrayList<>();
+        for (int i = 1; i <= 8; i++) {
+            CharacterStatus characterStatus = new CharacterStatus(31, 68, 87, 85,
+                    90, 52, 57, 53, 44, 44, 72);
 
-        CharacterStatus characterStatus2 = new CharacterStatus(32, 69, 88, 86,
-                91, 53, 58, 54, 45, 45, 73);
+            CharacterDto characterDto = new CharacterDto(0L, "test-code" + i, "test character " + i,
+                    2, 0, 0, i, HittingPosition.LEFT, new ArrayList<>(), characterStatus);
+            characterDtoList.add(characterDto);
+        }
 
-        CharacterDto gameCharacter2 =
-                new CharacterDto(2L, "test-code2", "둘", 1, 0,
-                        0, 1, HittingPosition.RIGHT, new ArrayList<>(),
-                        characterStatus2);
-        List<CharacterDto> characterList = new ArrayList<>();
-        characterList.add(gameCharacter1);
-        characterList.add(gameCharacter2);
-        characterService.importData(characterList);
+        characterService.importData(characterDtoList).get();
 
-        ImportDeckDto importDeckDto = new ImportDeckDto(null, player.getId(), 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L);
-        String deckCode = "test-deck" + new Date().getTime();
+        ImportDeckDto importDeckDto = new ImportDeckDto(null, player.getId(), "test-code1", "test-code2", "test-code3", "test-code4", "test-code5", "test-code6", "test-code7", "test-code8");
+        String deckCode = "test-deck";
         importDeckDto.setCode(deckCode);
         List<ImportDeckDto> deckDtos = new ArrayList<>();
         deckDtos.add(importDeckDto);
-        deckService.importData(deckDtos);
+        deckService.importData(deckDtos).get();
 
         Optional<Deck> deck = deckService.getByCode(deckCode);
         Assert.assertTrue(deck.isPresent());
 
-        Assert.assertEquals("하나", deck.get().getChracters().get(Position.FIRST_BASE).getName());
+        Assert.assertEquals("test character 1", deck.get().getCharacters().get(Position.FIRST_BASE).getName());
     }
 }

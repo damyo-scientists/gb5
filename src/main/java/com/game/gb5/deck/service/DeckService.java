@@ -54,10 +54,12 @@ public class DeckService {
         List<Deck> decks = importDeckDtos.stream().map(dto -> {
             Optional<Deck> deck = getByCode(dto.getCode());
             deck.ifPresent(deckPresent -> {
-                dto.setId(dto.getId());
+                dto.setId(deckPresent.getId());
                 dto.setCreatedDate(deckPresent.getCreatedDate());
             });
-            return deckMaker.toEntity(dto);
+            Deck deckEntity = deckMaker.toEntity(dto);
+            deckEntity.setCreatedDate(dto.getCreatedDate());
+            return deckEntity;
         }).collect(Collectors.toList());
         return CompletableFuture.completedFuture(deckRepository.saveAll(decks));
     }

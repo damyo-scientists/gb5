@@ -18,16 +18,16 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Deck extends BaseEntity {
-    public Deck(Long id, String code, Map<Position, Character> chracters, Player player) {
+    public Deck(Long id, String code, Map<Position, Character> characters, Player player) {
         this.id = id;
         this.code = code;
-        this.chracters = chracters;
+        this.characters = characters;
         this.player = player;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @MapKeyEnumerated(EnumType.STRING)
-    private Map<Position, Character> chracters = new HashMap<>();
+    private Map<Position, Character> characters = new HashMap<>();
 
     @ManyToOne
     private Player player;

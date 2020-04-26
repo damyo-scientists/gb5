@@ -48,7 +48,6 @@ public class CharacterDto extends BaseDto<Character> {
     public Character toEntity() {
         Character character = new Character(id, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient,
                 backNumber, hittingPosition, hittingInclination, characterStatus);
-        characterStatus.setCharacter(character);
         if (createdDate != null) {
             character.setCreatedDate(createdDate);
         }

@@ -21,7 +21,7 @@ public class DeckMakerTest {
     public void testToEntity() {
         assertNotNull(deckMaker);
 
-        ImportDeckDto importDeckDto = new ImportDeckDto(1L, 1L, 4L, 3L, 6L, 2L, 1L, 5L, 7L, 8L);
+        ImportDeckDto importDeckDto = new ImportDeckDto(1L, 1L, "test-code1", "test-code3", "test-code6", "test-code2", "test-code1", "test-code5", "test-code7", "test-code8");
         Deck deck = deckMaker.toEntity(importDeckDto);
         assertNotNull(deck);
     }

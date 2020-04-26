@@ -35,7 +35,7 @@ public class Character extends BaseEntity implements Cloneable {
     @Column
     private List<Float> hittingInclination;
     @JsonIgnore
-    @OneToOne(mappedBy = "character", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, orphanRemoval = true)
     private CharacterStatus characterStatus;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
