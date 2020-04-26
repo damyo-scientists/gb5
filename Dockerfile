@@ -1,11 +1,8 @@
-FROM adoptopenjdk/openjdk13:jdk-13.0.2_8-alpine-slim
+FROM gradle:6.0.1-jdk11
 
-COPY gradlew .
-COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 COPY src src
 COPY .env .
 
-RUN chmod +x ./gradlew
-ENTRYPOINT ["/gradlew", "bootRun","-Dspring.profiles.active=core,deploy"]
+ENTRYPOINT ["gradle", "bootRun","-Dspring.profiles.active=core,deploy"]

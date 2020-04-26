@@ -23,7 +23,7 @@ group 'com.game.gb5'
 apply plugin: 'application'
 mainClassName = 'com.game.gb5.Gb5Application'
 
-sourceCompatibility = 13
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
