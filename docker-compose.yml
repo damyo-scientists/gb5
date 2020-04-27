@@ -11,7 +11,7 @@ services:
   spring-boot:
     build: .
     ports:
-      - '9090:9090'
+      - '${SPRING_BOOT_PORT}:9090'
     depends_on:
       - mariadb
     networks:
@@ -20,7 +20,7 @@ services:
     image: 'mariadb:10.5'
     restart: always
     ports:
-      - '33060:3306'
+      - '${MYSQL_PORT}:3306'
     environment:
       - 'MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}'
       - 'MYSQL_ROOT_HOST=%'
@@ -46,7 +46,7 @@ services:
   mongodb:
     image: 'mongo:4.2.3'
     ports:
-      - '27017:27017'
+      - '${MONGODB_PORT}:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
