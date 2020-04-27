@@ -1,4 +1,4 @@
-import com.game.gb5.scouter.model.entity.Scouter;
+import com.game.gb5.scouter.model.Scouter;
 
 public class ScoutingReportTest {
 	public void testGetScoutingReport() {

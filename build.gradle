@@ -23,7 +23,7 @@ group 'com.game.gb5'
 apply plugin: 'application'
 mainClassName = 'com.game.gb5.Gb5Application'
 
-sourceCompatibility = 13
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -37,6 +37,7 @@ bootRun() {
 dependencies {
     implementation "io.github.cdimascio:java-dotenv:5.1.4"
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.12'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
 
     // https://mvnrepository.com/artifact/org.modelmapper.extensions/modelmapper-spring
     compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '2.3.5'

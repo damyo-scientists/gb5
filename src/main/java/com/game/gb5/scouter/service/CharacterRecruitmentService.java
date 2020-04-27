@@ -1,9 +1,9 @@
 package com.game.gb5.scouter.service;
 
-import com.game.gb5.character.model.entity.GameCharacter;
-import com.game.gb5.inventory.model.entity.item.CharacterPiece;
-import com.game.gb5.player.model.entity.player.Player;
-import com.game.gb5.scouter.model.entity.report.ReportCharacter;
+import com.game.gb5.character.model.Character;
+import com.game.gb5.inventory.model.item.CharacterPiece;
+import com.game.gb5.player.model.Player;
+import com.game.gb5.scouter.model.report.ReportCharacter;
 
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ import java.util.List;
 
 @Service
 public class CharacterRecruitmentService {
-	public List<GameCharacter> recruitCharacters(Player player, List<ReportCharacter> recruitCharacterList) {
-		List<GameCharacter> playerCharacters = player.getCharacters();
-		List<GameCharacter> recruitedCharacter = new ArrayList<>();
+	public List<Character> recruitCharacters(Player player, List<ReportCharacter> recruitCharacterList) {
+		List<Character> playerCharacters = player.getCharacters();
+		List<Character> recruitedCharacter = new ArrayList<>();
 		for (ReportCharacter reportCharacter : recruitCharacterList) {
 			if (playerCharacters.contains(reportCharacter.getTargetCharacter())) {
 				CharacterPiece characterPiece = new CharacterPiece(reportCharacter.getTargetCharacter());

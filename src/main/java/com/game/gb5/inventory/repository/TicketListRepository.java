@@ -1,6 +1,6 @@
 package com.game.gb5.inventory.repository;
 
-import com.game.gb5.inventory.model.entity.item.voucher.Ticket;
+import com.game.gb5.inventory.model.item.voucher.Ticket;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

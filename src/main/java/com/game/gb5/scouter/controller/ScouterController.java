@@ -1,6 +1,6 @@
 package com.game.gb5.scouter.controller;
 
-import com.game.gb5.scouter.model.entity.Scouter;
+import com.game.gb5.scouter.model.Scouter;
 import com.game.gb5.scouter.service.ScoutingService;
 
 import org.springframework.beans.factory.annotation.Autowired;

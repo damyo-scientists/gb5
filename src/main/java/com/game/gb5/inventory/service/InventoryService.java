@@ -1,6 +1,6 @@
 package com.game.gb5.inventory.service;
 
-import com.game.gb5.inventory.model.entity.inventory.Inventory;
+import com.game.gb5.inventory.model.inventory.Inventory;
 import com.game.gb5.inventory.repository.InventoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

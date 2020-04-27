@@ -1,8 +1,8 @@
 package com.game.gb5.scouter.system.strategy;
 
-import com.game.gb5.character.model.entity.EmptyGameCharacter;
-import com.game.gb5.character.model.entity.GameCharacter;
-import com.game.gb5.scouter.model.entity.ScouterStatus;
+import com.game.gb5.character.model.EmptyCharacter;
+import com.game.gb5.character.model.Character;
+import com.game.gb5.scouter.model.ScouterStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,41 +15,41 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 	private static final int GRADE_RATE_TOTAL = 100;
 	@Getter
 	private Long seed;
-	
+
 	public DefaultPickCharacterStrategy(Long seed) {
 		this.seed = seed;
 	}
-	
-	public List<GameCharacter> pickCharacters(List<GameCharacter> characterList, ScouterStatus scouterStatus) {
+
+	public List<Character> pickCharacters(List<Character> characterList, ScouterStatus scouterStatus) {
 		List<Integer> gradeList = pickGradeList(scouterStatus);
 		return gradeList.stream().map(grade -> pickCharacter(grade, characterList))
 				.collect(Collectors.toList());
 	}
-	
-	private GameCharacter pickCharacter(int grade, List<GameCharacter> characterList) {
+
+	private Character pickCharacter(int grade, List<Character> characterList) {
 		int sum = 0;
-		List<GameCharacter> filteredList = characterList.stream().filter(character -> character.getGrade() == grade + 1).collect(Collectors.toList());
-		
-		for (GameCharacter character : filteredList) {
+		List<Character> filteredList = characterList.stream().filter(character -> character.getGrade() == grade + 1).collect(Collectors.toList());
+
+		for (Character character : filteredList) {
 			sum += character.getAcquisitionCoefficient();
 		}
 		int rand = new Random().nextInt(sum);
 		sum = 0;
-		for (GameCharacter character : filteredList) {
+		for (Character character : filteredList) {
 			if (rand >= sum && rand < sum + character.getAcquisitionCoefficient()) {
 				return character;
 			}
 			sum += character.getAcquisitionCoefficient();
 		}
-		return new EmptyGameCharacter();
+		return new EmptyCharacter();
 	}
-	
+
 	private List<Integer> pickGradeList(ScouterStatus scouterStatus) {
 		List<Integer> gradeAcquisitionRate = scouterStatus.getGradeAcquisitionRates();
 		int cnt = scouterStatus.getReportChracterSize();
 		boolean isAllZero = true;
 		List<Integer> gradeList = new ArrayList<>();
-		
+
 		for (int i = 0; i < cnt; i++) {
 			int grade = pickGrade(gradeAcquisitionRate);
 			if (grade != 0) {
@@ -63,7 +63,7 @@ public class DefaultPickCharacterStrategy implements PickCharacterStrategy {
 		}
 		return gradeList;
 	}
-	
+
 	private int pickGrade(List<Integer> gradeAcquisitionRate) {
 		int rangeStart = 0;
 		int rangeEnd;

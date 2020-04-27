@@ -1,6 +1,6 @@
 package com.game.gb5.inventory.repository;
 
-import com.game.gb5.inventory.model.entity.inventory.Inventory;
+import com.game.gb5.inventory.model.inventory.Inventory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

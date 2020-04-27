@@ -9,16 +9,23 @@ server:
 spring:
   profiles: core
   datasource:
-    url: 'jdbc:mariadb://localhost:33060/gb5'
+    url: 'jdbc:mariadb://localhost:33060/gb5?useUnicode=true&characterEncoding=utf8mb4'
     username: root
     password: ${env.MYSQL_PASSWORD}
     driver-class-name: 'org.mariadb.jdbc.Driver'
   jpa:
     hibernate:
+      naming:
+        physical-strategy: 'org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
       ddl-auto: update
     database-platform: 'org.hibernate.dialect.MariaDB103Dialect'
     generate-ddl: true
     show-sql: true
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 8
 
 ---
 
@@ -27,4 +34,4 @@ server:
 spring:
   profiles: deploy
   datasource:
-    url: 'jdbc:mysql://mariadb:3306/gb5'
+    url: 'jdbc:mysql://mariadb:3306/gb5?useUnicode=true&characterEncoding=utf8mb4'

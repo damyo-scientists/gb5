@@ -1,6 +1,6 @@
 package com.game.gb5.scouter.repository;
 
-import com.game.gb5.character.model.entity.CharacterSet;
+import com.game.gb5.character.model.CharacterSet;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
