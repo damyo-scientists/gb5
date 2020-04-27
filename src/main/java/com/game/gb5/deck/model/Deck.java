@@ -25,7 +25,7 @@ public class Deck extends BaseEntity {
         this.player = player;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @MapKeyEnumerated(EnumType.STRING)
     private Map<Position, Character> characters = new HashMap<>();
 
