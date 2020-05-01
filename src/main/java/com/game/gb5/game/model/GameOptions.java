@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@Getter
+@Setter
 public class GameOptions {
-    @Getter
-    @Setter
     private int inning = 9;
 }
