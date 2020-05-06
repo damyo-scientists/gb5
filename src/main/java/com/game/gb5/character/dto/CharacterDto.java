@@ -18,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CharacterDto extends BaseDto<Character> {
     @NotNull
     private String name;

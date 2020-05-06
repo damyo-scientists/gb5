@@ -53,10 +53,7 @@ public class DeckService {
     public CompletableFuture<List<Deck>> importData(List<ImportDeckDto> importDeckDtos) {
         List<Deck> decks = importDeckDtos.stream().map(dto -> {
             Optional<Deck> deckExisted = getByCode(dto.getCode());
-            deckExisted.ifPresent(deckPresent -> {
-                dto.setId(deckPresent.getId());
-                dto.setCreatedDate(deckPresent.getCreatedDate());
-            });
+            deckExisted.ifPresent(deckPresent -> dto.setIdAndCreatedDate(deckPresent.getId(), deckPresent.getCreatedDate()));
             Deck deckEntity = deckMaker.toEntity(dto);
             if (dto.getCreatedDate() != null) {
                 deckEntity.setCreatedDate(dto.getCreatedDate());

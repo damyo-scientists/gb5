@@ -1,6 +1,10 @@
 package com.game.gb5.game.model;
 
 import com.game.gb5.deck.model.Deck;
+import com.game.gb5.game.model.Game;
+import com.game.gb5.game.model.GameOptions;
+import com.game.gb5.game.model.GameStatus;
+import com.game.gb5.game.model.GameType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
