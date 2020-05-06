@@ -1,7 +1,7 @@
-package com.game.gb5.match.controller;
+package com.game.gb5.matching.controller;
 
-import com.game.gb5.match.model.Match;
-import com.game.gb5.match.service.MatchService;
+import com.game.gb5.matching.model.Matching;
+import com.game.gb5.matching.service.MatchingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/matches")
-public class MatchController {
+@RequestMapping("/matching")
+public class MatchingController {
     @Autowired
-    private MatchService matchService;
+    private MatchingService matchingService;
 
     @GetMapping("/{match_id}")
-    public ResponseEntity<Match> getById(@PathVariable("match_id") final long matchId) {
-        Optional<Match> character = matchService.getById(matchId);
+    public ResponseEntity<Matching> getById(@PathVariable("match_id") final long matchId) {
+        Optional<Matching> character = matchingService.getById(matchId);
         return character.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

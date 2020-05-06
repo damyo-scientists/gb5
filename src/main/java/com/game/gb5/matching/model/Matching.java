@@ -1,4 +1,4 @@
-package com.game.gb5.match.model;
+package com.game.gb5.matching.model;
 
 import com.game.gb5.common.model.BaseEntity;
 import com.game.gb5.deck.model.Deck;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -14,7 +13,7 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Match extends BaseEntity {
+public class Matching extends BaseEntity {
     @OneToOne
     private Deck deck1;
     @OneToOne
