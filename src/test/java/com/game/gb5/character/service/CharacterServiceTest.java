@@ -1,9 +1,10 @@
 package com.game.gb5.character.service;
 
-import com.game.gb5.character.dto.CharacterDto;
-import com.game.gb5.character.model.CharacterStatus;
-import com.game.gb5.character.model.Character;
-import com.game.gb5.character.model.HittingPosition;
+import com.game.gb5.dto.CharacterDto;
+import com.game.gb5.model.CharacterStatus;
+import com.game.gb5.model.Character;
+import com.game.gb5.model.HittingPosition;
+import com.game.gb5.service.CharacterService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

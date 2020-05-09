@@ -1,8 +1,8 @@
 package com.game.gb5.deck.util;
 
-import com.game.gb5.deck.dto.ImportDeckDto;
-import com.game.gb5.deck.model.Deck;
-import com.game.gb5.deck.utils.DeckMaker;
+import com.game.gb5.dto.ImportDeckDto;
+import com.game.gb5.model.Deck;
+import com.game.gb5.utils.DeckMaker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

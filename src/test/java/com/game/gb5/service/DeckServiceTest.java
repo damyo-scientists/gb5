@@ -1,17 +1,12 @@
-package com.game.gb5.matching.service;
+package com.game.gb5.service;
 
 import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.model.CharacterStatus;
 import com.game.gb5.model.HittingPosition;
-import com.game.gb5.service.CharacterService;
 import com.game.gb5.dto.ImportDeckDto;
+import com.game.gb5.model.Deck;
 import com.game.gb5.model.Position;
-import com.game.gb5.service.DeckService;
-import com.game.gb5.dto.MatchingDto;
-import com.game.gb5.model.Matching;
 import com.game.gb5.model.Player;
-import com.game.gb5.service.PlayerService;
-import com.game.gb5.service.MatchingService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,10 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MatchingServiceTest {
-    @Autowired
-    private MatchingService matchingService;
-
+public class DeckServiceTest {
     @Autowired
     private CharacterService characterService;
 
@@ -41,24 +33,12 @@ public class MatchingServiceTest {
 
     @Test
     public void testImportData() throws ExecutionException, InterruptedException {
+        String deckCode = "test-deck";
         this.makeDeck();
-        List<MatchingDto> matchingDtoList = new ArrayList<>();
-        for (int i = 1; i <= 2; i++) {
-            MatchingDto matchingDto = new MatchingDto("test-deck", "test-deck");
-            matchingDto.setCode("match-" + i);
-            matchingDtoList.add(matchingDto);
-        }
+        Optional<Deck> deck = deckService.getByCode(deckCode);
+        Assert.assertTrue(deck.isPresent());
 
-        matchingService.importData(matchingDtoList).get();
-
-        Optional<Matching> match1 = matchingService.getByCode("match-1");
-        Assert.assertTrue(match1.isPresent());
-
-        Optional<Matching> match2 = matchingService.getByCode("match-2");
-        Assert.assertTrue(match2.isPresent());
-
-        Assert.assertEquals("test character 1", match1.get().getDeck1().getCharacters().get(Position.FIRST_BASE).getName());
-        Assert.assertEquals("test character 1", match2.get().getDeck1().getCharacters().get(Position.FIRST_BASE).getName());
+        Assert.assertEquals("test character 1", deck.get().getCharacters().get(Position.FIRST_BASE).getName());
     }
 
     private void makeDeck() throws ExecutionException, InterruptedException {
