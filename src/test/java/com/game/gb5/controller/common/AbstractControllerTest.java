@@ -1,4 +1,4 @@
-package com.game.gb5.commons;
+package com.game.gb5.controller.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

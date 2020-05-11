@@ -1,4 +1,4 @@
-package com.game.gb5.character.service;
+package com.game.gb5.service;
 
 import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.model.CharacterStatus;

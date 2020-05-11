@@ -1,4 +1,4 @@
-package com.game.gb5.deck.util;
+package com.game.gb5.utils;
 
 import com.game.gb5.dto.ImportDeckDto;
 import com.game.gb5.model.Deck;

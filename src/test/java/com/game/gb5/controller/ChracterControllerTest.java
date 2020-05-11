@@ -1,11 +1,10 @@
-package com.game.gb5.character.controller;
+package com.game.gb5.controller;
 
+import com.game.gb5.controller.common.AbstractControllerTest;
 import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.model.Character;
 import com.game.gb5.model.CharacterStatus;
 import com.game.gb5.model.HittingPosition;
-import com.game.gb5.commons.AbstractControllerTest;
-import com.game.gb5.controller.CharacterController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

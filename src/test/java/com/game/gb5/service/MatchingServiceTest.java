@@ -1,17 +1,9 @@
-package com.game.gb5.matching.service;
+package com.game.gb5.service;
 
 import com.game.gb5.dto.CharacterDto;
-import com.game.gb5.model.CharacterStatus;
-import com.game.gb5.model.HittingPosition;
-import com.game.gb5.service.CharacterService;
 import com.game.gb5.dto.ImportDeckDto;
-import com.game.gb5.model.Position;
-import com.game.gb5.service.DeckService;
 import com.game.gb5.dto.MatchingDto;
-import com.game.gb5.model.Matching;
-import com.game.gb5.model.Player;
-import com.game.gb5.service.PlayerService;
-import com.game.gb5.service.MatchingService;
+import com.game.gb5.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,6 @@
-package com.game.gb5.deck.controller;
+package com.game.gb5.controller;
 
-import com.game.gb5.commons.AbstractControllerTest;
-import com.game.gb5.controller.DeckController;
+import com.game.gb5.controller.common.AbstractControllerTest;
 import com.game.gb5.dto.DeckDto;
 import com.game.gb5.service.DeckService;
 import org.junit.Test;
