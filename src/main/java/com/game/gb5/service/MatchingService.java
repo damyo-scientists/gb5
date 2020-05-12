@@ -1,7 +1,7 @@
 package com.game.gb5.service;
 
 import com.game.gb5.dto.MatchingDto;
-import com.game.gb5.model.Matching;
+import com.game.gb5.model.matching.Matching;
 import com.game.gb5.repository.MatchingRepository;
 import com.game.gb5.utils.MatchMaker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class MatchingService {
         return this.matchingRepository.save(matchingDto.toEntity());
     }
 
-    public Matching update(Matching matching) {
-        return this.matchingRepository.save(matching);
+    public Matching update(MatchingDto matchingDto) {
+        return this.matchingRepository.save(matchingDto.toEntity());
     }
 
     public void delete(Matching matching) {

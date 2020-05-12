@@ -1,4 +1,4 @@
-package com.game.gb5.model;
+package com.game.gb5.model.common;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

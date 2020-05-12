@@ -1,5 +1,7 @@
 package com.game.gb5.model;
 
+import com.game.gb5.model.character.Character;
+import com.game.gb5.model.common.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

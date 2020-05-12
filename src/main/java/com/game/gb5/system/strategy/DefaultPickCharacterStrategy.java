@@ -1,7 +1,7 @@
 package com.game.gb5.system.strategy;
 
-import com.game.gb5.model.EmptyCharacter;
-import com.game.gb5.model.Character;
+import com.game.gb5.model.character.EmptyCharacter;
+import com.game.gb5.model.character.Character;
 import com.game.gb5.model.ScouterStatus;
 
 import java.util.ArrayList;

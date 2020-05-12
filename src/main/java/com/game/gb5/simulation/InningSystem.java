@@ -1,7 +1,7 @@
 package com.game.gb5.simulation;
 
 import com.game.gb5.model.Deck;
-import com.game.gb5.model.Game;
+import com.game.gb5.model.game.Game;
 
 public class InningSystem {
     private Game game;
@@ -11,8 +11,8 @@ public class InningSystem {
     private String inningResult;
     public InningSystem(Game game, int inning) {
         this.inning = inning;
-        this.deck1 = game.getDeck1();
-        this.deck2 = game.getDeck2();
+        this.deck1 = game.getMatching().getDeck1();
+        this.deck2 = game.getMatching().getDeck2();
     }
 
     public String start() {

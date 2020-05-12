@@ -1,6 +1,6 @@
 package com.game.gb5.model.item;
 
-import com.game.gb5.model.Character;
+import com.game.gb5.model.character.Character;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

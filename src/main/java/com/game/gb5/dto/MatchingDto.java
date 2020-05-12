@@ -1,6 +1,6 @@
 package com.game.gb5.dto;
 
-import com.game.gb5.model.Matching;
+import com.game.gb5.model.matching.Matching;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

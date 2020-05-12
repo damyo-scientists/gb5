@@ -1,6 +1,6 @@
 package com.game.gb5.model.item;
 
-import com.game.gb5.model.BaseEntity;
+import com.game.gb5.model.common.BaseEntity;
 
 import javax.persistence.Column;
 

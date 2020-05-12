@@ -1,6 +1,6 @@
 package com.game.gb5.dto;
 
-import com.game.gb5.model.Character;
+import com.game.gb5.model.character.Character;
 import com.game.gb5.model.Deck;
 import com.game.gb5.model.Position;
 import com.game.gb5.model.Player;

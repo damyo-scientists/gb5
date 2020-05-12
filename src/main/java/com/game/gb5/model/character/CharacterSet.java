@@ -1,4 +1,4 @@
-package com.game.gb5.model;
+package com.game.gb5.model.character;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.game.gb5.model.common.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

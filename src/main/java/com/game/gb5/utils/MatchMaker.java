@@ -1,7 +1,7 @@
 package com.game.gb5.utils;
 
 import com.game.gb5.dto.MatchingDto;
-import com.game.gb5.model.Matching;
+import com.game.gb5.model.matching.Matching;
 import com.game.gb5.service.DeckService;
 import org.springframework.stereotype.Component;
 

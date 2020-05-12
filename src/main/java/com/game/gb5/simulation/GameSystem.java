@@ -1,7 +1,7 @@
 package com.game.gb5.simulation;
 
-import com.game.gb5.model.Game;
-import com.game.gb5.model.GameOptions;
+import com.game.gb5.model.game.Game;
+import com.game.gb5.model.game.GameOptions;
 
 import java.util.ArrayList;
 import java.util.List;

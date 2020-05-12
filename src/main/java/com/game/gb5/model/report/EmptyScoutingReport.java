@@ -1,5 +1,6 @@
 package com.game.gb5.model.report;
 
+import com.game.gb5.model.report.ScoutingReport;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

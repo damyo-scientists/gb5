@@ -1,9 +1,9 @@
 package com.game.gb5.model.report;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.game.gb5.model.BaseEntity;
-import com.game.gb5.model.CharacterReportStatus;
-import com.game.gb5.model.Character;
+import com.game.gb5.model.common.BaseEntity;
+import com.game.gb5.model.character.CharacterReportStatus;
+import com.game.gb5.model.character.Character;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

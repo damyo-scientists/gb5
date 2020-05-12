@@ -1,6 +1,8 @@
 package com.game.gb5.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.game.gb5.model.character.CharacterSet;
+import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.report.ScoutingReport;
 
 import java.time.LocalDateTime;

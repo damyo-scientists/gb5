@@ -2,8 +2,8 @@ package com.game.gb5.controller;
 
 import com.game.gb5.controller.common.AbstractControllerTest;
 import com.game.gb5.dto.CharacterDto;
-import com.game.gb5.model.Character;
-import com.game.gb5.model.CharacterStatus;
+import com.game.gb5.model.character.Character;
+import com.game.gb5.model.character.CharacterStatus;
 import com.game.gb5.model.HittingPosition;
 import org.junit.Test;
 import org.junit.runner.RunWith;

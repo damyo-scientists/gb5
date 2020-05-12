@@ -1,6 +1,7 @@
 package com.game.gb5.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.item.CharacterPiece;
 import com.game.gb5.model.item.PassType;
 import com.game.gb5.model.item.TicketType;

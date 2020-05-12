@@ -1,7 +1,7 @@
 package com.game.gb5.controller;
 
 import com.game.gb5.dto.CharacterDto;
-import com.game.gb5.model.Character;
+import com.game.gb5.model.character.Character;
 import com.game.gb5.service.CharacterService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;

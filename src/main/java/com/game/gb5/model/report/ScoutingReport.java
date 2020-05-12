@@ -1,7 +1,7 @@
 package com.game.gb5.model.report;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.game.gb5.model.BaseEntity;
+import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.Scouter;
 
 import java.util.List;
@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.game.gb5.model.report.ReportCharacter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

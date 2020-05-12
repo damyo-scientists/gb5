@@ -1,7 +1,7 @@
 package com.game.gb5.service;
 
 import com.game.gb5.common.random.RandomMaker;
-import com.game.gb5.model.CharacterReportStatus;
+import com.game.gb5.model.character.CharacterReportStatus;
 import com.game.gb5.model.Player;
 import com.game.gb5.model.Scouter;
 import com.game.gb5.model.item.TicketType;

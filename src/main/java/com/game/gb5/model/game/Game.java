@@ -1,26 +1,37 @@
-package com.game.gb5.model;
+package com.game.gb5.model.game;
 
+import com.game.gb5.model.Deck;
+import com.game.gb5.model.common.BaseEntity;
+import com.game.gb5.model.matching.Matching;
 import com.game.gb5.simulation.GameSystem;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Game extends BaseEntity {
+    @OneToOne
+    private Matching matching;
+    @Enumerated
     private GameType gameType;
-    @Getter
-    private Deck deck1;
-    @Getter
-    private Deck deck2;
-    @Getter
+    @OneToOne(mappedBy = "game")
     private GameOptions gameOptions;
-    @Getter
-    private GameStatus gameStatus;
+    @Enumerated
+    private GameState gameState;
 
     @Builder
-    public Game(GameType gameType, Deck deck1, Deck deck2) {
+    public Game(GameType gameType, Matching matching) {
+        this.matching = matching;
         this.gameType = gameType;
-        this.deck1 = deck1;
-        this.deck2 = deck2;
-        this.gameStatus = GameStatus.WAIT_TO_READY;
+        this.gameState = GameState.WAIT_TO_READY;
         // gameOptions = gameDefault
     }
 
@@ -30,7 +41,7 @@ public class Game extends BaseEntity {
 
     public void onReady(GameOptions gameOptions, boolean autoCount) {
         this.gameOptions = gameOptions;
-        this.gameStatus = GameStatus.ON_READY_TO_START;
+        this.gameState = GameState.ON_READY_TO_START;
 
         if (autoCount) {
             countToStart();
@@ -50,7 +61,7 @@ public class Game extends BaseEntity {
     }
 
     public String start() {
-        this.gameStatus = GameStatus.IN_GAME;
+        this.gameState = GameState.IN_GAME;
         // inning start
         String gameResult = new GameSystem(this).start();
         return gameResult;

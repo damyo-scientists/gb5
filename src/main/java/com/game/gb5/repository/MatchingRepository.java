@@ -1,6 +1,6 @@
 package com.game.gb5.repository;
 
-import com.game.gb5.model.Matching;
+import com.game.gb5.model.matching.Matching;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

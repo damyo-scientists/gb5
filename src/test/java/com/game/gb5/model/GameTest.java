@@ -1,5 +1,10 @@
 package com.game.gb5.model;
 
+import com.game.gb5.model.game.Game;
+import com.game.gb5.model.game.GameOptions;
+import com.game.gb5.model.game.GameState;
+import com.game.gb5.model.game.GameType;
+import com.game.gb5.model.matching.Matching;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +19,15 @@ public class GameTest {
         // let's think about builder pattern
 
         // game needs deck, and game has a type (vs ai, vs player)
-        this.game = Game.builder().gameType(GameType.VERSUS_PLAYER).deck1(deck1).deck2(deck2).build();
+        Matching matching = new Matching();
+        matching.setDeck1(deck1);
+        matching.setDeck2(deck2);
+        this.game = Game.builder().gameType(GameType.VERSUS_PLAYER).matching(matching).build();
     }
 
     @Test
     public void testGameWait() {
-        Assert.assertEquals(GameStatus.WAIT_TO_READY, game.getGameStatus());
+        Assert.assertEquals(GameState.WAIT_TO_READY, game.getGameState());
     }
 
     @Test
@@ -27,10 +35,10 @@ public class GameTest {
         // game has game options, option applied before onReady
         GameOptions gameOptions = new GameOptions();
         game.onReady(gameOptions, false);
-        Assert.assertEquals(GameStatus.ON_READY_TO_START, game.getGameStatus());
+        Assert.assertEquals(GameState.ON_READY_TO_START, game.getGameState());
 
         // ok, game started, game status have to be changed.
         game.start();
-        Assert.assertEquals(GameStatus.IN_GAME, game.getGameStatus());
+        Assert.assertEquals(GameState.IN_GAME, game.getGameState());
     }
 }

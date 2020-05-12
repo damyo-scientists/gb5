@@ -1,6 +1,6 @@
 package com.game.gb5.utils;
 
-import com.game.gb5.model.Character;
+import com.game.gb5.model.character.Character;
 import com.game.gb5.service.CharacterService;
 import com.game.gb5.dto.ImportDeckDto;
 import com.game.gb5.model.Deck;

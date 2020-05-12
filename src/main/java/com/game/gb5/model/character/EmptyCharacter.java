@@ -1,4 +1,4 @@
-package com.game.gb5.model;
+package com.game.gb5.model.character;
 
 import javax.persistence.Entity;
 

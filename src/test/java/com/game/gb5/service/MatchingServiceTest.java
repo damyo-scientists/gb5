@@ -4,6 +4,8 @@ import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.dto.ImportDeckDto;
 import com.game.gb5.dto.MatchingDto;
 import com.game.gb5.model.*;
+import com.game.gb5.model.character.CharacterStatus;
+import com.game.gb5.model.matching.Matching;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
