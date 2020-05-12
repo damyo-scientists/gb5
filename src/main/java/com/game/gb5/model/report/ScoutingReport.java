@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.game.gb5.model.report.ReportCharacter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

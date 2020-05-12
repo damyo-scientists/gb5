@@ -5,8 +5,8 @@ import com.game.gb5.model.Player;
 import com.game.gb5.model.Scouter;
 import com.game.gb5.model.report.ScoutingReport;
 import com.game.gb5.service.PlayerService;
-import com.game.gb5.service.ScoutingService;
 
+import com.game.gb5.service.ScoutingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
