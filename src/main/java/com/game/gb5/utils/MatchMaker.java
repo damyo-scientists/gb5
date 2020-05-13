@@ -17,6 +17,7 @@ public class MatchMaker {
         Matching matching = new Matching();
         deckService.getByCode(importMatchingDto.getDeck1Code()).ifPresent(deck1 -> matching.setDeck1(deck1));
         deckService.getByCode(importMatchingDto.getDeck1Code()).ifPresent(deck2 -> matching.setDeck2(deck2));
+        matching.setOpened(false);
         matching.setCode(importMatchingDto.getCode());
         return matching;
     }

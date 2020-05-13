@@ -50,8 +50,8 @@ public class MatchingService {
     @Async
     public CompletableFuture<List<Matching>> importData(List<MatchingDto> importMatchingDtos) {
         List<Matching> matchingList = importMatchingDtos.stream().map(dto -> {
-            Optional<Matching> matchExisted = getByCode(dto.getCode());
-            matchExisted.ifPresent(matchPresent -> dto.setIdAndCreatedDate(matchPresent.getId(), matchPresent.getCreatedDate()));
+            Optional<Matching> matchingExisted = getByCode(dto.getCode());
+            matchingExisted.ifPresent(matchPresent -> dto.setIdAndCreatedDate(matchPresent.getId(), matchPresent.getCreatedDate()));
             Matching matchingEntity = matchMaker.toEntity(dto);
             if (dto.getCreatedDate() != null) {
                 matchingEntity.setCreatedDate(dto.getCreatedDate());

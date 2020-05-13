@@ -57,8 +57,8 @@ public class MatchingServiceTest {
         Optional<Matching> match2 = matchingService.getByCode("match-2");
         Assert.assertTrue(match2.isPresent());
 
-        Assert.assertEquals("test character 1", match1.get().getDeck1().getCharacters().get(Position.FIRST_BASE).getName());
-        Assert.assertEquals("test character 1", match2.get().getDeck1().getCharacters().get(Position.FIRST_BASE).getName());
+        Assert.assertEquals("test character 1", match1.get().getDeck1().getDeckCharacters().get(Position.FIRST_BASE).getCharacter().getName());
+        Assert.assertEquals("test character 1", match2.get().getDeck1().getDeckCharacters().get(Position.FIRST_BASE).getCharacter().getName());
     }
 
     private void makeDeck() throws ExecutionException, InterruptedException {

@@ -1,7 +1,7 @@
 package com.game.gb5.dto;
 
-import com.game.gb5.model.character.Character;
 import com.game.gb5.model.deck.Deck;
+import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.deck.Position;
 import com.game.gb5.model.player.Player;
 import lombok.Getter;
@@ -14,10 +14,10 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 public class DeckDto extends BaseDto<Deck> {
-    private Map<Position, Character> characters;
+    private Map<Position, DeckCharacter> characters;
     private Player player;
 
-    public DeckDto(Long id, String code, Map<Position, Character> characters, Player player) {
+    public DeckDto(Long id, String code, Map<Position, DeckCharacter> characters, Player player) {
         this.id = id;
         this.code = code;
         this.characters = characters;

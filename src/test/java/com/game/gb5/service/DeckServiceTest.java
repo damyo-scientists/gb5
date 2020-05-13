@@ -41,7 +41,7 @@ public class DeckServiceTest {
         Optional<Deck> deck = deckService.getByCode(deckCode);
         Assert.assertTrue(deck.isPresent());
 
-        Assert.assertEquals("test character 1", deck.get().getCharacters().get(Position.FIRST_BASE).getName());
+        Assert.assertEquals("test character 1", deck.get().getDeckCharacters().get(Position.FIRST_BASE).getCharacter().getName());
     }
 
     private void makeDeck() throws ExecutionException, InterruptedException {
