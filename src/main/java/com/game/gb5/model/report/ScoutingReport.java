@@ -2,7 +2,7 @@ package com.game.gb5.model.report;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.model.common.BaseEntity;
-import com.game.gb5.model.Scouter;
+import com.game.gb5.model.scouting.Scouter;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.game.gb5.dto;
 
 import com.game.gb5.model.character.Character;
 import com.game.gb5.model.character.CharacterStatus;
-import com.game.gb5.model.HittingPosition;
+import com.game.gb5.model.character.HittingPosition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

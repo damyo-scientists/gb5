@@ -1,7 +1,7 @@
 package com.game.gb5.model.matching;
 
 import com.game.gb5.dto.MatchingDto;
-import com.game.gb5.model.Deck;
+import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.game.Game;
 import lombok.Builder;

@@ -1,5 +1,6 @@
 package com.game.gb5.model;
 
+import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.game.Game;
 import com.game.gb5.model.game.GameOptions;
 import com.game.gb5.model.game.GameState;

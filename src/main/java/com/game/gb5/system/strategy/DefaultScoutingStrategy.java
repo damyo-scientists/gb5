@@ -2,8 +2,8 @@ package com.game.gb5.system.strategy;
 
 import com.game.gb5.model.character.CharacterSet;
 import com.game.gb5.model.character.Character;
-import com.game.gb5.model.Scouter;
-import com.game.gb5.model.ScouterStatus;
+import com.game.gb5.model.scouting.Scouter;
+import com.game.gb5.model.scouting.ScouterStatus;
 import com.game.gb5.model.report.EmptyScoutingReport;
 import com.game.gb5.model.report.ReportCharacter;
 import com.game.gb5.model.report.ScoutingReport;

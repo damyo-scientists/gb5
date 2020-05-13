@@ -1,9 +1,9 @@
 package com.game.gb5.dto;
 
 import com.game.gb5.model.character.Character;
-import com.game.gb5.model.Deck;
-import com.game.gb5.model.Position;
-import com.game.gb5.model.Player;
+import com.game.gb5.model.deck.Deck;
+import com.game.gb5.model.deck.Position;
+import com.game.gb5.model.player.Player;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.game.gb5.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.game.gb5.model.Deck;
+import com.game.gb5.model.deck.Deck;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

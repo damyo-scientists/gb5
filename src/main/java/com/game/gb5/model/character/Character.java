@@ -1,8 +1,7 @@
 package com.game.gb5.model.character;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.game.gb5.model.HittingPosition;
-import com.game.gb5.model.Player;
+import com.game.gb5.model.player.Player;
 import com.game.gb5.model.common.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

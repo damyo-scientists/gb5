@@ -1,9 +1,9 @@
 package com.game.gb5.common.database;
 
-import com.game.gb5.repository.CharacterRepository;
-import com.game.gb5.repository.TicketListRepository;
-import com.game.gb5.repository.PlayerRepository;
-import com.game.gb5.repository.ScoutingReportDao;
+import com.game.gb5.repository.character.CharacterRepository;
+import com.game.gb5.repository.inventory.TicketListRepository;
+import com.game.gb5.repository.player.PlayerRepository;
+import com.game.gb5.repository.scouting.ScoutingReportDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 

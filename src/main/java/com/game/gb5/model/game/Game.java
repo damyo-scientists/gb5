@@ -1,9 +1,8 @@
 package com.game.gb5.model.game;
 
-import com.game.gb5.model.Deck;
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.matching.Matching;
-import com.game.gb5.simulation.GameSystem;
+import com.game.gb5.simulation.system.GameSystem;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

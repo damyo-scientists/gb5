@@ -1,8 +1,9 @@
 package com.game.gb5.controller;
 
 import com.game.gb5.controller.common.AbstractControllerTest;
+import com.game.gb5.controller.matching.DeckController;
 import com.game.gb5.dto.DeckDto;
-import com.game.gb5.service.DeckService;
+import com.game.gb5.service.deck.DeckService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

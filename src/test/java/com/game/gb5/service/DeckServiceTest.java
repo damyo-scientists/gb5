@@ -2,11 +2,14 @@ package com.game.gb5.service;
 
 import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.model.character.CharacterStatus;
-import com.game.gb5.model.HittingPosition;
+import com.game.gb5.model.character.HittingPosition;
 import com.game.gb5.dto.ImportDeckDto;
-import com.game.gb5.model.Deck;
-import com.game.gb5.model.Position;
-import com.game.gb5.model.Player;
+import com.game.gb5.model.deck.Deck;
+import com.game.gb5.model.deck.Position;
+import com.game.gb5.model.player.Player;
+import com.game.gb5.service.character.CharacterService;
+import com.game.gb5.service.deck.DeckService;
+import com.game.gb5.service.player.PlayerService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package com.game.gb5;
 
-import com.game.gb5.model.Deck;
+import com.game.gb5.model.deck.Deck;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
