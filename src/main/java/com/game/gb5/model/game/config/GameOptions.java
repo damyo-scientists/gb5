@@ -1,6 +1,7 @@
-package com.game.gb5.model.game;
+package com.game.gb5.model.game.config;
 
 import com.game.gb5.model.common.BaseEntity;
+import com.game.gb5.model.game.Game;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

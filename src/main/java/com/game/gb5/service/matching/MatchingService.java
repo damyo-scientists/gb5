@@ -16,15 +16,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class MatchingService {
+    private MatchMaker matchMaker;
+    private MatchingRepository matchingRepository;
+
     @Autowired
-    MatchingService(MatchingRepository matchingRepository, MatchMaker matchMaker) {
+    public MatchingService(MatchingRepository matchingRepository, MatchMaker matchMaker) {
         this.matchMaker = matchMaker;
         this.matchingRepository = matchingRepository;
     }
-
-    private MatchMaker matchMaker;
-
-    private MatchingRepository matchingRepository;
 
     public Optional<Matching> getById(long matchId) {
         return matchingRepository.findById(matchId);
@@ -35,11 +34,12 @@ public class MatchingService {
     }
 
     public Matching create(MatchingDto matchingDto) {
-        return this.matchingRepository.save(matchingDto.toEntity());
+        return this.matchingRepository.save(matchMaker.toEntity(matchingDto));
     }
 
-    public Matching update(Matching matching, Game game) {
+    public Matching starGame(Matching matching, Game game) {
         matching.setGame(game);
+        matching.setOpened(true);
         return this.matchingRepository.save(matching);
     }
 

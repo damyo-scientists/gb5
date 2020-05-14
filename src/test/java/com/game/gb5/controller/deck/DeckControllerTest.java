@@ -1,4 +1,4 @@
-package com.game.gb5.controller;
+package com.game.gb5.controller.deck;
 
 import com.game.gb5.controller.common.AbstractControllerTest;
 import com.game.gb5.controller.matching.DeckController;
@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
 
+import javax.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -45,6 +46,7 @@ public class DeckControllerTest extends AbstractControllerTest {
     protected final String RESOURCE_URI = "/decks";
 
     @Test
+    @Transactional
     public void testCreate() throws Exception {
         DeckDto deckDto = new DeckDto(null, "test-deck", null, null);
         given(deckController.create(any(DeckDto.class), any(Errors.class))).willReturn(new ResponseEntity<>(deckDto.toEntity(), HttpStatus.CREATED));

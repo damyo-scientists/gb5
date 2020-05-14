@@ -1,4 +1,4 @@
-package com.game.gb5.model.game;
+package com.game.gb5.model.game.result;
 
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.deck.DeckCharacter;
@@ -15,7 +15,6 @@ import javax.persistence.OneToOne;
 public class BattingResult extends BaseEntity {
     @OneToOne
     private DeckCharacter deckCharacter;
-
     @Enumerated
     private BattingAction battingAction;
 }

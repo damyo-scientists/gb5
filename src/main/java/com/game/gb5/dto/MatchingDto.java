@@ -1,13 +1,15 @@
 package com.game.gb5.dto;
 
 import com.game.gb5.model.matching.Matching;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.game.gb5.service.deck.DeckService;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 public class MatchingDto extends BaseDto<Matching> {
     private String deck1Code;
     private String deck2Code;
@@ -19,6 +21,6 @@ public class MatchingDto extends BaseDto<Matching> {
 
     @Override
     public Matching toEntity() {
-        return null;
+        return null; // build by matchMaker
     }
 }

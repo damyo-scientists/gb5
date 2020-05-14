@@ -2,9 +2,9 @@ package com.game.gb5.model;
 
 import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.game.Game;
-import com.game.gb5.model.game.GameOptions;
-import com.game.gb5.model.game.GameState;
-import com.game.gb5.model.game.GameType;
+import com.game.gb5.model.game.config.GameOptions;
+import com.game.gb5.model.game.config.GameState;
+import com.game.gb5.model.game.config.GameType;
 import com.game.gb5.model.matching.Matching;
 import org.junit.Assert;
 import org.junit.Before;

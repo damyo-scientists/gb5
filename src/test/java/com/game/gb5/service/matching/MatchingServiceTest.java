@@ -1,4 +1,4 @@
-package com.game.gb5.service;
+package com.game.gb5.service.matching;
 
 import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.dto.ImportDeckDto;
@@ -6,11 +6,12 @@ import com.game.gb5.dto.MatchingDto;
 import com.game.gb5.model.character.CharacterStatus;
 import com.game.gb5.model.character.HittingPosition;
 import com.game.gb5.model.deck.Position;
+import com.game.gb5.model.game.Game;
 import com.game.gb5.model.matching.Matching;
 import com.game.gb5.model.player.Player;
 import com.game.gb5.service.character.CharacterService;
 import com.game.gb5.service.deck.DeckService;
-import com.game.gb5.service.matching.MatchingService;
+import com.game.gb5.service.game.GameService;
 import com.game.gb5.service.player.PlayerService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +41,11 @@ public class MatchingServiceTest {
     @Autowired
     private PlayerService playerService;
 
+    @Autowired
+    private GameService gameService;
+
     @Test
+    @Transactional
     public void testImportData() throws ExecutionException, InterruptedException {
         this.makeDeck();
         List<MatchingDto> matchingDtoList = new ArrayList<>();
@@ -59,6 +65,20 @@ public class MatchingServiceTest {
 
         Assert.assertEquals("test character 1", match1.get().getDeck1().getDeckCharacters().get(Position.FIRST_BASE).getCharacter().getName());
         Assert.assertEquals("test character 1", match2.get().getDeck1().getDeckCharacters().get(Position.FIRST_BASE).getCharacter().getName());
+    }
+
+    @Test
+    @Transactional
+    public void testStartGame() throws ExecutionException, InterruptedException {
+        //this.makeDeck();
+        MatchingDto matchingDto = new MatchingDto("test-deck", "test-deck");
+        Matching matching = matchingService.create(matchingDto);
+        Assert.assertFalse(matching.isOpened());
+
+        Game game = gameService.create(matching);
+        matchingService.starGame(matching, game);
+
+        Assert.assertTrue(matching.isOpened());
     }
 
     private void makeDeck() throws ExecutionException, InterruptedException {

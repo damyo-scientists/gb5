@@ -36,12 +36,12 @@ public class MatchingController {
     }
 
     @PutMapping("/{matching_id}")
-    public ResponseEntity<Matching> playGame(@RequestBody MatchingDto matchingDto) {
+    public ResponseEntity<Matching> gameStart(@RequestBody MatchingDto matchingDto) {
         Optional<Matching> matchingOptional = matchingService.getById(matchingDto.getId());
         if (matchingOptional.isPresent()) {
             Matching matching = matchingOptional.get();
             Game game = gameService.create(matching);
-            return new ResponseEntity<>(matchingService.update(matching, game), HttpStatus.OK);
+            return new ResponseEntity<>(matchingService.starGame(matching, game), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

@@ -1,6 +1,9 @@
 package com.game.gb5.model.game;
 
 import com.game.gb5.model.common.BaseEntity;
+import com.game.gb5.model.game.config.GameOptions;
+import com.game.gb5.model.game.config.GameState;
+import com.game.gb5.model.game.config.GameType;
 import com.game.gb5.model.matching.Matching;
 import com.game.gb5.simulation.system.GameSystem;
 import lombok.Builder;
