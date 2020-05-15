@@ -15,18 +15,21 @@ import java.util.Queue;
 public class GameSystem {
     private Game game;
     private GameOptions gameOptions;
-    private Queue<Batter> deck1Lineup;
-    private Queue<Batter> deck2Lineup;
-    private List<Batter> deck1Bench;
-    private List<Batter> deck2Bench;
+    private Squad deck1Squad;
+    private Squad deck2Squad;
 
     public GameSystem(Game game) {
         this.game = game;
         this.gameOptions = game.getGameOptions();
-        this.deck1Lineup = createLineup(game.getMatching().getDeck1());
-        this.deck2Lineup = createLineup(game.getMatching().getDeck2());
-        this.deck1Bench = createBench(game.getMatching().getDeck1());
-        this.deck2Bench = createBench(game.getMatching().getDeck2());
+
+        this.deck1Squad = createSquad(game.getMatching().getDeck1());
+        this.deck2Squad = createSquad(game.getMatching().getDeck2());
+    }
+
+    private Squad createSquad(Deck deck) {
+        Queue<Batter> lineup = createLineup(deck);
+        List<Batter> bench = createBench(deck);
+        return Squad.builder().lineup(lineup).bench(bench).build();
     }
 
     private Queue<Batter> createLineup(Deck deck) {
