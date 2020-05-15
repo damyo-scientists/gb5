@@ -23,14 +23,29 @@ public class GameSystem {
     public GameSystem(Game game) {
         this.game = game;
         this.gameOptions = game.getGameOptions();
+        this.deck1Lineup = createLineup(game.getMatching().getDeck1());
+        this.deck2Lineup = createLineup(game.getMatching().getDeck2());
+        this.deck1Bench = createBench(game.getMatching().getDeck1());
+        this.deck2Bench = createBench(game.getMatching().getDeck2());
     }
 
     private Queue<Batter> createLineup(Deck deck) {
         //1루>2루>MF>SS>3루
         Queue<Batter> lineup = new LinkedList<>();
         lineup.offer(createBatter(deck.getDeckCharacters().get(Position.FIRST_BASE), Position.FIRST_BASE));
-        // todo
-        return null;
+        lineup.offer(createBatter(deck.getDeckCharacters().get(Position.SECOND_BASE), Position.SECOND_BASE));
+        lineup.offer(createBatter(deck.getDeckCharacters().get(Position.MID_FIELDER), Position.MID_FIELDER));
+        lineup.offer(createBatter(deck.getDeckCharacters().get(Position.SHORT_STOP), Position.SHORT_STOP));
+        lineup.offer(createBatter(deck.getDeckCharacters().get(Position.THIRD_BASE), Position.THIRD_BASE));
+        return lineup;
+    }
+
+    private List<Batter> createBench(Deck deck) {
+        List<Batter> bench = new ArrayList<>();
+        bench.add(createBatter(deck.getDeckCharacters().get(Position.BENCH1), Position.BENCH1));
+        bench.add(createBatter(deck.getDeckCharacters().get(Position.BENCH2), Position.BENCH2));
+        bench.add(createBatter(deck.getDeckCharacters().get(Position.BENCH3), Position.BENCH3));
+        return bench;
     }
 
     private Batter createBatter(DeckCharacter deckCharacter, Position position) {
