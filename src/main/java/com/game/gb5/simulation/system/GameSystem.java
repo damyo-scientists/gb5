@@ -17,6 +17,7 @@ public class GameSystem {
     public GameSystem(Game game) {
         this.game = game;
         this.gameOptions = game.getGameOptions();
+
         SquadMaker squadMaker = new SquadMaker();
         this.deck1Squad = squadMaker.createSquad(game.getMatching().getDeck1());
         this.deck2Squad = squadMaker.createSquad(game.getMatching().getDeck2());

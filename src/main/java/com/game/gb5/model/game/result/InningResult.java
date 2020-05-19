@@ -1,7 +1,6 @@
 package com.game.gb5.model.game.result;
 
 import com.game.gb5.model.common.BaseEntity;
-import com.game.gb5.model.game.result.BattingResult;
 import lombok.Getter;
 import lombok.Setter;
 

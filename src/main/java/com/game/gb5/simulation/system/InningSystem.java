@@ -27,7 +27,7 @@ public class InningSystem {
         int outCount = 0;
         while(outCount < 3) {
             Batter batter = battingSquad.getLineup().poll();
-            BattingResult battingResult = new BattingSystem().playBatting(batter);
+            BattingResult battingResult = new BattingSystem().playBatting(game, battingSquad, fieldSquad, batter);
             battingResultList.add(battingResult);
             battingSquad.getLineup().offer(batter);
         }
