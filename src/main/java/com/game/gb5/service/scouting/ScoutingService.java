@@ -30,8 +30,6 @@ public class ScoutingService {
     private static Logger logger = LogManager.getLogger(ScoutingService.class);
 
     @Autowired
-    private CharacterSetRepository characterSetRepository;
-    @Autowired
     private ScouterRepository scouterRepository;
     @Autowired
     private CharacterReportStatusService characterStatusReportService;

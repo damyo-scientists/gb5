@@ -1,8 +1,8 @@
 package com.game.gb5.model.character;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.game.gb5.model.player.Player;
 import com.game.gb5.model.common.BaseEntity;
+import com.game.gb5.model.player.Player;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class Character extends BaseEntity implements Cloneable {
     private HittingPosition hittingPosition;
     @ElementCollection
     @Column
-    private List<Float> hittingInclination;
+    private List<Double> hittingInclination;
     @JsonIgnore
     @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, orphanRemoval = true)
     private CharacterStatus characterStatus;
@@ -58,19 +58,19 @@ public class Character extends BaseEntity implements Cloneable {
     private Date characterUnlockDateTime;
 
     public Character(Long id, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                     int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+                     int backNumber, HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         this(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         this.setId(id);
     }
 
     public Character(Long id, String code, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                     int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+                     int backNumber, HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         this(id, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         this.setCode(code);
     }
 
     public Character(String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                     int backNumber, HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+                     int backNumber, HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         this.name = name;
         this.grade = grade;
         this.acquisitionCoefficient = acquisitionCoefficient;

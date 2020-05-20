@@ -2,8 +2,7 @@ package com.game.gb5.model.game.result;
 
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.deck.DeckCharacter;
-import com.game.gb5.model.game.result.action.BattingAction;
-import com.game.gb5.model.game.result.action.RunningAction;
+import com.game.gb5.model.game.type.BattingType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,7 @@ public class BattingResult extends BaseEntity {
     @OneToOne
     private DeckCharacter deckCharacter;
     @Enumerated
-    private BattingAction battingAction;
+    private BattingType battingType;
     @OneToMany
-    private List<RunningAction> runningActionList;
+    private List<RunningResult> runningResultList;
 }

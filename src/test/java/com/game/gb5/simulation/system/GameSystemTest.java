@@ -1,4 +1,4 @@
-package com.game.gb5.simulation;
+package com.game.gb5.simulation.system;
 
 import org.junit.Test;
 

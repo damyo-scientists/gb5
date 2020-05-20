@@ -3,8 +3,8 @@ package com.game.gb5.simulation.system.helper;
 import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.deck.Position;
-import com.game.gb5.simulation.system.Batter;
-import com.game.gb5.simulation.system.Squad;
+import com.game.gb5.model.game.unit.Batter;
+import com.game.gb5.model.game.unit.Squad;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

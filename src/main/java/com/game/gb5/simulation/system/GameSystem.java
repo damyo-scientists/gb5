@@ -1,5 +1,7 @@
 package com.game.gb5.simulation.system;
 
+import com.game.gb5.model.game.type.InningType;
+import com.game.gb5.model.game.unit.Squad;
 import com.game.gb5.model.game.Game;
 import com.game.gb5.model.game.config.GameOptions;
 import com.game.gb5.model.game.result.InningResult;

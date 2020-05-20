@@ -21,14 +21,14 @@ public class CharacterService {
 
     public Character create(String code, String name, int grade, int acquisitionCoefficient,
                             int cumulativeAcquisitionCoefficient, int backNumber,
-                            HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+                            HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         Character character = new Character(0L, code, name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         return characterRepository.save(character);
     }
 
     public Character create(String name, int grade, int acquisitionCoefficient,
                             int cumulativeAcquisitionCoefficient, int backNumber,
-                            HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+                            HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         Character character = new Character(name, grade, acquisitionCoefficient, cumulativeAcquisitionCoefficient, backNumber, hittingPosition, hittingInclination, characterStatus);
         character.getCharacterStatus().setCharacter(character);
         return characterRepository.save(character);

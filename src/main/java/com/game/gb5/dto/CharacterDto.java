@@ -23,12 +23,12 @@ public class CharacterDto extends BaseDto<Character> {
     private int cumulativeAcquisitionCoefficient;
     private int backNumber;
     private HittingPosition hittingPosition;
-    private List<Float> hittingInclination;
+    private List<Double> hittingInclination;
     @NotNull
     private CharacterStatus characterStatus;
 
     public CharacterDto(Long id, String code, String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient, int backNumber,
-                        HittingPosition hittingPosition, List<Float> hittingInclination, CharacterStatus characterStatus) {
+                        HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         this.id = id;
         this.code = code;
         this.name = name;
