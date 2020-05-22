@@ -1,49 +1,53 @@
 package com.game.gb5.simulation.system;
 
-import com.game.gb5.model.game.unit.Batter;
-import com.game.gb5.model.game.type.InningType;
-import com.game.gb5.model.game.unit.Squad;
-import com.game.gb5.model.game.Game;
 import com.game.gb5.model.game.result.BattingResult;
 import com.game.gb5.model.game.result.InningResult;
+import com.game.gb5.model.game.type.InningType;
+import com.game.gb5.model.game.unit.DeckPlayer;
+import com.game.gb5.model.game.unit.Squad;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class InningSystem {
     private InningType inningType;
-    private Game game;
-    private Squad battingSquad;
-    private Squad fieldSquad;
     private int inning;
-    private InningResult inningResult;
+    private BattingSystem battingSystem;
 
-    public InningSystem(Game game, int inning, InningType inningType, Squad battingSquad, Squad fieldSquad) {
-        this.inning = inning;
-        this.inningType = inningType;
-        this.battingSquad = battingSquad;
-        this.fieldSquad = fieldSquad;
+    @Autowired
+    public void setBattingSystem(BattingSystem battingSystem) {
+        this.battingSystem = battingSystem;
     }
 
-    public InningResult playInning() {
-        InningResult inningResult = InningResult.builder().inning(inning).inningType(inningType).build();
+    public void initialize(int inning, InningType inningType) {
+        this.inning = inning;
+        this.inningType = inningType;
+    }
 
+    public InningResult playInning(Squad battingSquad, Squad fieldSquad) {
         List<BattingResult> battingResultList = new ArrayList<>();
         int outCount = 0;
         while (outCount < 3) {
-            Batter batter = battingSquad.getLineup().poll();
-            BattingResult battingResult = playBatting(batter);
+            DeckPlayer batter = battingSquad.getLineup().poll();
+            if (batter == null) {
+                // Base loaded, 2 outs 처
+                throw new NullPointerException();
+            }
+            BattingResult battingResult = playBatting(batter, fieldSquad);
             battingResultList.add(battingResult);
-            battingSquad.getLineup().offer(batter);
 
             outCount += calculateOutCount(battingResult);
         }
-        inningResult.setBattingResultList(battingResultList);
-        return inningResult;
+        // 진루 내역 초기화
+        battingSquad.getLineup().forEach(player -> player.setRunningBase(0));
+        return InningResult.builder().inning(inning).inningType(inningType).battingResultList(battingResultList).build();
     }
 
-    private BattingResult playBatting(Batter batter) {
-        return new BattingSystem().playBatting(game, battingSquad, fieldSquad, batter);
+    private BattingResult playBatting(DeckPlayer batter, Squad fieldSquad) {
+        return battingSystem.playBatting(batter, fieldSquad);
     }
 
     private int calculateOutCount(BattingResult battingResult) {

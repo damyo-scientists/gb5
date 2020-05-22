@@ -13,6 +13,6 @@ import java.util.Queue;
 @Builder
 public class Squad {
     private SquadType squadType;
-    private Queue<Batter> lineup;
-    private List<Batter> bench;
+    private Queue<DeckPlayer> lineup;
+    private List<DeckPlayer> bench;
 }
