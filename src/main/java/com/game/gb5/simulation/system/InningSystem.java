@@ -2,6 +2,7 @@ package com.game.gb5.simulation.system;
 
 import com.game.gb5.model.game.result.BattingResult;
 import com.game.gb5.model.game.result.InningResult;
+import com.game.gb5.model.game.result.RunningResult;
 import com.game.gb5.model.game.type.InningType;
 import com.game.gb5.model.game.unit.DeckPlayer;
 import com.game.gb5.model.game.unit.Squad;
@@ -33,25 +34,26 @@ public class InningSystem {
         while (outCount < 3) {
             DeckPlayer batter = battingSquad.getLineup().poll();
             if (batter == null) {
-                // Base loaded, 2 outs 처
+                // Base loaded, 2 outs 처리
                 throw new NullPointerException();
             }
-            BattingResult battingResult = playBatting(batter, fieldSquad);
+            BattingResult battingResult = playBatting(batter, fieldSquad, outCount);
             battingResultList.add(battingResult);
 
-            outCount += calculateOutCount(battingResult);
+            outCount = calculateOutCount(battingResult);
         }
         // 진루 내역 초기화
         battingSquad.getLineup().forEach(player -> player.setRunningBase(0));
         return InningResult.builder().inning(inning).inningType(inningType).battingResultList(battingResultList).build();
     }
 
-    private BattingResult playBatting(DeckPlayer batter, Squad fieldSquad) {
-        return battingSystem.playBatting(batter, fieldSquad);
+    private BattingResult playBatting(DeckPlayer batter, Squad fieldSquad, int outCount) {
+        return battingSystem.playBatting(batter, fieldSquad, outCount);
     }
 
     private int calculateOutCount(BattingResult battingResult) {
-        //todo
-        return 0;
+        List<RunningResult> runningResults = battingResult.getRunningResultList();
+        RunningResult lastRunningResult = runningResults.get(runningResults.size() - 1);
+        return lastRunningResult.getOutCount();
     }
 }

@@ -3,16 +3,23 @@ package com.game.gb5.simulation.strategy;
 import com.game.gb5.model.character.CharacterStatus;
 import com.game.gb5.model.deck.Position;
 import com.game.gb5.model.game.result.BattingResult;
+import com.game.gb5.model.game.result.RunningResult;
+import com.game.gb5.model.game.type.BaseResultType;
+import com.game.gb5.model.game.type.BattingType;
+import com.game.gb5.model.game.type.RunningType;
 import com.game.gb5.model.game.unit.DeckPlayer;
 import com.game.gb5.model.game.unit.Squad;
+import com.game.gb5.simulation.condition.RunningCondition;
 import com.game.gb5.utils.DistributedRandomNumberPicker;
 import com.game.gb5.utils.MathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
@@ -25,7 +32,7 @@ public class BattingStrategyImpl implements BattingStrategy {
     }
 
     @Override
-    public BattingResult bat(DeckPlayer batter, Squad fieldSquad, Queue<DeckPlayer> runners) {
+    public BattingResult bat(DeckPlayer batter, Squad fieldSquad, Queue<DeckPlayer> runners, int currentOutCount) {
         // calculateInclination
         List<Double> hittingInclination = batter.getDeckCharacter().getCharacter().getHittingInclination();
         DeckPlayer selectedFielder = this.selectFielder(hittingInclination, fieldSquad);
@@ -34,16 +41,29 @@ public class BattingStrategyImpl implements BattingStrategy {
         double hittingRandomResult = Math.random();
         boolean isHit = hittingRandomResult < hittingRateResult;
         // 안타시 주루 결정
+        BattingType battingType;
         if (isHit) {
             // 루타 측정
             double hittingQuality = hittingRandomResult / 2 + MathUtils.clamp(hittingRateResult, 0, 0.5);
             int hitBaseNumber = calculateBaseHitNumber(batter, hittingQuality);
             runners.add(batter);
-            this.calculateInplay(runners, fieldSquad, hitBaseNumber, hittingQuality);
+            List<RunningResult> runningResults = this.calculateInplay(runners, fieldSquad, hitBaseNumber, hittingQuality, currentOutCount);
+            if (runningResults.size() > 1
+                    && runningResults.get(runningResults.size() - 1).getBaseResultType() == BaseResultType.FIRST_BASE_RUN
+                    && runningResults.get(runningResults.size() - 2).getBaseResultType() == BaseResultType.OUTS_ON_BASE) {
+                battingType = BattingType.FIELDERS_CHOICE;
+            } else {
+                if (runningResults.get(runningResults.size() - 1).getBaseResultType() == BaseResultType.OUTS_ON_BASE) {
+                    battingType = BattingType.GROUNDED_OUT;
+                } else {
+                    battingType = BattingType.HIT;
+                }
+            }
+            return BattingResult.builder().hitRandomResult(hittingRateResult).battingType(battingType).runningResultList(runningResults).build();
         } else {
-
+            battingType = BattingType.HIT_FAILED_OUT;
+            return BattingResult.builder().hitRandomResult(hittingRandomResult).battingType(battingType).build();
         }
-        return BattingResult.builder().hitRandomResult(hittingRateResult).build();
     }
 
     /**
@@ -59,7 +79,7 @@ public class BattingStrategyImpl implements BattingStrategy {
         return fieldSquad.getLineup().stream().filter(player -> player.getPosition().getPositionNumber() == selectedPosition.getPositionNumber()).findAny().orElseThrow();
     }
 
-    private double calculateStopRunnerRate(DeckPlayer runner, Squad fieldSquad, int baseSum, boolean isHomeReachable, double hittingQuality) {
+    private double calculateInplayCoefficientByHittingDirection(DeckPlayer runner, Squad fieldSquad, int baseSum, boolean isHomeReachable, double hittingQuality) {
         double firstBaseFielderCoefficient = 0;
         double secondBaseFielderCoefficient = 0;
         double thirdBaseFielderCoefficient = 0;
@@ -101,28 +121,65 @@ public class BattingStrategyImpl implements BattingStrategy {
                 break;
         }
         List<Double> fielderCoefficients = Arrays.asList(firstBaseFielderCoefficient, secondBaseFielderCoefficient, thirdBaseFielderCoefficient, midFielderCoefficient, shortStopFielderCoefficient);
-        double inplayCoefficient = this.calculateInplayCoefficient(runner, fieldSquad, fielderCoefficients, hittingQuality);
-        return (10 + inplayCoefficient / hittingQuality) / 100;
+        return this.calculateInplayCoefficient(runner, fieldSquad, fielderCoefficients, hittingQuality);
     }
 
-    private void calculateInplay(Queue<DeckPlayer> runners, Squad fieldSquad, int hitBaseNumber, double hittingQuality) {
-        if (runners.size() > 1) {
-            final AtomicInteger stopRunnerCount = new AtomicInteger(0);
-            boolean isHomeReachable = runners.peek().getRunningBase() + hitBaseNumber > 3;
-            runners.forEach(runner -> {
+    private List<RunningResult> calculateInplay(Queue<DeckPlayer> runners, Squad fieldSquad, int hitBaseNumber, double hittingQuality, int currentOutCount) {
+        assert runners.peek() != null;
+        final AtomicBoolean isRunnerStop = new AtomicBoolean(false);
+        final AtomicInteger outCount = new AtomicInteger(currentOutCount);
+        boolean isHomeReachable = runners.peek().getRunningBase() + hitBaseNumber > 3;
+        List<RunningResult> runningResults = new ArrayList<>();
+        runners.forEach(runner -> {
+            if (outCount.get() < 3) {
+                BaseResultType baseResultType = BaseResultType.NONE;
                 int currentBase = runner.getRunningBase();
-                int baseSum = currentBase + hitBaseNumber - stopRunnerCount.get();
-                double calculateStopRunnerRate = this.calculateStopRunnerRate(runner, fieldSquad, baseSum, isHomeReachable, hittingQuality);
-                double rand = Math.random();
-                // 주루 저지 (아웃이 아닌, 해당 루로 진루하지 못하게 함)
-                // todo calculate!
-                boolean stopRunner = calculateStopRunnerRate > rand;
-                if (stopRunner) {
-                    stopRunnerCount.getAndIncrement();
-                    baseSum -= 1;
+
+                if (new RunningCondition().isAlwaysSafe(currentBase, hitBaseNumber)) {
+                    baseResultType = BaseResultType.HOME_IN;
+                } else {
+
+                    int runnerStopCount = isRunnerStop.get() ? 0 : -1;
+                    int baseCountToMove = currentBase + hitBaseNumber - runnerStopCount;
+
+                    double inplayCoefficient = this.calculateInplayCoefficientByHittingDirection(runner, fieldSquad, baseCountToMove, isHomeReachable, hittingQuality);
+                    double stopRunnerRate = (10 + inplayCoefficient / hittingQuality) / 100;
+                    double outRate = (10 + inplayCoefficient / hittingQuality) / 100;
+                    double safeRate = 1.0 - stopRunnerRate - outRate;
+                    List<Double> runningRateList = Arrays.asList(outRate, stopRunnerRate, safeRate);
+                    int runningValue = distributedRandomNumberPicker.getDistributedRandomNumber(runningRateList);
+                    RunningType runningType = RunningType.findByRunningValue(runningValue);
+
+                    switch (runningType) {
+                        case OUTS:
+                            baseResultType = BaseResultType.OUTS_ON_BASE;
+                            isRunnerStop.set(false);
+                            outCount.incrementAndGet();
+                            break;
+                        case STOP_RUNNING:
+                            // 주루 저지 체크
+                            // 이미 주루 저지된 경우는 원래대로 되돌림 (후속 주자는 검증하지 않고 세이프 처리)s
+                            if (isRunnerStop.get()) {
+                                isRunnerStop.set(false);
+                            } else {
+                                baseCountToMove -= 1;
+                                isRunnerStop.set(true);
+                            }
+                            baseResultType = BaseResultType.findByBaseNumber(baseCountToMove);
+                            break;
+                        case SAFE:
+                            baseResultType = BaseResultType.findByBaseNumber(baseCountToMove);
+                            isRunnerStop.set(false);
+                            break;
+                    }
                 }
-            });
-        }
+                RunningResult runningResult = RunningResult.builder().runner(runner).baseResultType(baseResultType).outCount(outCount.get()).build();
+                runningResults.add(runningResult);
+            } else {
+                RunningResult runningResult = RunningResult.builder().runner(runner).baseResultType(BaseResultType.THREE_OUT_NO_RESULT).outCount(outCount.get()).build();
+            }
+        });
+        return runningResults;
     }
 
     private double calculateInplayCoefficient(DeckPlayer runner, Squad fielderSquad, List<Double> fielderCoefficients, double hittingQuality) {

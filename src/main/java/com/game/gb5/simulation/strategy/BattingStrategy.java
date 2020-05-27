@@ -7,5 +7,5 @@ import com.game.gb5.model.game.unit.Squad;
 import java.util.Queue;
 
 public interface BattingStrategy {
-    public BattingResult bat(DeckPlayer batter, Squad fieldSquad, Queue<DeckPlayer> runners);
+    public BattingResult bat(DeckPlayer batter, Squad fieldSquad, Queue<DeckPlayer> runners, int currentOutCount);
 }
