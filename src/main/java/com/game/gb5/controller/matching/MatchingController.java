@@ -1,7 +1,7 @@
 package com.game.gb5.controller.matching;
 
 import com.game.gb5.dto.MatchingDto;
-import com.game.gb5.model.game.Game;
+import com.game.gb5.model.game.result.GameResult;
 import com.game.gb5.model.matching.Matching;
 import com.game.gb5.service.game.GameService;
 import com.game.gb5.service.matching.MatchingService;
@@ -40,8 +40,8 @@ public class MatchingController {
         Optional<Matching> matchingOptional = matchingService.getById(matchingDto.getId());
         if (matchingOptional.isPresent()) {
             Matching matching = matchingOptional.get();
-            Game game = gameService.create(matching);
-            return new ResponseEntity<>(matchingService.starGame(matching, game), HttpStatus.OK);
+            GameResult gameResult = gameService.startGame(matching);
+            return new ResponseEntity<>(matchingService.starGame(matching, matching.getGame()), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

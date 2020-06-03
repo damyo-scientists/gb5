@@ -6,30 +6,35 @@ import com.game.gb5.model.game.result.InningResult;
 import com.game.gb5.model.game.type.InningType;
 import com.game.gb5.model.game.unit.Squad;
 import com.game.gb5.simulation.system.helper.SquadMaker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class GameSystem {
-    private Game game;
-    private GameOptions gameOptions;
-    private Squad deck1Squad;
-    private Squad deck2Squad;
+    private SquadMaker squadMaker;
+    private InningSystem inningSystem;
 
-    public GameSystem(Game game) {
-        this.game = game;
-        this.gameOptions = game.getGameOptions();
-
-        SquadMaker squadMaker = new SquadMaker();
-        this.deck1Squad = squadMaker.createSquad(game.getMatching().getDeck1());
-        this.deck2Squad = squadMaker.createSquad(game.getMatching().getDeck2());
+    @Autowired
+    public void setSquadMaker(SquadMaker squadMaker) {
+        this.squadMaker = squadMaker;
     }
 
-    public List<InningResult> start() {
+    @Autowired
+    public void setInningSystem(InningSystem inningSystem) {
+        this.inningSystem = inningSystem;
+    }
+
+    public List<InningResult> start(Game game) {
+        GameOptions gameOptions = game.getGameOptions();
+        Squad deck1Squad = squadMaker.createSquad(game.getMatching().getDeck1());
+        Squad deck2Squad = squadMaker.createSquad(game.getMatching().getDeck2());
         List<InningResult> inningResultLIst = new ArrayList<>();
         for (int i = 0; i < gameOptions.getInning(); i++) {
-            InningResult inningResultFirst = new InningSystem(game, i, InningType.FIRST, deck1Squad, deck2Squad).playInning();
-            InningResult inningResultSecond = new InningSystem(game, i, InningType.LAST, deck2Squad, deck1Squad).playInning();
+            InningResult inningResultFirst = inningSystem.playInning(i, InningType.FIRST, deck1Squad, deck2Squad);
+            InningResult inningResultSecond = inningSystem.playInning(i, InningType.LAST, deck2Squad, deck1Squad);
             inningResultLIst.add(inningResultFirst);
             inningResultLIst.add(inningResultSecond);
         }

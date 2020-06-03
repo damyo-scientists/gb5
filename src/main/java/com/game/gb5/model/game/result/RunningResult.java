@@ -20,7 +20,6 @@ public class RunningResult extends BaseEntity {
     private DeckPlayer runner;
     @Column
     private int outCount;
-
     @Enumerated
     private BaseResultType baseResultType;
 }

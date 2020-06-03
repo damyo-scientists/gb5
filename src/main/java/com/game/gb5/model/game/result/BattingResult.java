@@ -3,7 +3,6 @@ package com.game.gb5.model.game.result;
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.game.type.BattingType;
-import com.game.gb5.model.game.unit.DeckPlayer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +23,10 @@ public class BattingResult extends BaseEntity {
     private BattingType battingType;
     @OneToMany
     private List<RunningResult> runningResultList;
-    @OneToMany
-    private List<DeckPlayer> runers;
+    @Column
+    private int outCount;
+    @Column
+    private int scoringCount;
     @Column
     private double hitRandomResult;
 }
