@@ -3,10 +3,7 @@ package com.game.gb5.model.game.result;
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.game.type.BattingType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class BattingResult extends BaseEntity {
     @OneToOne
     private DeckCharacter deckCharacter;

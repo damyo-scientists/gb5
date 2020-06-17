@@ -14,10 +14,6 @@ public enum BaseResultType {
         return Arrays.stream(BaseResultType.values()).filter(running -> running.hasBaseNumber(baseNumber)).findAny().orElse(NONE);
     }
 
-    public int getBaseNumber() {
-        return this.baseNumber;
-    }
-
     private boolean hasBaseNumber(int positionNumber) {
         if (this.baseNumber == 4 && positionNumber > 3) {
             return true;

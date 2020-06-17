@@ -6,7 +6,7 @@ import com.game.gb5.dto.MatchingDto;
 import com.game.gb5.model.character.CharacterStatus;
 import com.game.gb5.model.character.HittingPosition;
 import com.game.gb5.model.deck.Position;
-import com.game.gb5.model.game.Game;
+import com.game.gb5.model.game.result.GameResult;
 import com.game.gb5.model.matching.Matching;
 import com.game.gb5.model.player.Player;
 import com.game.gb5.service.character.CharacterService;
@@ -75,10 +75,9 @@ public class MatchingServiceTest {
         Matching matching = matchingService.create(matchingDto);
         Assert.assertFalse(matching.isOpened());
 
-        Game game = gameService.create(matching);
-        matchingService.starGame(matching, game);
+        GameResult gameResult = gameService.startGame(matching);
 
-        Assert.assertTrue(matching.isOpened());
+        Assert.assertNotNull(gameResult);
     }
 
     private void makeDeck() throws ExecutionException, InterruptedException {

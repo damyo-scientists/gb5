@@ -35,13 +35,13 @@ public class MatchingController {
         return new ResponseEntity<>(matchingService.create(matchingDto), HttpStatus.OK);
     }
 
-    @PutMapping("/{matching_id}")
-    public ResponseEntity<Matching> gameStart(@RequestBody MatchingDto matchingDto) {
+    @PostMapping("/{matching_id}/start")
+    public ResponseEntity<GameResult> gameStart(@RequestBody MatchingDto matchingDto) {
         Optional<Matching> matchingOptional = matchingService.getById(matchingDto.getId());
         if (matchingOptional.isPresent()) {
             Matching matching = matchingOptional.get();
-            GameResult gameResult = gameService.startGame(matching);
-            return new ResponseEntity<>(matchingService.starGame(matching, matching.getGame()), HttpStatus.OK);
+            matchingService.starGame(matching, matching.getGame());
+            return new ResponseEntity<>(gameService.startGame(matching), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

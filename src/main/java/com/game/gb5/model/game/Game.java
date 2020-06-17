@@ -5,7 +5,6 @@ import com.game.gb5.model.game.config.GameOptions;
 import com.game.gb5.model.game.config.GameState;
 import com.game.gb5.model.game.config.GameType;
 import com.game.gb5.model.matching.Matching;
-import com.game.gb5.simulation.system.GameSystem;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,28 +43,5 @@ public class Game extends BaseEntity {
     public void onReady(GameOptions gameOptions, boolean autoCount) {
         this.gameOptions = gameOptions;
         this.gameState = GameState.ON_READY_TO_START;
-
-        if (autoCount) {
-            countToStart();
-        }
-    }
-
-    public void countToStart() {
-        countToStart(false);
-    }
-
-    public void countToStart(boolean countSkip) {
-        if (!countSkip) {
-            // count
-        }
-
-        start();
-    }
-
-    public String start() {
-        this.gameState = GameState.IN_GAME;
-        // inning start
-        String gameResult = new GameSystem(this).start();
-        return gameResult;
     }
 }

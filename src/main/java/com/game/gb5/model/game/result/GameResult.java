@@ -2,10 +2,7 @@ package com.game.gb5.model.game.result;
 
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.deck.Deck;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -17,6 +14,7 @@ import java.util.List;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class GameResult extends BaseEntity {
     @OneToMany
     List<InningResult> inningResults;
