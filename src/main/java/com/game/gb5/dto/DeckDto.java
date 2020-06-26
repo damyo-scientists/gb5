@@ -3,7 +3,7 @@ package com.game.gb5.dto;
 import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.deck.Position;
-import com.game.gb5.model.player.Player;
+import com.game.gb5.model.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,17 +15,17 @@ import java.util.Map;
 @NoArgsConstructor
 public class DeckDto extends BaseDto<Deck> {
     private Map<Position, DeckCharacter> characters;
-    private Player player;
+    private User user;
 
-    public DeckDto(Long id, String code, Map<Position, DeckCharacter> characters, Player player) {
+    public DeckDto(Long id, String code, Map<Position, DeckCharacter> characters, User user) {
         this.id = id;
         this.code = code;
         this.characters = characters;
-        this.player = player;
+        this.user = user;
     }
 
     public Deck toEntity() {
-        Deck deck = new Deck(id, code, characters, player);
+        Deck deck = new Deck(id, code, characters, user);
         if (createdDate != null) {
             deck.setCreatedDate(createdDate);
         }

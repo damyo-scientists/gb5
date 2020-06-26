@@ -1,4 +1,4 @@
-package com.game.gb5.model.player;
+package com.game.gb5.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.model.common.BaseEntity;
@@ -20,8 +20,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Inventory extends BaseEntity {
-	public Inventory(Player player) {
-		this.player = player;
+	public Inventory(User user) {
+		this.user = user;
 		this.characterPieces = new HashMap<>();
 		this.passes = new HashMap<>();
 		this.tickets = new HashMap<>();
@@ -33,7 +33,7 @@ public class Inventory extends BaseEntity {
 	private Integer star = 0;
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	private Player player;
+	private User user;
 	@ElementCollection
 	@MapKeyEnumerated(EnumType.STRING)
 	private Map<TicketType, Integer> tickets;

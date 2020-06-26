@@ -2,7 +2,7 @@ package com.game.gb5.model.character;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.model.common.BaseEntity;
-import com.game.gb5.model.player.Player;
+import com.game.gb5.model.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,7 +42,7 @@ public class Character extends BaseEntity implements Cloneable {
     private List<CharacterSet> characterSets;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
-    private List<Player> players;
+    private List<User> users;
 
     /**
      * Server Only

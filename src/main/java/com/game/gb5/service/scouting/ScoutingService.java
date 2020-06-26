@@ -2,13 +2,12 @@ package com.game.gb5.service.scouting;
 
 import com.game.gb5.common.random.RandomMaker;
 import com.game.gb5.model.character.CharacterReportStatus;
-import com.game.gb5.model.player.Player;
+import com.game.gb5.model.user.User;
 import com.game.gb5.model.scouting.Scouter;
 import com.game.gb5.model.item.TicketType;
 import com.game.gb5.model.report.EmptyScoutingReport;
 import com.game.gb5.model.report.ReportCharacter;
 import com.game.gb5.model.report.ScoutingReport;
-import com.game.gb5.repository.character.CharacterSetRepository;
 import com.game.gb5.repository.scouting.ReportCharacterRepository;
 import com.game.gb5.repository.scouting.ScouterRepository;
 import com.game.gb5.repository.scouting.ScoutingReportDao;
@@ -48,11 +47,11 @@ public class ScoutingService {
         return scouter;
     }
 
-    public ScoutingReport makeNewScoutingReport(Scouter scouter, Player player) {
-        if (player.getInventory().getTickets().containsKey(TicketType.INSTANT_ACQUIRE_REPORT)) {
+    public ScoutingReport makeNewScoutingReport(Scouter scouter, User user) {
+        if (user.getInventory().getTickets().containsKey(TicketType.INSTANT_ACQUIRE_REPORT)) {
             ScoutingReport scoutingReport = this.generateScoutingReportByStrategy(scouter);
 
-            player.getInventory().consumeTicket(TicketType.INSTANT_ACQUIRE_REPORT);
+            user.getInventory().consumeTicket(TicketType.INSTANT_ACQUIRE_REPORT);
             return scoutingReport;
         } else {
             return new EmptyScoutingReport("리포트 티켓이 부족합니다.");

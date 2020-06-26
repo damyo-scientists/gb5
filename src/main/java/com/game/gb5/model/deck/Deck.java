@@ -1,7 +1,6 @@
 package com.game.gb5.model.deck;
 
-import com.game.gb5.model.player.Player;
-import com.game.gb5.model.character.Character;
+import com.game.gb5.model.user.User;
 import com.game.gb5.model.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,11 +17,11 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Deck extends BaseEntity {
-    public Deck(Long id, String code, Map<Position, DeckCharacter> deckCharacters, Player player) {
+    public Deck(Long id, String code, Map<Position, DeckCharacter> deckCharacters, User user) {
         this.id = id;
         this.code = code;
         this.deckCharacters = deckCharacters;
-        this.player = player;
+        this.user = user;
     }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -30,5 +29,5 @@ public class Deck extends BaseEntity {
     private Map<Position, DeckCharacter> deckCharacters = new HashMap<>();
 
     @ManyToOne
-    private Player player;
+    private User user;
 }

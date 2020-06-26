@@ -1,7 +1,8 @@
-package com.game.gb5.controller.player;
+package com.game.gb5.controller.user;
 
-import com.game.gb5.model.player.Inventory;
+import com.game.gb5.model.user.Inventory;
 import com.game.gb5.service.inventory.InventoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/inventories")
+@Tag(name = "Inventories")
 public class InventoryController {
 	private final InventoryService inventoryService;
 
@@ -20,9 +22,9 @@ public class InventoryController {
 		this.inventoryService = inventoryService;
 	}
 
-	@GetMapping("/{player_id}")
-	public ResponseEntity getInventoryByPlayerId(@PathVariable("player_id") final long playerId) {
-		Inventory inventory = inventoryService.getInventoryByPlayerId(playerId);
+	@GetMapping("/{user_id}")
+	public ResponseEntity getInventoryByUserId(@PathVariable("user_id") final long userId) {
+		Inventory inventory = inventoryService.getInventoryByUserId(userId);
 		if (inventory != null) {
 			return new ResponseEntity<>(inventory, HttpStatus.OK);
 		} else {

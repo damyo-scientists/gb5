@@ -3,6 +3,7 @@ package com.game.gb5.controller.character;
 import com.game.gb5.dto.CharacterDto;
 import com.game.gb5.model.character.Character;
 import com.game.gb5.service.character.CharacterService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/characters")
+@Tag(name = "Characters")
 public class CharacterController {
     private final CharacterService characterService;
 

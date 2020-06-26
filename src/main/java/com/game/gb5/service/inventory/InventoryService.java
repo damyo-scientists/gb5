@@ -1,6 +1,6 @@
 package com.game.gb5.service.inventory;
 
-import com.game.gb5.model.player.Inventory;
+import com.game.gb5.model.user.Inventory;
 import com.game.gb5.repository.inventory.InventoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class InventoryService {
 		this.inventoryRepository = inventoryRepository;
 	}
 
-	public Inventory getInventoryByPlayerId(Long playerId) {
-		return inventoryRepository.getInventoryByPlayerId(playerId);
+	public Inventory getInventoryByUserId(Long userId) {
+		return inventoryRepository.getInventoryByUserId(userId);
 	}
 }

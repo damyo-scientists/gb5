@@ -18,8 +18,8 @@ public class MatchMaker {
     public Matching toEntity(MatchingDto importMatchingDto) {
         Matching matching = new Matching();
         matching.setId(importMatchingDto.getId());
-        deckService.getByCode(importMatchingDto.getDeck1Code()).ifPresent(matching::setDeck1);
-        deckService.getByCode(importMatchingDto.getDeck1Code()).ifPresent(matching::setDeck2);
+        deckService.getByCode(importMatchingDto.getFirstDeckCode()).ifPresent(matching::setDeck1);
+        deckService.getByCode(importMatchingDto.getFirstDeckCode()).ifPresent(matching::setDeck2);
         matching.setOpened(false);
         matching.setCode(importMatchingDto.getCode());
         return matching;

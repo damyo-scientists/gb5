@@ -26,7 +26,14 @@ spring:
       pool:
         core-size: 8
         max-size: 8
-
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+  swagger-ui:
+    path: /api-docs
+    displayRequestDuration: true
+    groups-order: DESC
 ---
 
 spring:

@@ -1,22 +1,19 @@
 package com.game.gb5.dto;
 
 import com.game.gb5.model.matching.Matching;
-import com.game.gb5.service.deck.DeckService;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Builder
 public class MatchingDto extends BaseDto<Matching> {
-    private String deck1Code;
-    private String deck2Code;
+    private String firstDeckCode;
+    private String secondDeckCode;
 
-    public MatchingDto(String deck1Code, String deck2Code) {
-        this.deck1Code = deck1Code;
-        this.deck2Code = deck2Code;
+    public MatchingDto(String firstDeckCode, String secondDeckCode) {
+        this.firstDeckCode = firstDeckCode;
+        this.secondDeckCode = secondDeckCode;
     }
 
     @Override

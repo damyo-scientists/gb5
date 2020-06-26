@@ -5,6 +5,7 @@ import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.deck.Position;
 import com.game.gb5.model.game.unit.DeckPlayer;
 import com.game.gb5.model.game.unit.Squad;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Queue;
 
 @Component
+@Slf4j
 public class SquadMaker {
     public Squad createSquad(Deck deck) {
         Queue<DeckPlayer> lineup = createLineup(deck);
@@ -21,6 +23,7 @@ public class SquadMaker {
     }
 
     private DeckPlayer createDeckPlayer(DeckCharacter deckCharacter, Position position) {
+        log.info("character : " + deckCharacter.getId());
         return DeckPlayer.builder().deckCharacter(deckCharacter).position(position).stamina(100).deckStatus(deckCharacter.getCharacter().getCharacterStatus()).build();
     }
 

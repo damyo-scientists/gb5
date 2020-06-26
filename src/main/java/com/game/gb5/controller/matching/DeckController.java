@@ -4,6 +4,7 @@ import com.game.gb5.dto.DeckDto;
 import com.game.gb5.dto.ImportDeckDto;
 import com.game.gb5.model.deck.Deck;
 import com.game.gb5.service.deck.DeckService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/decks")
+@Tag(name = "Decks")
 public class DeckController {
     private final static Logger logger = LoggerFactory.getLogger(DeckController.class);
     private DeckService deckService;

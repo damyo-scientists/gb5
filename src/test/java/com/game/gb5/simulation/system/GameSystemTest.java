@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class GameSystemTest {
     @Test
-    public void gameSystemStart() {
+    public void testStart() {
 
     }
 }

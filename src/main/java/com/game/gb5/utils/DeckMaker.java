@@ -4,10 +4,10 @@ import com.game.gb5.dto.ImportDeckDto;
 import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.deck.DeckCharacter;
 import com.game.gb5.model.deck.Position;
-import com.game.gb5.model.player.Player;
+import com.game.gb5.model.user.User;
 import com.game.gb5.service.character.CharacterService;
 import com.game.gb5.service.deck.DeckCharacterService;
-import com.game.gb5.service.player.PlayerService;
+import com.game.gb5.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +17,13 @@ import java.util.Map;
 @Component
 public class DeckMaker {
     private final CharacterService characterService;
-    private final PlayerService playerService;
+    private final UserService userService;
     private final DeckCharacterService deckCharacterService;
 
     @Autowired
-    public DeckMaker(CharacterService characterService, PlayerService playerService, DeckCharacterService deckCharacterService) {
+    public DeckMaker(CharacterService characterService, UserService userService, DeckCharacterService deckCharacterService) {
         this.characterService = characterService;
-        this.playerService = playerService;
+        this.userService = userService;
         this.deckCharacterService = deckCharacterService;
     }
 
@@ -38,8 +38,8 @@ public class DeckMaker {
         characterService.getByCode(importDeckDto.getBench2Code()).ifPresent(chr -> characters.put(Position.BENCH2, deckCharacterService.create(chr)));
         characterService.getByCode(importDeckDto.getBench3Code()).ifPresent(chr -> characters.put(Position.BENCH3, deckCharacterService.create(chr)));
 
-        Player player = playerService.getById(importDeckDto.getPlayerId());
+        User user = userService.getById(importDeckDto.getUserId());
 
-        return new Deck(importDeckDto.getId(), importDeckDto.getCode(), characters, player);
+        return new Deck(importDeckDto.getId(), importDeckDto.getCode(), characters, user);
     }
 }

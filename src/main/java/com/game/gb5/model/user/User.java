@@ -1,9 +1,8 @@
-package com.game.gb5.model.player;
+package com.game.gb5.model.user;
 
 import com.game.gb5.model.character.Character;
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.deck.Deck;
-import com.game.gb5.model.player.Inventory;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +17,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Player extends BaseEntity {
-    public Player(String userId, String userName) {
+public class User extends BaseEntity {
+    public User(String userId, String userName) {
         this.userId = userId;
         this.userName = userName;
         this.inventory = new Inventory(this);
@@ -31,12 +30,12 @@ public class Player extends BaseEntity {
     private String userName;
     @Column
     private Date reportAcquisitionResetTime;
-    @OneToOne(mappedBy = "player", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private Inventory inventory;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "player_character_relation")
+    @JoinTable(name = "user_character_relation")
     private List<Character> characters;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "user")
     @OrderColumn(name = "number")
     private List<Deck> decks;
 }

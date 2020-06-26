@@ -8,7 +8,6 @@ import com.game.gb5.model.matching.Matching;
 import com.game.gb5.repository.game.GameRepository;
 import com.game.gb5.simulation.system.GameSystem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,6 @@ public class GameService {
         this.gameSystem = gameSystem;
     }
 
-    @Async
     public GameResult startGame(Matching matching) {
         Game game = Game.builder().gameType(GameType.VERSUS_AI).matching(matching).build();
         matching.setGame(game);

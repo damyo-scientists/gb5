@@ -5,15 +5,22 @@ import com.game.gb5.model.game.result.GameResult;
 import com.game.gb5.model.matching.Matching;
 import com.game.gb5.service.game.GameService;
 import com.game.gb5.service.matching.MatchingService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/matching")
+@RequestMapping("/matchings")
+@Tag(name = "Matchings")
+@Slf4j
 public class MatchingController {
     @Autowired
     public MatchingController(MatchingService matchingService, GameService gameService) {
@@ -30,14 +37,18 @@ public class MatchingController {
         return character.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public ResponseEntity<Matching> create(@RequestBody MatchingDto matchingDto) {
-        return new ResponseEntity<>(matchingService.create(matchingDto), HttpStatus.OK);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Matching> create(@RequestBody MatchingDto matchingDto, Errors errors) {
+        if (!errors.hasErrors()) {
+            log.info("hey : " + matchingDto.getFirstDeckCode());
+            return new ResponseEntity<>(matchingService.create(matchingDto), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/{matching_id}/start")
-    public ResponseEntity<GameResult> gameStart(@RequestBody MatchingDto matchingDto) {
-        Optional<Matching> matchingOptional = matchingService.getById(matchingDto.getId());
+    public ResponseEntity<GameResult> gameStart(@PathVariable("matching_id") final long matchId) {
+        Optional<Matching> matchingOptional = matchingService.getById(matchId);
         if (matchingOptional.isPresent()) {
             Matching matching = matchingOptional.get();
             matchingService.starGame(matching, matching.getGame());

@@ -6,10 +6,9 @@ import com.game.gb5.model.character.HittingPosition;
 import com.game.gb5.dto.ImportDeckDto;
 import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.deck.Position;
-import com.game.gb5.model.player.Player;
+import com.game.gb5.model.user.User;
 import com.game.gb5.service.character.CharacterService;
-import com.game.gb5.service.deck.DeckService;
-import com.game.gb5.service.player.PlayerService;
+import com.game.gb5.service.user.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +31,7 @@ public class DeckServiceTest {
     private DeckService deckService;
 
     @Autowired
-    private PlayerService playerService;
+    private UserService userService;
 
     @Test
     public void testImportData() throws ExecutionException, InterruptedException {
@@ -45,7 +44,7 @@ public class DeckServiceTest {
     }
 
     private void makeDeck() throws ExecutionException, InterruptedException {
-        Player player = playerService.create("test_player", "test player");
+        User user = userService.create("test_player", "test player");
 
         List<CharacterDto> characterDtoList = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
@@ -59,7 +58,7 @@ public class DeckServiceTest {
 
         characterService.importData(characterDtoList).get();
 
-        ImportDeckDto importDeckDto = new ImportDeckDto(null, player.getId(), "test-code1", "test-code2", "test-code3", "test-code4", "test-code5", "test-code6", "test-code7", "test-code8");
+        ImportDeckDto importDeckDto = new ImportDeckDto(null, user.getId(), "test-code1", "test-code2", "test-code3", "test-code4", "test-code5", "test-code6", "test-code7", "test-code8");
         String deckCode = "test-deck";
         importDeckDto.setCode(deckCode);
         List<ImportDeckDto> deckDtos = new ArrayList<>();

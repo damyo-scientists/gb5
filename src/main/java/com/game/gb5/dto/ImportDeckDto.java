@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ImportDeckDto extends BaseDto<Deck> {
-    private Long playerId;
+    private Long userId;
     private String firstBaseCode;
     private String secondBaseCode;
     private String thirdBaseCode;
@@ -22,10 +22,10 @@ public class ImportDeckDto extends BaseDto<Deck> {
     private String bench2Code;
     private String bench3Code;
 
-    public ImportDeckDto(Long id, Long playerId, String firstBaseCode, String secondBaseCode, String thirdBaseCode,
+    public ImportDeckDto(Long id, Long userId, String firstBaseCode, String secondBaseCode, String thirdBaseCode,
                          String midFielderCode, String shortStopCode, String bench1Code, String bench2Code, String bench3Code) {
         this.id = id;
-        this.playerId = playerId;
+        this.userId = userId;
         this.firstBaseCode = firstBaseCode;
         this.secondBaseCode = secondBaseCode;
         this.thirdBaseCode = thirdBaseCode;

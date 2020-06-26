@@ -2,7 +2,7 @@ package com.game.gb5.common.database;
 
 import com.game.gb5.repository.character.CharacterRepository;
 import com.game.gb5.repository.inventory.TicketListRepository;
-import com.game.gb5.repository.player.PlayerRepository;
+import com.game.gb5.repository.user.UserRepository;
 import com.game.gb5.repository.scouting.ScoutingReportDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,7 +12,7 @@ public class DatabaseMaker implements CommandLineRunner {
     private CharacterRepository gameCharacterDao;
 
     @Autowired
-    private PlayerRepository playerRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private TicketListRepository ticketListRepository;
