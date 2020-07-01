@@ -9,6 +9,7 @@ import com.game.gb5.model.game.unit.Squad;
 import com.game.gb5.simulation.strategy.BattingStrategy;
 import com.game.gb5.simulation.strategy.RunningCalculationStrategy;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+@Slf4j
 @Component
 @NoArgsConstructor
 public class InningSystem {
@@ -42,6 +44,7 @@ public class InningSystem {
         int outCount = 0;
         while (!isInningOver(outCount)) {
             DeckPlayer batter = this.pickBatter(battingSquad);
+            batter.setDeckStatus(batter.getDeckCharacter().getCharacter().getCharacterStatus());
             BattingResult battingResult = battingStrategy.batAndRun(batter, runners, fieldSquad, outCount);
             battingResultList.add(battingResult);
             runners = runningCalculationStrategy.calculate(battingResult.getRunningResultList());

@@ -12,6 +12,7 @@ import com.game.gb5.model.game.unit.Squad;
 import com.game.gb5.simulation.condition.RunningCondition;
 import com.game.gb5.utils.DistributedRandomNumberPicker;
 import com.game.gb5.utils.MathUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
+@Slf4j
 public class BattingStrategy {
     private DistributedRandomNumberPicker distributedRandomNumberPicker;
 
@@ -209,6 +211,7 @@ public class BattingStrategy {
 
     private double calculateHitRateResult(DeckPlayer batter, DeckPlayer fielder) {
         CharacterStatus batterStatus = batter.getDeckStatus();
+
         CharacterStatus fielderStatus = fielder.getDeckStatus();
         final double BASE_HIT_RATE = 0.3;
         double batterAdvantageBonusCoefficient = 1.0;

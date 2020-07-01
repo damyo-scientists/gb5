@@ -6,6 +6,7 @@ import com.game.gb5.model.deck.Deck;
 import com.game.gb5.model.game.Game;
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -23,7 +24,7 @@ public class Matching extends BaseEntity {
     private Deck deck2;
     @Column(nullable = false)
     private boolean isOpened;
-    @OneToOne(mappedBy = "matching")
+    @OneToOne(mappedBy = "matching", cascade = CascadeType.ALL)
     private Game game;
 
     public void updateFromDto(MatchingDto matchingDto) {

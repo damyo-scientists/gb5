@@ -2,8 +2,12 @@ package com.game.gb5.service.matching;
 
 import com.game.gb5.dto.MatchingDto;
 import com.game.gb5.model.game.Game;
+import com.game.gb5.model.game.result.GameResult;
 import com.game.gb5.model.matching.Matching;
+import com.game.gb5.repository.game.GameOptionsRepository;
+import com.game.gb5.repository.game.GameRepository;
 import com.game.gb5.repository.matching.MatchingRepository;
+import com.game.gb5.service.game.GameService;
 import com.game.gb5.utils.MatchMaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -18,11 +22,17 @@ import java.util.stream.Collectors;
 public class MatchingService {
     private MatchMaker matchMaker;
     private MatchingRepository matchingRepository;
+    private GameRepository gameRepository;
+    private GameOptionsRepository gameOptionsRepository;
+    private GameService gameService;
 
     @Autowired
-    public MatchingService(MatchingRepository matchingRepository, MatchMaker matchMaker) {
+    public MatchingService(GameService gameService, MatchingRepository matchingRepository, GameRepository gameRepository, GameOptionsRepository gameOptionsRepository, MatchMaker matchMaker) {
+        this.gameService = gameService;
         this.matchMaker = matchMaker;
         this.matchingRepository = matchingRepository;
+        this.gameRepository = gameRepository;
+        this.gameOptionsRepository = gameOptionsRepository;
     }
 
     public Optional<Matching> getById(long matchId) {
@@ -37,10 +47,15 @@ public class MatchingService {
         return this.matchingRepository.save(matchMaker.toEntity(matchingDto));
     }
 
-    public Matching starGame(Matching matching, Game game) {
+    public GameResult starGame(Matching matching, Game game) {
+        game.setMatching(matching);
         matching.setGame(game);
         matching.setOpened(true);
-        return this.matchingRepository.save(matching);
+
+        matchingRepository.save(matching);
+        game = gameRepository.save(game);
+        gameOptionsRepository.save(game.getGameOptions());
+        return gameService.startGame(game);
     }
 
     public void delete(Matching matching) {

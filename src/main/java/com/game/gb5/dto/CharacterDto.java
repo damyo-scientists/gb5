@@ -47,6 +47,7 @@ public class CharacterDto extends BaseDto<Character> {
         if (createdDate != null) {
             character.setCreatedDate(createdDate);
         }
+        characterStatus.setCharacter(character);
         return character;
     }
 }

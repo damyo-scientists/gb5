@@ -23,7 +23,6 @@ public class SquadMaker {
     }
 
     private DeckPlayer createDeckPlayer(DeckCharacter deckCharacter, Position position) {
-        log.info("character : " + deckCharacter.getId());
         return DeckPlayer.builder().deckCharacter(deckCharacter).position(position).stamina(100).deckStatus(deckCharacter.getCharacter().getCharacterStatus()).build();
     }
 

@@ -5,11 +5,9 @@ import com.game.gb5.model.game.config.GameOptions;
 import com.game.gb5.model.game.config.GameState;
 import com.game.gb5.model.game.config.GameType;
 import com.game.gb5.model.matching.Matching;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
@@ -18,23 +16,17 @@ import javax.persistence.OneToOne;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Game extends BaseEntity {
     @OneToOne
     private Matching matching;
     @Enumerated
     private GameType gameType;
-    @OneToOne(mappedBy = "game")
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
     private GameOptions gameOptions;
     @Enumerated
     private GameState gameState;
-
-    @Builder
-    public Game(GameType gameType, Matching matching) {
-        this.matching = matching;
-        this.gameType = gameType;
-        this.gameState = GameState.WAIT_TO_READY;
-        // gameOptions = gameDefault
-    }
 
     public void onReady(GameOptions gameOptions) {
         this.onReady(gameOptions, true);

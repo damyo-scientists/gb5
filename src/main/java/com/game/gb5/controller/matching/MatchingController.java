@@ -1,6 +1,9 @@
 package com.game.gb5.controller.matching;
 
 import com.game.gb5.dto.MatchingDto;
+import com.game.gb5.model.game.Game;
+import com.game.gb5.model.game.config.GameOptions;
+import com.game.gb5.model.game.config.GameType;
 import com.game.gb5.model.game.result.GameResult;
 import com.game.gb5.model.matching.Matching;
 import com.game.gb5.service.game.GameService;
@@ -14,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -40,7 +42,6 @@ public class MatchingController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Matching> create(@RequestBody MatchingDto matchingDto, Errors errors) {
         if (!errors.hasErrors()) {
-            log.info("hey : " + matchingDto.getFirstDeckCode());
             return new ResponseEntity<>(matchingService.create(matchingDto), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,8 +52,12 @@ public class MatchingController {
         Optional<Matching> matchingOptional = matchingService.getById(matchId);
         if (matchingOptional.isPresent()) {
             Matching matching = matchingOptional.get();
-            matchingService.starGame(matching, matching.getGame());
-            return new ResponseEntity<>(gameService.startGame(matching), HttpStatus.OK);
+            GameOptions gameOptions = GameOptions.builder().inning(9).build();
+            Game game = Game.builder().gameType(GameType.VERSUS_AI).matching(matching).gameOptions(gameOptions).build();
+            gameOptions.setGame(game);
+            GameResult gameResult = matchingService.starGame(matching, game);
+
+            return new ResponseEntity<>(gameResult, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

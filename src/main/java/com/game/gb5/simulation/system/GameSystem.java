@@ -6,6 +6,7 @@ import com.game.gb5.model.game.result.InningResult;
 import com.game.gb5.model.game.type.InningType;
 import com.game.gb5.model.game.unit.Squad;
 import com.game.gb5.simulation.system.helper.SquadMaker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Slf4j
 public class GameSystem {
     private SquadMaker squadMaker;
     private InningSystem inningSystem;
@@ -29,6 +31,9 @@ public class GameSystem {
 
     public List<InningResult> start(Game game) {
         GameOptions gameOptions = game.getGameOptions();
+        game.getMatching().getDeck1().getDeckCharacters().forEach((position, deckCharacter) -> {
+            log.info("post : " + position + ", char : " + deckCharacter);
+        });
         Squad deck1Squad = squadMaker.createSquad(game.getMatching().getDeck1());
         Squad deck2Squad = squadMaker.createSquad(game.getMatching().getDeck2());
         List<InningResult> inningResultLIst = new ArrayList<>();
