@@ -3,10 +3,7 @@ package com.game.gb5.model.character;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.game.gb5.model.common.BaseEntity;
 import com.game.gb5.model.user.User;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,6 +32,7 @@ public class Character extends BaseEntity implements Cloneable {
     @Column
     private List<Double> hittingInclination;
     @JsonIgnore
+    @NonNull
     @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, orphanRemoval = true)
     private CharacterStatus characterStatus;
     @JsonIgnore

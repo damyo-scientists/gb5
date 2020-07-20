@@ -66,7 +66,7 @@ public class BattingStrategy {
                     .runningResultList(runningResults).outCount(outCount).scoringCount(scoringCount).build();
         } else {
             battingType = BattingType.HIT_FAILED_OUT;
-            return BattingResult.builder().hitRandomResult(hittingRandomResult).battingType(battingType).outCount(1).build();
+            return BattingResult.builder().hitRandomResult(hittingRandomResult).battingType(battingType).outCount(1).runningResultList(new ArrayList<>()).build();
         }
     }
 
@@ -80,7 +80,7 @@ public class BattingStrategy {
     private DeckPlayer selectFielder(List<Double> hittingInclination, Squad fieldSquad) {
         int randomIndex = distributedRandomNumberPicker.getDistributedRandomNumber(hittingInclination);
         Position selectedPosition = Position.findByPositionNumber(randomIndex);
-        return fieldSquad.getLineup().stream().filter(player -> player.getPosition().getPositionNumber() == selectedPosition.getPositionNumber()).findAny().orElseThrow();
+        return fieldSquad.getLineup().stream().filter(player -> player.getPosition().getPositionNumber() == selectedPosition.getPositionNumber()).findFirst().orElseThrow();
     }
 
     private double calculateInplayCoefficientByHittingDirection(DeckPlayer runner, Squad fieldSquad, int baseSum, boolean isHomeReachable, double hittingQuality) {

@@ -29,11 +29,11 @@ public class SquadMaker {
     private Queue<DeckPlayer> createLineup(Deck deck) {
         //1루>2루>MF>SS>3루
         Queue<DeckPlayer> lineup = new LinkedList<>();
-        lineup.offer(createDeckPlayer(deck.getDeckCharacters().get(Position.FIRST_BASE), Position.FIRST_BASE));
-        lineup.offer(createDeckPlayer(deck.getDeckCharacters().get(Position.SECOND_BASE), Position.SECOND_BASE));
-        lineup.offer(createDeckPlayer(deck.getDeckCharacters().get(Position.MID_FIELDER), Position.MID_FIELDER));
-        lineup.offer(createDeckPlayer(deck.getDeckCharacters().get(Position.SHORT_STOP), Position.SHORT_STOP));
-        lineup.offer(createDeckPlayer(deck.getDeckCharacters().get(Position.THIRD_BASE), Position.THIRD_BASE));
+        lineup.add(createDeckPlayer(deck.getDeckCharacters().get(Position.FIRST_BASE), Position.FIRST_BASE));
+        lineup.add(createDeckPlayer(deck.getDeckCharacters().get(Position.SECOND_BASE), Position.SECOND_BASE));
+        lineup.add(createDeckPlayer(deck.getDeckCharacters().get(Position.MID_FIELDER), Position.MID_FIELDER));
+        lineup.add(createDeckPlayer(deck.getDeckCharacters().get(Position.SHORT_STOP), Position.SHORT_STOP));
+        lineup.add(createDeckPlayer(deck.getDeckCharacters().get(Position.THIRD_BASE), Position.THIRD_BASE));
         return lineup;
     }
 

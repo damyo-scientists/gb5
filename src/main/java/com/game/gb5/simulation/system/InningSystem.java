@@ -48,7 +48,8 @@ public class InningSystem {
             BattingResult battingResult = battingStrategy.batAndRun(batter, runners, fieldSquad, outCount);
             battingResultList.add(battingResult);
             runners = runningCalculationStrategy.calculate(battingResult.getRunningResultList());
-            outCount = calculateOutCount(battingResult);
+            outCount += battingResult.getOutCount();
+            battingSquad.getLineup().add(batter);
         }
         // 진루 내역 초기화
         battingSquad.getLineup().forEach(player -> player.setRunningBase(0));
@@ -61,11 +62,5 @@ public class InningSystem {
 
     private boolean isInningOver(int outCount) {
         return outCount >= 3;
-    }
-
-    private int calculateOutCount(BattingResult battingResult) {
-        List<RunningResult> runningResults = battingResult.getRunningResultList();
-        RunningResult lastRunningResult = runningResults.get(runningResults.size() - 1);
-        return lastRunningResult.getOutCount();
     }
 }
