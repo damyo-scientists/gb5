@@ -52,6 +52,7 @@ public class MatchingService {
         matching.setGame(game);
         matching.setOpened(true);
 
+        // 게임 정보가 추가됨
         matchingRepository.save(matching);
         game = gameRepository.save(game);
         gameOptionsRepository.save(game.getGameOptions());

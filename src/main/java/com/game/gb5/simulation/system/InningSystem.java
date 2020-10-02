@@ -2,12 +2,9 @@ package com.game.gb5.simulation.system;
 
 import com.game.gb5.model.game.result.BattingResult;
 import com.game.gb5.model.game.result.InningResult;
-import com.game.gb5.model.game.result.RunningResult;
 import com.game.gb5.model.game.type.InningType;
 import com.game.gb5.model.game.unit.DeckPlayer;
 import com.game.gb5.model.game.unit.Squad;
-import com.game.gb5.simulation.strategy.BattingStrategy;
-import com.game.gb5.simulation.strategy.RunningCalculationStrategy;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +19,12 @@ import java.util.Queue;
 @Component
 @NoArgsConstructor
 public class InningSystem {
-    private BattingStrategy battingStrategy;
-    private RunningCalculationStrategy runningCalculationStrategy;
-
     @Autowired
-    public void setBattingStrategy(BattingStrategy battingStrategy) {
-        this.battingStrategy = battingStrategy;
+    public InningSystem(BattingSystem battingSystem) {
+        this.battingSystem = battingSystem;
     }
 
-    @Autowired
-    public void setRunningCalculationStrategy(RunningCalculationStrategy runningCalculationStrategy) {
-        this.runningCalculationStrategy = runningCalculationStrategy;
-    }
+    private BattingSystem battingSystem;
 
     /**
      * 이닝을 진행한다.
@@ -45,10 +36,10 @@ public class InningSystem {
         while (!isInningOver(outCount)) {
             DeckPlayer batter = this.pickBatter(battingSquad);
             batter.setDeckStatus(batter.getDeckCharacter().getCharacter().getCharacterStatus());
-            BattingResult battingResult = battingStrategy.batAndRun(batter, runners, fieldSquad, outCount);
+            BattingResult battingResult = battingSystem.hitAndRun(batter, runners, fieldSquad, outCount, 0.0, 0.0);
             battingResultList.add(battingResult);
-            runners = runningCalculationStrategy.calculate(battingResult.getRunningResultList());
-            outCount += battingResult.getOutCount();
+            //runners = runningCalculationStrategy.calculate(battingResult.getRunningResultList());
+            //outCount += battingResult.getOutCount();
             battingSquad.getLineup().add(batter);
         }
         // 진루 내역 초기화

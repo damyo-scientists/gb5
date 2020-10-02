@@ -19,12 +19,12 @@ public class BattingResult extends BaseEntity {
     private DeckCharacter deckCharacter;
     @Enumerated
     private BattingType battingType;
-    @OneToMany
-    private List<RunningResult> runningResultList;
     @Column
     private int outCount;
     @Column
     private int scoringCount;
     @Column
     private double hitRandomResult;
+    @OneToMany
+    private List<RunningResult> runningResultList;
 }

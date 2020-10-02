@@ -6,6 +6,8 @@ import com.game.gb5.repository.deck.DeckCharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DeckCharacterService {
     private DeckCharacterRepository deckCharacterRepository;
@@ -18,5 +20,9 @@ public class DeckCharacterService {
     public DeckCharacter create(Character character) {
         DeckCharacter deckCharacter = DeckCharacter.builder().character(character).build();
         return this.deckCharacterRepository.save(deckCharacter);
+    }
+
+    public Optional<DeckCharacter> getByCode(String code) {
+        return this.deckCharacterRepository.findByCode(code);
     }
 }

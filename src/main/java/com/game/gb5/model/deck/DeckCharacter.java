@@ -18,6 +18,7 @@ public class DeckCharacter extends BaseEntity {
     @Builder
     public DeckCharacter(Character character) {
         this.character = character;
+        this.code = character.getCode();
     }
 
     @OneToOne

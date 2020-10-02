@@ -6,6 +6,8 @@ import com.game.gb5.model.game.result.InningResult;
 import com.game.gb5.repository.game.GameOptionsRepository;
 import com.game.gb5.repository.game.GameRepository;
 import com.game.gb5.simulation.system.GameSystem;
+import com.game.gb5.utils.Score;
+import com.game.gb5.utils.ScoreCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +15,19 @@ import java.util.List;
 
 @Service
 public class GameService {
-    private GameRepository gameRepository;
-    private GameOptionsRepository gameOptionsRepository;
     private GameSystem gameSystem;
 
     @Autowired
-    public GameService(GameRepository gameRepository, GameOptionsRepository gameOptionsRepository, GameSystem gameSystem) {
-        this.gameRepository = gameRepository;
-        this.gameOptionsRepository = gameOptionsRepository;
+    public GameService(GameSystem gameSystem) {
         this.gameSystem = gameSystem;
     }
 
     public GameResult startGame(Game game) {
         List<InningResult> inningResultList = gameSystem.start(game);
-        return GameResult.builder().inningResults(inningResultList).build();
+        Score score = ScoreCalculator.calcScore(inningResultList);
+        return GameResult.builder().inningResults(inningResultList)
+                .deck1Score(score.getDeck1Score())
+                .deck2Score(score.getDeck2Score())
+                .build();
     }
 }

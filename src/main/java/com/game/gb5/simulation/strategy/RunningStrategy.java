@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 @Component
-public class RunningCalculationStrategy {
+public class RunningStrategy {
     public Queue<DeckPlayer> calculate(List<RunningResult> runningResults) {
         Queue<DeckPlayer> runners = new LinkedList<>();
         for (RunningResult runningResult : runningResults) {
