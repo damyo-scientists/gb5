@@ -26,6 +26,10 @@ public class CharacterService {
         return characterRepository.save(character);
     }
 
+    public Character create(Character character) {
+        return characterRepository.save(character);
+    }
+
     public Character create(String name, int grade, int acquisitionCoefficient,
                             int cumulativeAcquisitionCoefficient, int backNumber,
                             HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {

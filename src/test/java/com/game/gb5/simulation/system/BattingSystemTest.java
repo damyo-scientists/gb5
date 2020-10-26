@@ -28,7 +28,7 @@ public class BattingSystemTest {
 
         DeckCharacter deckCharacter = deckCharacterOptional.get();
         DeckPlayer batter = DeckPlayer.builder().deckCharacter(deckCharacter).deckStatus(deckCharacter.getCharacter().getCharacterStatus()).build();
-        battingSystem.hitAndRun(deckCharacter);
+//        battingSystem.hitAndRun(deckCharacter);
 
 
     }

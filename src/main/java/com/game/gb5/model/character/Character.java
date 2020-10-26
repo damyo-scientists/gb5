@@ -8,11 +8,14 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import lombok.experimental.SuperBuilder;
 
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "gameCharacter")
 public class Character extends BaseEntity implements Cloneable {
     @Column
@@ -68,7 +71,7 @@ public class Character extends BaseEntity implements Cloneable {
     }
 
     public Character(String name, int grade, int acquisitionCoefficient, int cumulativeAcquisitionCoefficient,
-                     int backNumber, HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
+        int backNumber, HittingPosition hittingPosition, List<Double> hittingInclination, CharacterStatus characterStatus) {
         this.name = name;
         this.grade = grade;
         this.acquisitionCoefficient = acquisitionCoefficient;

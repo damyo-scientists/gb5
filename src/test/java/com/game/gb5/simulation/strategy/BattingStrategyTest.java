@@ -14,6 +14,5 @@ public class BattingStrategyTest {
 
     @Test
     public void testHit() {
-        battingStrategy.hit()
     }
 }

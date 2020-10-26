@@ -37,6 +37,10 @@ public class DeckService {
         return this.deckRepository.save(deckDto.toEntity());
     }
 
+    public Deck create(Deck deck) {
+        return this.deckRepository.save(deck);
+    }
+
     public List<Deck> createAll(List<Deck> decks) {
         return this.deckRepository.saveAll(decks);
     }

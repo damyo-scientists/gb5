@@ -10,7 +10,7 @@ public enum Position {
     BENCH2(6), BENCH3(7);
 
     @Getter
-    private int positionNumber;
+    private final int positionNumber;
 
     public static Position findByPositionNumber(int positionNumber) {
         return Arrays.stream(Position.values()).filter(position -> position.hasPositionNumber(positionNumber)).findAny().orElse(NONE);
